@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.MinicareStruts.model.Job" table="job" schema="minicare">
+        <id name="jobId" column="JobId" type="int">
+            <generator class="increment"/>
+        </id>
+        <property name="title" column="Title" type="string"/>
+        <property name="payPerHour" column="PayPerHour" type="double"/>
+
+        <!-- Should we add property for seekerId here? -->
+
+        <property name="startTime" column="StartTime" type="time"/>
+        <property name="endTime" column="EndTime" type="time"/>
+        <property name="startDate" column="StartDate" type="date"/>
+        <property name="endDate" column="EndDate" type="date"/>
+
+        <property name="status" column="Status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.MinicareStruts.model.Job$Status</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
+        <many-to-one name="seeker" class="com.MinicareStruts.model.Seeker" column="SeekerId" not-null="true"/>
+
+        <set name="setOfApplications">
+            <key column="SitterId"></key>
+            <one-to-many class="com.MinicareStruts.model.JobApplication"/>
+        </set>
+
+    </class>
+
+</hibernate-mapping>

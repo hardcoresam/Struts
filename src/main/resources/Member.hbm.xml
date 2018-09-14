@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.MinicareStruts.model.Member" table="member" schema="minicare">
+        <id name="memberId" column="MemberId" type="int">
+            <generator class="increment"/>
+        </id>
+        <property name="firstName" column="FirstName" type="string"/>
+        <property name="lastName" column="LastName" type="string"/>
+        <property name="email" column="Email" type="string"/>
+        <property name="phoneNumber" column="PhoneNumber" type="string"/>
+        <property name="address" column="Address" type="string"/>
+        <property name="password" column="Password" type="string"/>
+
+        <property name="type" column="Type">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.MinicareStruts.model.Member$MemberType</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
+        <property name="status" column="Status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.MinicareStruts.model.Member$Status</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
+
+        <joined-subclass name="com.MinicareStruts.model.Seeker" table="seeker" schema="minicare">
+            <key column="SeekerId"/>
+            <property name="spouseName" column="SpouseName" type="string"/>
+            <property name="noOfChildren" column="NoOfChildren" type="int"/>
+
+            <set name="setOfJobs">
+                <key column="SeekerId"></key>
+
+                <!--Should i add remaining fields of Job here - Check -->
+
+                <one-to-many class="com.MinicareStruts.model.Job"/>
+            </set>
+
+        </joined-subclass>
+
+        <joined-subclass name="com.MinicareStruts.model.Sitter" table="sitter" schema="minicare">
+            <key column="SitterId"/>
+            <property name="experience" column="Experience" type="double"/>
+            <property name="expectedPay" column="ExpectedPay" type="double"/>
+
+            <set name="setOfApplications">
+                <key column="SitterId"></key>
+
+                <!--Should i add remaining fields of JobApplication here - Check -->
+
+                <one-to-many class="com.MinicareStruts.model.JobApplication"/>
+            </set>
+
+        </joined-subclass>
+
+    </class>
+
+</hibernate-mapping>

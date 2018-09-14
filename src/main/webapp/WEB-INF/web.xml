@@ -1,0 +1,47 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/webapp_3_0.xs"
+         id="WebApp_ID" version="2.5">
+
+    <welcome-file-list>
+        <welcome-file>/jsp/visitor/Login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.minicare.filter.LoginFilter</filter-class>           <!-- Change the paths inside these filters -->
+    </filter>
+
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/Login.jsp</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>CheckRoleFilter</filter-name>
+        <filter-class>com.minicare.filter.CheckRoleFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CheckRoleFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+
+</web-app>

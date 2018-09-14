@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.MinicareStruts.model.Message" table="message" schema="minicare">
+        <id name="messageId" column="MessageId" type="int">
+            <generator class="increment"/>
+        </id>
+        <property name="content" column="Content" type="string"/>
+        <property name="time" column="Time" type="time"/>
+
+        <!--Now how to map The conversationId and SenderId here -->
+
+        <many-to-one name="conversation" class="com.MinicareStruts.model.Conversation" column="ConversationId" not-null="true"/>
+        <many-to-one name="member" class="com.MinicareStruts.model.Member" column="SenderId" not-null="true"/>
+
+    </class>
+</hibernate-mapping>
