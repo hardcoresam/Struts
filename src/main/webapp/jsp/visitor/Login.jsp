@@ -1,5 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <body>
 <h1 align="center">Welcome</h1>
@@ -7,20 +10,12 @@
 <h3 align="center">Login Here</h3>
 <br>
 
-<form action="${pageContext.request.contextPath}/visitor/login.do" method="POST">    SO it is working with action="login.do" and in url pattern /login.do
-                                                   it is also working with action="visitor-login.do" and in url pattern /visitor-login.do
-                                                   Now find out what happens if we write action="visitor/login.do" and in url
-                                                   pattern /visitor/login.do
-                                                   so find out about the slash.
-Suraj told to do like this.
-so whenever we are using html:form or html:link there will be no ${shit} and also no .do.
-<html:form action="/visitor/login" method="POST">
-
+<html:form action="visitor/login1" method="POST">
 
 <table border="0" align="center">
 
 <tr>
-<td><font color="red"><c:out value='${loginError1}'/></font></td>   //Check this. This is there in LoginFilter.
+<td><font color="red"><c:out value='${loginError1}'/></font></td>   <!-- Check this. This is there in LoginFilter. -->
 </tr>
 
 <tr>
@@ -29,29 +24,26 @@ so whenever we are using html:form or html:link there will be no ${shit} and als
 
 <tr>
 <td>Enter Email:*</td>
-<td><input type="text" name="email" value="${param.email}"></td>
-<td><font color="red"><c:out value='${errors["email"]}'/></font></td>
+<td><html:text property="email"/></td>
+<td><font color="red"><html:errors property="email"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Password:*</td>
-<td><input type="password" name="password"></td>
-<td><font color="red"><c:out value='${errors["password"]}'/></font></td>
+<td><html:password property="password"/></td>
+<td><font color="red"><html:errors property="password"/></font></td>
 </tr>
 
 <tr>
-<td><input type="submit" value="Login"></td>
-<td><input type="reset" value="Clear"></td>
+<td><html:submit value="Login"/></td>
 </tr>
 
-</form>
+</html:form>
 </table>
 <br><br>
 
-<form action="${pageContext.request.contextPath}/jsp/visitor/Choice.jsp" method="POST">
 <div align = "center">New User ?</div>
-<div align = "center"><input type="submit" value="Register"></div>
-</form>
+<div align = "center"><html:link action="visitor/choice">Register</html:link></div>
 
 </body>
 </html>

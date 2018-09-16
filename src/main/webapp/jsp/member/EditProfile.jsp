@@ -1,5 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <body>
 <h1 align="center">Edit Your Profile Here</h1>

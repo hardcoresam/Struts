@@ -1,7 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
-<html>
+<!DOCTYPE html>
 
+
+<!-- This is how you should use Bootstrap (Kranthi)
 <head>
  <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +13,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+-->
+
 
 <body>
 <h1 align="center">Registration Page</h1>
 <hr><br><br>
 
-
+<!-- BOOTSTRAP
 <div class="container">
 <div class="row">
 <div class="col-xs-4 col-xs-offset-4">
@@ -37,89 +43,88 @@
 </div>
 </div>
 
+-->
 
-<!--
-<form action="${pageContext.request.contextPath}/visitor/registration.do" method="POST">
+<html:form action="visitor/registration" method="POST">
 
 <table border="0" align="center">
 <tr>
 <td>Enter First Name:*</td>
-<td><input type="text" name="firstName" value="${param.firstName}"></td>
-<td><font color="red"><c:out value='${errors["firstName"]}'/></font></td>
+<td><html:text property="firstName"/></td>
+<td><font color="red"><html:errors property="firstName"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Last Name:</td>
-<td><input type="text" name="lastName" value="${param.lastName}"></td>
-<td><font color="red"><c:out value='${errors["lastName"]}'/></font></td>
+<td><html:text property="lastName"/></td>
+<td><font color="red"><html:errors property="lastName"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Email:*</td>
-<td><input type="email" name="email" value="${param.email}"></td>
-<td><font color="red"><c:out value='${errors["email"]}'/></font></td>
+<td><html:text property="email"/></td>
+<td><font color="red"><html:errors property="email"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Phone Number:*</td>
-<td><input type="text" name="phoneNumber" value="${param.phoneNumber}"></td>
-<td><font color="red"><c:out value='${errors["phoneNumber"]}'/></font></td>
+<td><html:text property="phoneNumber"/></td>
+<td><font color="red"><html:errors property="phoneNumber"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Address:*</td>
-<td><textarea name="address" rows="4" cols="40"><c:out value="${param.address}"/></textarea></td>
-<td><font color="red"><c:out value='${errors["address"]}'/></font></td>
+<td><html:textarea property="address" rows="4" cols="40"/></td>
+<td><font color="red"><html:errors property="address"/></font></td>
 </tr>
 
+<!-- Now how to get the previous jsp(Choice.jsp) information here i.e in param.type - FIND OUT -->
 <c:choose>
     <c:when test='${param.type=="seeker"}'>
         <tr>
         <td>Enter No of Children:*</td>
-        <td><input type="text" name="noOfChildren" value="${param.noOfChildren}"></td>
-        <td><font color="red"><c:out value='${errors["noOfChildren"]}'/></font></td>
+        <td><html:text property="noOfChildren"/></td>
+        <td><font color="red"><html:errors property="noOfChildren"/></font></td>
         </tr>
 
         <tr>
         <td>Enter Spouse Name:*</td>
-        <td><input type="text" name="spouseName" value="${param.spouseName}"></td>
-        <td><font color="red"><c:out value='${errors["spouseName"]}'/></font></td>
+        <td><html:text property="spouseName"/></td>
+        <td><font color="red"><html:errors property="spouseName"/></font></td>
         </tr>
     </c:when>
 
     <c:when test='${param.type=="sitter"}'>
         <tr>
         <td>Enter Experience:*</td>
-        <td><input type="text" name="experience" value="${param.experience}"></td>
-        <td><font color="red"><c:out value='${errors["experience"]}'/></font></td>
+        <td><html:text property="experience"/></td>
+        <td><font color="red"><html:errors property="experience"/></font></td>
         </tr>
 
         <tr>
         <td>Enter Expected Pay:*</td>
-        <td><input type="text" name="expectedPay" value="${param.expectedPay}"></td>
-        <td><font color="red"><c:out value='${errors["expectedPay"]}'/></font></td>
+        <td><html:text property="expectedPay"/></td>
+        <td><font color="red"><html:errors property="expectedPay"/></font></td>
         </tr>
     </c:when>
 </c:choose>
 
 <tr>
 <td>Enter Password:*</td>
-<td><input type="password" name="password" value="${param.password}"></td>
-<td><font color="red"><c:out value='${errors["password"]}'/></font></td>
+<td><html:password property="password"/></td>
+<td><font color="red"><html:errors property="password"/></font></td>
 </tr>
 
 <tr>
-<td><input type="submit" value="Register"></td>
-<td><input type="reset" value="Clear"></td>
+<td><html:submit value="Register"/></td>
 </tr>
 
 </table>
 
-<input type ="hidden" name="type" value="${param.type}">
+<!-- Get the Previous jsp Values here i.e from Choice.jsp -->
+<html:hidden property="type" value="${param.type}"/>
 
-</form>
+</html:form>
 
-
--->
 </body>
 </html>

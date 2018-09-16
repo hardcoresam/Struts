@@ -1,8 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <body>
-<h1 align="center">Job Title - <c:out value='${listOfApplications[0].title}'/></h1>
+<h1 align="center">Job Title - ${listOfApplications[0].title}</h1>
 <hr><br><br>
 
 <table border="1" align="center">

@@ -1,5 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <body>
 <h1 align="center">List Of Active Jobs</h1>
@@ -28,7 +31,7 @@
 <td>${job.startTime}</td>
 <td>${job.endTime}</td>
 
-<form action="${pageContext.request.contextPath}/jsp/sitter/ApplyJob.jsp" method="POST">
+<form action="${pageContext.request.contextPath}/jsp/sitter/applyJob.do" method="POST">
     <input type = "hidden" name = "jobId" value = "${job.jobId}" >
     <td>
         <input type= "submit" value= "Apply">

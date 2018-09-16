@@ -1,11 +1,14 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <body>
 <h1 align="center">List Of Jobs</h1>
 <hr><br><br>
 
-<div align="center"><b><c:out value='${successMsg}'/></b></div>
+<div align="center"><b>${successMsg}</b></div>
 <br>
 
 <table border="1" align="center">
@@ -43,7 +46,8 @@
 <td><input type= "submit" value= "List Applications"></td>
 </form>
 
-<form action="${pageContext.request.contextPath}/seeker/deleteJob.do" method="POST" onsubmit="return confirm('Do you really want to delete the Job?');">
+<form action="${pageContext.request.contextPath}/seeker/deleteJob.do" method="POST"
+      onsubmit="return confirm('Do you really want to delete the Job?');">
 <input type = "hidden" name = "jobId" value = "${job.jobId}">
 <td><input type= "submit" value= "Delete"></td>
 </form>

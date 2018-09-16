@@ -1,40 +1,46 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <body>
-<h1 align="center">Welcome <c:out value="${sessionScope.member.firstName}"/></h1>
+<h1 align="center">Welcome ${sessionScope.member.firstName}</h1>
 <hr><br><br>
 
 <jsp:include page="/jsp/seeker/Header.jsp"/>     //Change this position and include this in every jsp.
 <br>
 
-<div align="center"><c:out value="${requestScope.success}"/></div>
+<div align="center">${requestScope.success}</div>
 <br>
 
-<form action="${pageContext.request.contextPath}/jsp/seeker/PostJob.jsp" method="POST">
-<div align="center"><input type = "submit" value="Post Job"></div>
+<div align="center">
+<html:link action="seeker/postJob">Post Job</html:link>
+</div>
 <br><br>
-</form>
 
-<form action="${pageContext.request.contextPath}/seeker/listJobs.do" method="POST">
-<div align="center"><input type = "submit" value="List Jobs"></div>
+<div align="center">
+<html:link action="seeker/listJobs">List Jobs</html:link>
+</div>
 <br><br>
-</form>
 
-<form action="${pageContext.request.contextPath}/member/editProfile.do" method="POST">
-<div align="center"><input type = "submit" value="Edit Profile"></div>
+<!-- For this we need to find a Solution. So think and then write the mapping for this. -->
+<!-- If we click this it should go to editProfile.do i.e to EditProfileServlet. -->
+<div align="center">
+<html:link action="member/editProfile">Edit Profile</html:link>
+</div>
 <br><br>
-</form>
 
-<form action="${pageContext.request.contextPath}/member/logOut.do" method="POST">
-<div align="center"><input type = "submit" value="Log Out"></div>
+<div align="center">
+<html:link action="member/logOut">Log Out</html:link>
+</div>
 <br><br>
-</form>
 
-<form action="${pageContext.request.contextPath}/member/closeAccount.do" method="POST" onsubmit="return confirm('Do you really want to close your Account?');">
-<div align="center"><input type = "submit" value="Close Account"></div>
+<div align="center">
+<html:link action="member/closeAccount" onclick="return confirm('Do you really want to close your Account?');">Close Account
+</html:link>
+</div>
 <br><br>
-</form>
 
 </body>
 </html>

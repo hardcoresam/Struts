@@ -6,42 +6,133 @@
 <struts-config>
 
     <form-beans>
-
-
+        <form-bean name="Registration" type="com.MinicareStruts.form.RegistrationForm"/>
+        <form-bean name="PostJob" type="com.MinicareStruts.form.PostJobForm"/>
+        <form-bean name="Login" type="com.MinicareStruts.form.LoginForm"/>
+        <form-bean name="ApplyJob" type="com.MinicareStruts.form.ApplyJobForm"/>
+        <form-bean name="AlterProfile" type="com.MinicareStruts.form.AlterProfileForm"/>
     </form-beans>
 
     <action-mappings>
-        <action path="/hai" name="Registration" validate="true" type="com.loginstruts.controller.RegistrationController"
-                input="/Registration.jsp">
-            <forward name="success" path="/success.jsp"/>
-            <forward name="failure" path="/failure.jsp"/>
+
+        <!-- Error.jsp -->
+        <action path="/visitor/login" forward="/jsp/visitor/Login.jsp"/>
+
+        <!-- From here /jsp/visitor jsp's started -->
+        <!-- Registration.jsp -->
+        <action path="/visitor/registration" name="Registration" validate="true" input="/jsp/visitor/Registration.jsp"
+                scope="request" type="com.MinicareStruts.action.visitor.RegistrationAction">
+            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
+            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
+        </action>
+
+        <!-- Login.jsp -->
+        <action path="/visitor/login1" name="Login" validate="true" input="/jsp/visitor/Login.jsp"
+                scope="request" type="com.MinicareStruts.action.visitor.LoginAction">
+            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
+            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
+            <forward name="error" path="/jsp/visitor/Login.jsp"/>
+        </action>
+
+        <!-- Inside Login.jsp For User Registration -->
+        <action path="/visitor/choice" forward="/jsp/visitor/Choice.jsp"/>
+
+        <!-- Choice.jsp -->
+        <action path="/jsp/visitor/registration" forward="/jsp/visitor/Registration.jsp"/>
+
+        <!-- From here /jsp/sitter jsp's started -->
+        <!-- ListApplications.jsp -->
+        <action path="/sitter/deleteApplication" type="com.MinicareStruts.action.sitter.DeleteApplicationAction"
+                validate="false">
+            <forward name="listApplications" path="/sitter/listApplication.do"/>
+        </action>
+        <action path="/member/sendMessage" type="com.MinicareStruts.action.member.SendMessageAction" validate="false">
+            <forward name="getMessages" path="/member/getMessages.do"/>
+        </action>
+
+        <!-- This is for the above Code Forward Path -->
+        <action path="/sitter/listApplication" type="com.MinicareStruts.action.sitter.ListApplicationAction"
+                validate="false">
+            <forward name="noJobs" path="/jsp/sitter/HomePagesitter.jsp"/>
+            <forward name="listOfApplications" path="/jsp/sitter/ListApplications.jsp"/>
+        </action>
+        <action path="/member/getMessages" type="com.MinicareStruts.action.member.GetMessagesAction" validate="false">
+            <forward name="listOfMessages" path="/jsp/member/ListOfMessages.jsp"/>
+        </action>
+
+        <!-- ListActiveJobs.jsp -->
+        <action path="/jsp/sitter/applyJob" forward="/jsp/sitter/ApplyJob.jsp"/>
+
+        <!-- ApplyJob.jsp -->
+        <action path="/sitter/applyJob" name="ApplyJob" validate="true" input="/jsp/sitter/ApplyJob.jsp"
+                scope="request" type="com.MinicareStruts.action.sitter.ApplyJobAction">
+            <forward name="listApplications" path="/sitter/listApplication.do"/>
+        </action>
+
+        <!-- HomePagesitter.jsp (Inside This There is still EditProfile button left)-->
+        <action path="/sitter/listActiveJobs" type="com.MinicareStruts.action.sitter.ListActiveJobsAction" validate="false" >
+            <forward name="allJobsApplied" path="/jsp/sitter/HomePagesitter.jsp"/>
+            <forward name="listOfActiveJobs" path="/jsp/sitter/ListActiveJobs.jsp"/>
+        </action>
+        <action path="/member/logOut" type="com.MinicareStruts.action.member.LogOutAction" validate="false">
+            <forward name="loggedOut" path="/jsp/visitor/Login.jsp"/>
+        </action>
+        <action path="member/closeAccount" type="com.MinicareStruts.action.member.CloseAccountAction" validate="false">
+            <forward name="closedAccount" path="/jsp/visitor/Login.jsp"/>
+        </action>
+
+
+        <!-- From here /jsp/seeker jsp's started -->
+        <!-- PostJob.jsp -->
+        <action path="/seeker/postJobAction" name="PostJob" validate="true" input="/jsp/seeker/PostJob.jsp"
+                scope="request" type="com.MinicareStruts.action.seeker.PostJobAction">
+            <forward name="jobPosted" path="/jsp/seeker/HomePageseeker.jsp"/>
+        </action>
+
+        <!-- ListJobs.jsp -->
+        <action path="/seeker/editJob" type="com.MinicareStruts.action.seeker.EditJobAction" validate="false">
+            <forward name="editJob" path="/jsp/seeker/EditJob.jsp"/>
+        </action>
+        <action path="/seeker/listApplications" type="com.MinicareStruts.action.seeker.ListApplicationsAction"
+                validate="false">
+            <forward name="noApplications" path="/seeker/listJobs.do"/>
+            <forward name="listOfApplications" path="/jsp/seeker/ListApplicationSeeker.jsp"/>
+        </action>
+        <action path="/seeker/deleteJob" type="com.MinicareStruts.action.seeker.DeleteJobAction" validate="false">
+            <forward name="jobDeleted" path="/seeker/listJobs.do"/>
+        </action>
+        
+        <!-- This is for the above Code Forward Path -->
+        <action path="/seeker/listJobs" type="com.MinicareStruts.action.seeker.ListJobsAction" validate="false">
+            <forward name="noJobs" path="/jsp/seeker/HomePageseeker.jsp"/>
+            <forward name="listOfJobs" path="/jsp/seeker/ListJobs.jsp"/>
+        </action>
+
+        <!-- ListApplicationSeeker.jsp -->
+        <!-- Inside this jsp There is only action=/member/sendMessage.do and for this the mapping is
+             already done in sitter/ListApplications.jsp -->
+
+        <!-- HomePageseeker.jsp (Inside This There is still EditProfile button left)-->
+        <action path="/seeker/postJob" forward="/jsp/seeker/PostJob.jsp"/>
+
+        <!-- Header.jsp inside seeker folder -->
+        <action path="/seeker/homePage" forward="/jsp/seeker/HomePageseeker.jsp"/>
+
+        <!-- member/ListOfMessages.jsp -->
+        <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
+            <forward name="getMessages" path="/member/getMessages.do"/>
         </action>
 
 
 
-        <action path="/set" type="com.loginstruts.controller.SetController">
-            <forward name="success" path="/success.jsp"/>
-            <forward name="failure" path="/failure.jsp"/>
-        </action>
-
-
-        <action path="/otm" type="com.loginstruts.controller.OneToManyController">
-            <forward name="success" path="/success.jsp"/>
-            <forward name="failure" path="/failure.jsp"/>
-        </action>
-
-
-        <action path="visitor/login" forward="/jsp/visitor/Login.jsp"/>
-
-
-        <action path="/visitor/login"
-                type="com.MinicareStruts"/>
 
 
 
 
     </action-mappings>
 
-    <message-resources parameter="resources/messages"/>
+    <message-resources parameter="messages"/>
+
+
 
 </struts-config>

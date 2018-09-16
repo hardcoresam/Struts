@@ -14,9 +14,12 @@
         <property name="connection.password">password</property>
         <property name="connection.pool_size">25</property>
 
-        <mapping resource="resources/Member.hbm.xml"/>
-
-
+        <!-- Change this to resources/Member.hbm.xml -->
+        <mapping resource="Member.hbm.xml"/>
+        <mapping resource="Job.hbm.xml"/>
+        <mapping resource="Message.hbm.xml"/>
+        <mapping resource="JobApplication.hbm.xml"/>
+        <mapping resource="Conversation.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

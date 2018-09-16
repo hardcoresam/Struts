@@ -1,5 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -10,15 +13,11 @@
 <h1>Minicare</h1>
 
 <div class="right">
-<form action="${pageContext.request.contextPath}/jsp/seeker/HomePageseeker.jsp" method="POST">
-<div align="center"><input type = "submit" value="Home"></div>
-</form>
+<html:link action="seeker/homePage">Home</html:link>
 </div>
 
 <div class="right">
-<form action="${pageContext.request.contextPath}/member/logOut.do" method="POST">
-<div align="center"><input type = "submit" value="Log Out"></div>
-</form>
+<html:link action="member/logOut">Log Out</html:link>
 </div>
 
 </body>

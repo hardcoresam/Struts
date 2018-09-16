@@ -10,6 +10,11 @@ public class Conversation {
 
     public Conversation() {}
 
+    public Conversation(int seekerId, int sitterId) {
+        this.seekerId = seekerId;
+        this.sitterId = sitterId;
+    }
+
     public int getConversationId() {
         return conversationId;
     }

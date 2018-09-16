@@ -7,19 +7,23 @@
         <welcome-file>/jsp/visitor/Login.jsp</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>com.MinicareStruts.listener.SessionFactoryListener</listener-class>
+    </listener>
+
     <filter>
         <filter-name>LoginFilter</filter-name>
-        <filter-class>com.minicare.filter.LoginFilter</filter-class>           <!-- Change the paths inside these filters -->
+        <filter-class>com.MinicareStruts.filter.LoginFilter</filter-class>     <!-- Change the paths inside these filters -->
     </filter>
 
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
-        <url-pattern>/Login.jsp</url-pattern>
+        <url-pattern>/jsp/visitor/Login.jsp</url-pattern>
     </filter-mapping>
 
     <filter>
         <filter-name>CheckRoleFilter</filter-name>
-        <filter-class>com.minicare.filter.CheckRoleFilter</filter-class>
+        <filter-class>com.MinicareStruts.filter.CheckRoleFilter</filter-class>
     </filter>
 
     <filter-mapping>

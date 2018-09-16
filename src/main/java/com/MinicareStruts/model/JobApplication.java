@@ -11,7 +11,7 @@ public class JobApplication {
 
     public JobApplication() {}
 
-    public JobApplication(int jobId, int sitterId, float expectedPay) {
+    public JobApplication(int jobId, float expectedPay, int sitterId) {
         this.jobId = jobId;
         this.sitterId = sitterId;
         this.expectedPay = expectedPay;

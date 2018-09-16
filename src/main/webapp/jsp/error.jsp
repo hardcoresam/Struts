@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
@@ -11,12 +11,9 @@
 <div align = "center">You are not authorized to view this page.</div>
 <br>
 
-
+<div align="center">
 <html:link action="visitor/login">Home/Login</html:link>
+</div>
 
-
-<form action="${pageContext.request.contextPath}/jsp/visitor/Login.jsp" method="POST">
-<div align ="center"><input type="submit" value="Home/Login"></div>
-</form>
 </body>
 </html>

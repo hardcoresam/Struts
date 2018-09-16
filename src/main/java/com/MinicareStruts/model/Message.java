@@ -11,7 +11,7 @@ public class Message {
     private Conversation conversation;
     private Member member;
 
-    //Ask pranav to use a DTO or this only bcoz we are adding firstName field here which is not there in message table.
+    //I used this in phase 2 i guess i should remove this. So check once and remove this field and also its getters & setters.
     private String firstName;
 
     public Message() {}
