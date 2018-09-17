@@ -2,7 +2,11 @@ package com.MinicareStruts.dao;
 
 import com.MinicareStruts.dto.JobApplicationDTO;
 import com.MinicareStruts.dto.ListApplicationDTO;
+import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.model.JobApplication;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,6 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobApplicationDAO {
+
+    /*
+    public void applyJob(JobApplication application) throws Exception{
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(application);
+        transaction.commit();
+    }
+    */
 
     public void applyJob(JobApplication application) {
         try {
@@ -30,7 +43,16 @@ public class JobApplicationDAO {
         }
     }
 
+    /*
     public List<JobApplicationDTO> listApplications(int sitterId) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+
+
+    }
+    */
+
+        public List<JobApplicationDTO> listApplications(int sitterId) {
         List<JobApplicationDTO> list = new ArrayList<JobApplicationDTO>();
         try {
             Context ctx = new InitialContext();
@@ -63,6 +85,19 @@ public class JobApplicationDAO {
         return list;
     }
 
+    /*
+    public void deleteApplication(int applicationId) throws Exception{
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        JobApplication jobApplication = (JobApplication)session.get(JobApplication.class,applicationId);
+        //So here there is Status field in the table of jobapplication but i forgot to add that in the
+        //JobApplication Model class. So First Add that and then do the Mapping and then Validate the mapping.
+        jobApplication.setStatus(JobApplication.Status.INACTIVE);
+        session.saveOrUpdate(jobApplication);
+        transaction.commit();
+    }
+    */
+
     public void deleteApplication(int applicationId) {
         try {
             Context ctx = new InitialContext();
@@ -78,7 +113,19 @@ public class JobApplicationDAO {
         }
     }
 
-    public boolean deleteApplicationsById(int jobId) {
+    /*
+    public void deleteApplicationsById(int jobId) throws Exception{
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("UPDATE JobApplication set status=? where jobId=?");
+        query.setString(0,"INACTIVE");
+        query.setInteger(1,jobId);
+        query.executeUpdate();
+        transaction.commit();
+    }
+    */
+
+        public boolean deleteApplicationsById(int jobId) {
         try {
             Context ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/care");
@@ -93,6 +140,18 @@ public class JobApplicationDAO {
         }
         return true;
     }
+
+    /*
+    public void deleteApplicationsBySitterId(int sitterId) throws Exception{
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("UPDATE JobApplication set status=? where sitterId=?");
+        query.setString(0,"INACTIVE");
+        query.setInteger(1,sitterId);
+        query.executeUpdate();
+        transaction.commit();
+    }
+    */
 
     public boolean deleteApplicationsBySitterId(int sitterId) {
         try {
@@ -109,6 +168,20 @@ public class JobApplicationDAO {
         }
         return true;
     }
+
+    /*
+    public List<ListApplicationDTO> listApplicationsForSeeker1(int jobId) throws Exception{
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        //So here if i write Just a select query for Job which would have Set of JobApplications and seeker Reference
+        //Then how to specify that select only the job applications which are Active ?
+        //So think of some query and then implement this.
+        //select * from job from Job inner join JobApplication on Job.jobId=JobApplication.jobId where
+        //JobApplication.status="ACTIVE" - Check this
+
+
+    }
+    */
 
     public List<ListApplicationDTO> listApplicationsForSeeker(int jobId) {
         List<ListApplicationDTO> list = new ArrayList<ListApplicationDTO>();

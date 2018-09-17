@@ -227,14 +227,20 @@ public class MemberDAO {
         return member;
     }
 
-    public boolean closeAccount1(int memberId) {
+    /*
+    //Rethink about the operations while Closing a account.
+    public void closeAccount(int memberId) {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
         //Write Remaining
         //For update first get The object by using get() and then update the fields using setters and then write session.update()
         //or session.saveOrUpdate().
-        return true;
+        Member member = (Member)session.get(Member.class,memberId);
+        member.setStatus(Member.Status.INACTIVE);
+        session.saveOrUpdate(member);
+        transaction.commit();
     }
+    */
 
     public boolean closeAccount(int memberId) {
         boolean status = false;

@@ -13,10 +13,7 @@ public class Job {
     private Time endTime;
     private Date startDate;
     private Date endDate;
-    public enum Status{
-        ACTIVE,
-        INACTIVE;
-    }
+    public enum Status {ACTIVE, INACTIVE;}
     private Status status;
 
     private Seeker seeker;
