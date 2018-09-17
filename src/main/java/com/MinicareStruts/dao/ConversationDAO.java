@@ -18,17 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConversationDAO {
-    SessionFactory sessionFactory = null;
 
     /*
     public int getConversationId(Conversation conversation) throws Exception{
         int conversationId = -1;
-        sessionFactory = SessionFactoryListener.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("SELECT conversationId FROM Conversation where seekerId=:seekerId and sitterId=:sitterId");
-        query.setParameter("seekerId",conversation.getSeekerId());
-        query.setParameter("sitterId",conversation.getSitterId());
+        Query query = session.createQuery("SELECT conversationId FROM Conversation where seekerId=? and sitterId=?");
+        query.setInteger(0,conversation.getSeekerId());
+        query.setInteger(1,conversation.getSitterId());
         Integer id = (Integer)query.uniqueResult();
         if(id!=null) {
             conversationId = id;
@@ -74,11 +72,10 @@ public class ConversationDAO {
 
     /*
     public List<Message> getMessages(int conversationId) throws Exception{
-        sessionFactory = SessionFactoryListener.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from Message where conversationId = :conversationId");
-        query.setParameter("conversationId", conversationId);
+        Query query = session.createQuery("from Message where conversationId=?");
+        query.setInteger(0, conversationId);
         List<Message> list = query.list();
         transaction.commit();
         return list;
@@ -117,8 +114,7 @@ public class ConversationDAO {
 
     /*
     public void storeMessage(Message message) throws Exception{
-        sessionFactory = SessionFactoryListener.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
         session.save(message);
         transaction.commit();

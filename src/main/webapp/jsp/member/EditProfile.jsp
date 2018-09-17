@@ -8,72 +8,82 @@
 <h1 align="center">Edit Your Profile Here</h1>
 <hr><br><br>
 
-<form action="${pageContext.request.contextPath}/member/alterProfile.do" method="POST">
+<html:form action="member/editProfile" method="POST">
 
 <table border="0" align="center">
+
 <tr>
 <td>Enter First Name:*</td>
-<td><input type="text" name="firstName" value="${requestScope.member.firstName}"></td>
-<td><font color="red"><c:out value='${errors["firstName"]}'/></font></td>
+<td><html:text property="firstName"/></td>
+<td><font color="red"><html:errors property="firstName"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Last Name:</td>
-<td><input type="text" name="lastName" value="${requestScope.member.lastName}"></td>
-<td><font color="red"><c:out value='${errors["lastName"]}'/></font></td>
+<td><html:text property="lastName"/></td>
+<td><font color="red"><html:errors property="lastName"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Phone Number:*</td>
-<td><input type="text" name="phoneNumber" value="${requestScope.member.phoneNumber}"></td>
-<td><font color="red"><c:out value='${errors["phoneNumber"]}'/></font></td>
+<td><html:text property="phoneNumber"/></td>
+<td><font color="red"><html:errors property="phoneNumber"/></font></td>
 </tr>
 
 <tr>
 <td>Enter Address:*</td>
-<td><textarea name="address" rows="4" cols="40"><c:out value="${requestScope.member.address}"/></textarea></td>
-<td><font color="red"><c:out value='${errors["address"]}'/></font></td>
+<td><html:textarea property="address" rows="4" cols="40"/></td>
+<td><font color="red"><html:errors property="address"/></font></td>
 </tr>
 
+<!--
+<bean:write name="AlterProfile" property="experience"/>
+<bean:write name="AlterProfile" property="type"/>
+
+${AlterProfile.type}
+${AlterProfile.expectedPay}
+-->
+
 <c:choose>
-    <c:when test='${requestScope.member.type == "SEEKER"}'>
+    <c:when test='${AlterProfile.type == "seeker"}'>
         <tr>
-        <td>Enter No of Children:</td>
-        <td><input type="text" name="noOfChildren" value="${requestScope.member.noOfChildren}"></td>
-        <td><font color="red"><c:out value='${errors["noOfChildren"]}'/></font></td>
+        <td>Enter No of Children:*</td>
+        <td><html:text property="noOfChildren"/></td>
+        <td><font color="red"><html:errors property="noOfChildren"/></font></td>
         </tr>
 
         <tr>
-        <td>Enter Spouse Name:</td>
-        <td><input type="text" name="spouseName" value="${requestScope.member.spouseName}"></td>
-        <td><font color="red"><c:out value='${errors["spouseName"]}'/></font></td>
+        <td>Enter Spouse Name:*</td>
+        <td><html:text property="spouseName"/></td>
+        <td><font color="red"><html:errors property="spouseName"/></font></td>
         </tr>
     </c:when>
 
-    <c:when test='${requestScope.member.type == "SITTER"}'>
+    <c:when test='${AlterProfile.type == "sitter"}'>
         <tr>
         <td>Enter Experience:*</td>
-        <td><input type="text" name="experience" placeholder="In Months" value="${requestScope.member.experience}"></td>
-        <td><font color="red"><c:out value='${errors["experience"]}'/></font></td>
+        <td><html:text property="experience"/></td>
+        <td><font color="red"><html:errors property="experience"/></font></td>
         </tr>
 
         <tr>
         <td>Enter Expected Pay:*</td>
-        <td><input type="text" name="expectedPay" value="${requestScope.member.expectedPay}"></td>
-        <td><font color="red"><c:out value='${errors["expectedPay"]}'/></font></td>
+        <td><html:text property="expectedPay"/></td>
+        <td><font color="red"><html:errors property="expectedPay"/></font></td>
         </tr>
     </c:when>
 </c:choose>
 
 <tr>
-<td><input type="submit" value="Edit User"></td>
-<td><input type="reset" value="Clear"></td>
+<td><html:submit value="Edit User"/></td>
 </tr>
+
+
+<!-- Find out why if we dont write this field why exception is coming. -->
+<html:hidden property="type"/>
 
 </table>
 
-<input type ="hidden" name="type" value="${requestScope.member.type}">
-
-</form>
+</html:form>
 </body>
 </html>

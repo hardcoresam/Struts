@@ -13,7 +13,10 @@ public class Job {
     private Time endTime;
     private Date startDate;
     private Date endDate;
-    public enum Status{ACTIVE,INACTIVE};
+    public enum Status{
+        ACTIVE,
+        INACTIVE;
+    }
     private Status status;
 
     private Seeker seeker;
@@ -105,4 +108,12 @@ public class Job {
     public Status getStatus() { return status; }
 
     public void setStatus(Status status) { this.status = status; }
+
+    public Seeker getSeeker() { return seeker; }
+
+    public void setSeeker(Seeker seeker) { this.seeker = seeker; }
+
+    public Set<JobApplication> getSetOfApplications() { return setOfApplications; }
+
+    public void setSetOfApplications(Set<JobApplication> setOfApplications) { this.setOfApplications = setOfApplications; }
 }

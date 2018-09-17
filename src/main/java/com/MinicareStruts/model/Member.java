@@ -16,6 +16,7 @@ public class Member {
     private Status status;
 
     public Member() {}
+
     public Member(String firstName, String lastName, String email, String phoneNumber, String address,
                   String password, MemberType type) {
         this.firstName = firstName;
@@ -26,6 +27,15 @@ public class Member {
         this.password = password;
         this.type=type;
         this.status = Status.ACTIVE;    //Is this correct? Think while retrieving rows from database.
+    }
+
+    public Member(String firstName, String lastName, String phoneNumber, String address, MemberType type) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.type = type;
+        this.status = Status.ACTIVE;
     }
 
     public int getMemberId() {

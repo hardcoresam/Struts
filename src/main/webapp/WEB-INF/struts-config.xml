@@ -69,7 +69,7 @@
             <forward name="listApplications" path="/sitter/listApplication.do"/>
         </action>
 
-        <!-- HomePagesitter.jsp (Inside This There is still EditProfile button left)-->
+        <!-- HomePagesitter.jsp -->
         <action path="/sitter/listActiveJobs" type="com.MinicareStruts.action.sitter.ListActiveJobsAction" validate="false" >
             <forward name="allJobsApplied" path="/jsp/sitter/HomePagesitter.jsp"/>
             <forward name="listOfActiveJobs" path="/jsp/sitter/ListActiveJobs.jsp"/>
@@ -90,9 +90,6 @@
         </action>
 
         <!-- ListJobs.jsp -->
-        <action path="/seeker/editJob" type="com.MinicareStruts.action.seeker.EditJobAction" validate="false">
-            <forward name="editJob" path="/jsp/seeker/EditJob.jsp"/>
-        </action>
         <action path="/seeker/listApplications" type="com.MinicareStruts.action.seeker.ListApplicationsAction"
                 validate="false">
             <forward name="noApplications" path="/seeker/listJobs.do"/>
@@ -122,6 +119,36 @@
         <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
             <forward name="getMessages" path="/member/getMessages.do"/>
         </action>
+
+        <!-- This should happen whenever you click on Edit Profile Button -->
+        <action path="/member/edit" name="AlterProfile" validate="false" scope="request"
+                type="com.MinicareStruts.action.member.GetProfileInfoAction">
+            <forward name="success" path="/jsp/member/EditProfile.jsp"/>
+        </action>
+
+        <!-- member/EditProfile.jsp -->
+        <action path="/member/editProfile" name="AlterProfile" validate="true" input="/jsp/member/EditProfile.jsp"
+                scope="request" type="com.MinicareStruts.action.member.EditProfileAction">
+            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
+            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
+        </action>
+
+        <!-- ListJobs.jsp -->
+        <action path="/seeker/editJob" name="PostJob" validate="false" scope="request"
+                type="com.MinicareStruts.action.seeker.GetJobInfoAction">
+            <forward name="success" path="/jsp/seeker/EditJob.jsp"/>
+        </action>
+
+        <!-- seeker/EditJob.jsp -->
+        <action path="/seeker/alterJob" name="PostJob" validate="true" input="/jsp/seeker/EditJob.jsp"
+                scope="request" type="com.MinicareStruts.action.seeker.EditJobAction">
+            <forward name="successMsg" path="/seeker/listJobs.do"/>
+        </action>
+
+
+
+
+
 
 
 

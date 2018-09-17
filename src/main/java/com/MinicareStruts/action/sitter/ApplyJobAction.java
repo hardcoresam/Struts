@@ -19,8 +19,8 @@ public class ApplyJobAction extends Action {
         ApplyJobForm applyJobForm = (ApplyJobForm) form;
 
         SitterService sitterService = new SitterService();
-        sitterService.applyJob(Integer.parseInt(applyJobForm.getJobId()),
-                Float.parseFloat(applyJobForm.getExpectedPay()), member.getMemberId());
+        sitterService.applyJob(Integer.parseInt(applyJobForm.getJobId()), Double.parseDouble(applyJobForm.getExpectedPay()),
+                member.getMemberId());
 
         //Think how to display this to user in List Applications page.
         request.setAttribute("success","You have applied for the job Successfully");

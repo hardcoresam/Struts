@@ -16,6 +16,12 @@ public class Sitter extends Member {
         this.expectedPay = expectedPay;
     }
 
+    public Sitter(String firstName, String lastName, String phoneNumber, String address, double experience, double expectedPay) {
+        super(firstName, lastName, phoneNumber, address, MemberType.SITTER);
+        this.experience = experience;
+        this.expectedPay = expectedPay;
+    }
+
     public double getExperience() {
         return experience;
     }

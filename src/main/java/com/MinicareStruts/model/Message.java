@@ -65,4 +65,12 @@ public class Message {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    public Conversation getConversation() { return conversation; }
+
+    public void setConversation(Conversation conversation) { this.conversation = conversation; }
+
+    public Member getMember() { return member; }
+
+    public void setMember(Member member) { this.member = member; }
 }

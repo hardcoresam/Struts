@@ -16,6 +16,12 @@ public class Seeker extends Member {
         this.spouseName = spouseName;
     }
 
+    public Seeker(String firstName, String lastName, String phoneNumber, String address, int noOfChildren, String spouseName) {
+        super(firstName, lastName, phoneNumber, address, MemberType.SEEKER);
+        this.noOfChildren = noOfChildren;
+        this.spouseName = spouseName;
+    }
+
     public int getNoOfChildren() {
         return noOfChildren;
     }

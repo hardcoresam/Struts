@@ -26,10 +26,8 @@
 </div>
 <br><br>
 
-<!-- For this we need to find a Solution. So think and then write the mapping for this. -->
-<!-- If we click this it should go to editProfile.do i.e to EditProfileServlet. -->
 <div align="center">
-<html:link action="member/editProfile">Edit Profile</html:link>
+<html:link action="member/edit">Edit Profile</html:link>
 </div>
 <br><br>
 

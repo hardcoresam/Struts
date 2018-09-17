@@ -131,6 +131,8 @@ public class RegistrationForm extends ActionForm {
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        type = request.getParameter("type");
+
         ActionErrors ae = new ActionErrors();
 
         //Ask if i should keep each validation in a seperate method?

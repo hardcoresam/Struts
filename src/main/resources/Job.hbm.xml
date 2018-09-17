@@ -18,7 +18,8 @@
         <property name="startDate" column="StartDate" type="date"/>
         <property name="endDate" column="EndDate" type="date"/>
 
-        <property name="status" column="Status">
+        <property name="status">
+            <column name="Status"/>
             <type name="org.hibernate.type.EnumType">
                 <param name="enumClass">com.MinicareStruts.model.Job$Status</param>
                 <param name="useNamed">true</param>

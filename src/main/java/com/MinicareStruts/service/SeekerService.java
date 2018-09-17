@@ -23,22 +23,14 @@ public class SeekerService {
         jobDao.postJob(job);
     }
 
-    public boolean alterJob(PostJobForm form) {
-        String startTime = form.getStartTime();
-        String endTime = form.getEndTime();
+    public void alterJob(int jobId, String title, double payPerHour, Time startTime, Time endTime, Date startDate,
+                         Date endDate) {
 
-        if(startTime.length()==5) {
-            startTime = startTime +":00";
-        }
-        if(endTime.length()==5) {
-            endTime = endTime +":00";
-        }
-
-        Job job = new Job(form.getTitle(), Double.parseDouble(form.getPayPerHour()), Time.valueOf(startTime), Time.valueOf(endTime), Date.valueOf(form.getStartDate()), Date.valueOf(form.getEndDate()));
-        job.setJobId(form.getJobId());
+        Job job = new Job(title, payPerHour, startTime, endTime, startDate, endDate);
+        job.setJobId(jobId);
 
         JobDAO jobDao = new JobDAO();
-        return jobDao.editJob(job);
+        jobDao.editJob(job);
     }
 
     public List<Job> listJobs(int seekerId) {
@@ -66,8 +58,7 @@ public class SeekerService {
 
     public Job getJobById(int jobId) {
         JobDAO jobDao = new JobDAO();
-        Job job = jobDao.getJobById(jobId);
-        return job;
+        return jobDao.getJobById(jobId);
     }
 
     public boolean closeAccount(int seekerId) {
@@ -97,7 +88,7 @@ public class SeekerService {
         return conversationDao.getMessages(conversationId);
     }
 
-    public boolean storeMessage(int conversationId, String content, int senderId) {
+    public void storeMessage(int conversationId, String content, int senderId) {
         Message message = new Message();
         long currentTime = System.currentTimeMillis();
         Time time = new Time(currentTime);
@@ -107,6 +98,6 @@ public class SeekerService {
         message.setSenderId(senderId);
 
         ConversationDAO conversationDao = new ConversationDAO();
-        return conversationDao.storeMessage(message);
+        conversationDao.storeMessage(message);
     }
 }

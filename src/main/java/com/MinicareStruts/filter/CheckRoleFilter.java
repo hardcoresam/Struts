@@ -23,6 +23,10 @@ public class CheckRoleFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         HttpSession session = request.getSession(false);
         Member member = (Member)session.getAttribute("member");
+
+        System.out.println("5555555555555");
+        System.out.println(member);
+
         boolean error = false;
         if(request.getRequestURI().contains("/seeker")) {
             if(member == null || member.getType() != Member.MemberType.SEEKER) {

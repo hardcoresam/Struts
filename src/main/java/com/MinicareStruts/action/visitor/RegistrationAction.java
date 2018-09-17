@@ -21,12 +21,26 @@ public class RegistrationAction extends Action {
         //Here we are getting an exception bcoz if user registers as a seeker and then this
         //Double.parseDouble(registrationForm.getExperience())  would throw an exception right. So use an
         //if and else and solve this problem.
+        //Ask if there is any better approach for this.
+        //Check if the code solved the problem or not.
+
+        Double experience,expectedPay;
+        Integer noOfChildren;
+        if(registrationForm.getType().equalsIgnoreCase("seeker")) {
+            experience = null;
+            expectedPay = null;
+            noOfChildren = Integer.parseInt(registrationForm.getNoOfChildren());
+        }
+        else {
+            experience = Double.parseDouble(registrationForm.getExperience());
+            expectedPay = Double.parseDouble(registrationForm.getExpectedPay());
+            noOfChildren = null;
+        }
 
         MemberService memberService = new MemberService();
         Member member = memberService.registerUser(registrationForm.getFirstName(), registrationForm.getLastName(),
                 registrationForm.getEmail(), registrationForm.getPhoneNumber(), registrationForm.getAddress(),
-                Integer.parseInt(registrationForm.getNoOfChildren()), registrationForm.getSpouseName(),
-                Double.parseDouble(registrationForm.getExperience()), Double.parseDouble(registrationForm.getExpectedPay()),
+                noOfChildren, registrationForm.getSpouseName(), experience, expectedPay,
                 registrationForm.getPassword(), registrationForm.getType());
 
         HttpSession session = request.getSession();

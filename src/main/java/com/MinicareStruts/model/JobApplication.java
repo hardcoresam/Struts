@@ -4,14 +4,14 @@ public class JobApplication {
     private int applicationId;
     private int jobId;
     private int sitterId;
-    private float expectedPay;
+    private double expectedPay;
 
     private Job job;
     private Sitter sitter;
 
     public JobApplication() {}
 
-    public JobApplication(int jobId, float expectedPay, int sitterId) {
+    public JobApplication(int jobId, double expectedPay, int sitterId) {
         this.jobId = jobId;
         this.sitterId = sitterId;
         this.expectedPay = expectedPay;
@@ -41,11 +41,11 @@ public class JobApplication {
         this.sitterId = sitterId;
     }
 
-    public float getExpectedPay() {
+    public double getExpectedPay() {
         return expectedPay;
     }
 
-    public void setExpectedPay(float expectedPay) {
+    public void setExpectedPay(double expectedPay) {
         this.expectedPay = expectedPay;
     }
 

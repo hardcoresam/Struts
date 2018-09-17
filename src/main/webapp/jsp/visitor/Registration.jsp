@@ -78,7 +78,6 @@
 <td><font color="red"><html:errors property="address"/></font></td>
 </tr>
 
-<!-- Now how to get the previous jsp(Choice.jsp) information here i.e in param.type - FIND OUT -->
 <c:choose>
     <c:when test='${param.type=="seeker"}'>
         <tr>
@@ -121,7 +120,6 @@
 
 </table>
 
-<!-- Get the Previous jsp Values here i.e from Choice.jsp -->
 <html:hidden property="type" value="${param.type}"/>
 
 </html:form>

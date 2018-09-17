@@ -36,6 +36,8 @@ public class ApplyJobForm extends ActionForm{
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        jobId = request.getParameter("jobId");
+
         ActionErrors ae = new ActionErrors();
 
         if(expectedPay.equals(""))

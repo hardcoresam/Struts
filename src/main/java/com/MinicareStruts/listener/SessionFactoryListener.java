@@ -17,6 +17,7 @@ public class SessionFactoryListener implements ServletContextListener {
     private static Configuration configuration = null;
     private static SessionFactory sessionFactory = null;
     private static ServiceRegistry serviceRegistry = null;
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {

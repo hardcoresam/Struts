@@ -24,7 +24,7 @@ public class SitterService {
         return list;
     }
 
-    public void applyJob(int jobId, float expectedPay, int sitterId) {
+    public void applyJob(int jobId, double expectedPay, int sitterId) {
 
         JobApplication jobApplication = new JobApplication(jobId, expectedPay, sitterId);
 

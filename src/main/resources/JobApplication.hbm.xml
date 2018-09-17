@@ -8,7 +8,7 @@
         <id name="applicationId" column="ApplicationId" type="int">
             <generator class="increment"/>
         </id>
-        <property name="expectedPay" column="ExpectedPay" type="float"/>
+        <property name="expectedPay" column="ExpectedPay" type="double"/>
 
         <!--Now how to add jobId and sitterId fields here ? -->
 

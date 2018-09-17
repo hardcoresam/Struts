@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PasswordUtil {
+    private static final Logger logger = Logger.getLogger(PasswordUtil.class.getName());
     public static String getHashedPassword(String password) {
         String hashedPassword = null;
         try {
@@ -15,7 +16,6 @@ public class PasswordUtil {
             hashedPassword = new String(hash);
         }
         catch(NoSuchAlgorithmException n) {
-            Logger logger = Logger.getLogger(PasswordUtil.class.getName());
             logger.log(Level.SEVERE, "Exception While Hashing Password" + n);
         }
         return hashedPassword;

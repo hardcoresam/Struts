@@ -13,8 +13,9 @@ import com.MinicareStruts.model.Sitter;
 public class MemberService {
 
     //For Hibernate.
+    //i used Wrapper classes here for Some of the fields below bcoz - See RegistrationAction problem.
     public Member registerUser(String firstName, String lastName, String email, String phoneNumber, String address,
-                                int noOfChildren, String spouseName, double experience, double expectedPay, String password,
+                                Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String password,
                                 String type) {
         MemberDAO memberDao = new MemberDAO();
         if(type.equalsIgnoreCase("seeker")) {
@@ -78,6 +79,22 @@ public class MemberService {
     }
     */
 
+    public Member alterProfile(String firstName, String lastName, String phoneNumber, String address,
+                               Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String type) {
+        Member member = null;
+        MemberDAO memberDao = new MemberDAO();
+        if(type.equalsIgnoreCase("seeker")) {
+            Seeker seeker = new Seeker(firstName, lastName, phoneNumber, address, noOfChildren, spouseName);
+            memberDao.alterUser(seeker);
+        }
+        else {
+            Sitter sitter = new Sitter(firstName, lastName, phoneNumber, address, experience, expectedPay);
+            memberDao.alterUser(sitter);
+        }
+        return member;
+    }
+
+    /*
     public Member alterProfile(AlterProfileForm alterForm) {
         Member member = null;
         if(alterForm.getType().equalsIgnoreCase("seeker")) {
@@ -110,6 +127,7 @@ public class MemberService {
         }
         return member;
     }
+    */
 
     public int getConversationId(int seekerId, int sitterId) {
         Conversation conversation = new Conversation(seekerId,sitterId);

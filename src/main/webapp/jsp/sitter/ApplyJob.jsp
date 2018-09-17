@@ -10,21 +10,18 @@
 
 <html:form action="sitter/applyJob" method="POST">
 
-<table border="1" align="center">
+<table border="0" align="center">
 <tr>
 <td>Enter Expected Pay*:</td>
 <td><html:text property="expectedPay"/></td>
-<font color="red"><html:errors property="expectedPay"/></font>
+<td><font color="red"><html:errors property="expectedPay"/></font></td>
 </tr>
 
 <tr>
 <td><html:submit value="Apply"/></td>
 </tr>
 
-<!-- Check this,bcoz from the second time there will be no param.jobId anymore bcoz request will not be there anymore.
-But after the first time we will populate this inside ApplyJobForm. so check whether we will get the value from that form or not. -->
-
-<html:hidden property="jobId" value="${param.type}"/>
+<html:hidden property="jobId" value="${param.jobId}"/>
 
 </table>
 

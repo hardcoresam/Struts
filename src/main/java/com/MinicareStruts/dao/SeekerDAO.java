@@ -13,14 +13,13 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class SeekerDAO {
-    SessionFactory sessionFactory = null;
 
     /*
     public Seeker getSeekerById(int seekerId) throws Exception {
-        sessionFactory = SessionFactoryListener.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        Seeker seeker = (Seeker)session.load(Seeker.class,seekerId);
+        //Ask whether i can use load() here or where should i use load() anywhere?
+        Seeker seeker = (Seeker)session.get(Seeker.class,seekerId);
         transaction.commit();
         return seeker;
     }

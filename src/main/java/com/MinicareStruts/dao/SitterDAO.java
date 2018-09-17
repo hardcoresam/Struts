@@ -1,7 +1,10 @@
 package com.MinicareStruts.dao;
 
+import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.model.Sitter;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -10,18 +13,17 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class SitterDAO {
-    SessionFactory sessionFactory = null;
 
     /*
-    public Seeker getSitterById(int sitterId) throws Exception {
-        sessionFactory = SessionFactoryListener.getSessionFactory();
-        Session session = sessionFactory.openSession();
+    public Sitter getSitterById(int sitterId) throws Exception {
+        Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        Sitter sitter = (Sitter)session.load(Sitter.class,sitterId);
+        Sitter sitter = (Sitter)session.get(Sitter.class,sitterId);
         transaction.commit();
         return sitter;
     }
     */
+
 
     public Sitter getSitterById(int sitterId) {
         Sitter sitter = null;

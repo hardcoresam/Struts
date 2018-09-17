@@ -1,10 +1,12 @@
 package com.MinicareStruts.dao;
 
+import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.form.LoginForm;
 import com.MinicareStruts.listener.SessionFactoryListener;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.model.Seeker;
 import com.MinicareStruts.model.Sitter;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,12 +16,26 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.List;
 
 
 public class MemberDAO {
     //Do Password Hashing.....
     //Chnage the variable Names .
-    SessionFactory sessionFactory = null;
+
+    /*
+    public boolean isEmailRegistered(String email) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("SELECT MemberId FROM Member where email=?");
+        query.setString(0,email);
+        Integer memberId = (Integer)query.uniqueResult();
+        if(memberId!=null)
+            return true;
+        else
+            return false;
+    }
+    */
 
     public boolean isEmailRegistered(String email) {
         boolean status = false;
@@ -43,8 +59,7 @@ public class MemberDAO {
     /*
     public int registerUser(Member member) {
         int memberId = -1;
-        sessionFactory = SessionFactoryListener.getSessionFactory();
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
         if(member.getType().toString().equalsIgnoreCase("seeker")) {
             Seeker seeker = (Seeker)member;
@@ -108,6 +123,19 @@ public class MemberDAO {
         return memberId;
     }
 
+    /*
+    public Member fetchMember(String email, String password) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("FROM Member where email=? and password=? and status=?");
+        query.setString(0,email);
+        query.setString(1,password);
+        query.setString(2,"ACTIVE");
+        List<Member> list = query.list();
+        return list.get(0);
+    }
+    */
+
     public Member fetchMember(String email, String password) {
         Member member=null;
         try {
@@ -138,7 +166,26 @@ public class MemberDAO {
         return member;
     }
 
+    /*
+    public Member alterUser(Member member) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        //Check the results of these queries.
+        //So before sending the Member object here Do Database se get() and then overwrite the fields and then pass that full
+        //object here.
 
+        if(member.getType().toString().equalsIgnoreCase("seeker")) {
+            Seeker seeker = (Seeker)member;
+            session.update(seeker);
+        }
+        else {
+            Sitter sitter = (Sitter)member;
+            session.update(sitter);
+        }
+        transaction.commit();
+        return member;
+    }
+    */
 
 
     public Member alterUser(Member member) {
@@ -178,6 +225,15 @@ public class MemberDAO {
             System.out.println(e);
         }
         return member;
+    }
+
+    public boolean closeAccount1(int memberId) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        //Write Remaining
+        //For update first get The object by using get() and then update the fields using setters and then write session.update()
+        //or session.saveOrUpdate().
+        return true;
     }
 
     public boolean closeAccount(int memberId) {

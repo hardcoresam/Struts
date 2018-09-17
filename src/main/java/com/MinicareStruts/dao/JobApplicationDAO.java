@@ -22,7 +22,7 @@ public class JobApplicationDAO {
             PreparedStatement pst = con.prepareStatement("insert into jobapplication (JobId, SitterId, ExpectedPay) values (?,?,?)");
             pst.setInt(1,application.getJobId());
             pst.setInt(2,application.getSitterId());
-            pst.setFloat(3,application.getExpectedPay());
+            pst.setDouble(3,application.getExpectedPay());
             pst.executeUpdate();
         }
         catch (SQLException|NamingException e) {
