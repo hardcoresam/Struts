@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.MinicareStruts.model.Member" table="member" schema="minicare">
+    <class name="com.MinicareStruts.model.Member" table="member">
         <id name="memberId" column="MemberId" type="int">
             <generator class="increment"/>
         </id>
@@ -30,7 +30,7 @@
         </property>
 
 
-        <joined-subclass name="com.MinicareStruts.model.Seeker" table="seeker" schema="minicare">
+        <joined-subclass name="com.MinicareStruts.model.Seeker" table="seeker">
             <key column="SeekerId"/>
             <property name="spouseName" column="SpouseName" type="string"/>
             <property name="noOfChildren" column="NoOfChildren" type="int"/>
@@ -45,7 +45,7 @@
 
         </joined-subclass>
 
-        <joined-subclass name="com.MinicareStruts.model.Sitter" table="sitter" schema="minicare">
+        <joined-subclass name="com.MinicareStruts.model.Sitter" table="sitter">
             <key column="SitterId"/>
             <property name="experience" column="Experience" type="double"/>
             <property name="expectedPay" column="ExpectedPay" type="double"/>

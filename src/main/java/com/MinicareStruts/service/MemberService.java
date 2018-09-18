@@ -58,7 +58,7 @@ public class MemberService {
     }
     */
 
-    public boolean isEmailRegistered(String email) {
+    public boolean isEmailRegistered(String email){
         MemberDAO memberDao = new MemberDAO();
         return memberDao.isEmailRegistered(email);
     }
@@ -79,17 +79,35 @@ public class MemberService {
     }
     */
 
-    public Member alterProfile(String firstName, String lastName, String phoneNumber, String address,
+    public Member alterProfile(int memberId, String firstName, String lastName, String phoneNumber, String address,
                                Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String type) {
         Member member = null;
         MemberDAO memberDao = new MemberDAO();
         if(type.equalsIgnoreCase("seeker")) {
-            Seeker seeker = new Seeker(firstName, lastName, phoneNumber, address, noOfChildren, spouseName);
-            memberDao.alterUser(seeker);
+            SeekerService seekerService = new SeekerService();
+            Seeker seeker = seekerService.fetchMember(memberId);
+
+            seeker.setFirstName(firstName);
+            seeker.setLastName(lastName);
+            seeker.setPhoneNumber(phoneNumber);
+            seeker.setAddress(address);
+            seeker.setNoOfChildren(noOfChildren);
+            seeker.setSpouseName(spouseName);
+
+            member = memberDao.alterUser(seeker);
         }
         else {
-            Sitter sitter = new Sitter(firstName, lastName, phoneNumber, address, experience, expectedPay);
-            memberDao.alterUser(sitter);
+            SitterService sitterService = new SitterService();
+            Sitter sitter = sitterService.fetchMember(memberId);
+
+            sitter.setFirstName(firstName);
+            sitter.setLastName(lastName);
+            sitter.setPhoneNumber(phoneNumber);
+            sitter.setAddress(address);
+            sitter.setExperience(experience);
+            sitter.setExpectedPay(expectedPay);
+
+            member = memberDao.alterUser(sitter);
         }
         return member;
     }
@@ -130,8 +148,22 @@ public class MemberService {
     */
 
     public int getConversationId(int seekerId, int sitterId) {
+        SeekerService seekerService = new SeekerService();
+        Seeker seeker = seekerService.fetchMember(seekerId);
+
+        SitterService sitterService = new SitterService();
+        Sitter sitter = sitterService.fetchMember(sitterId);
+
         Conversation conversation = new Conversation(seekerId,sitterId);
+        conversation.setSeeker(seeker);
+        conversation.setSitter(sitter);
+
         ConversationDAO conversationDao = new ConversationDAO();
         return conversationDao.getConversationId(conversation);
+    }
+
+    public Conversation getConversationById(int conversationId) {
+        ConversationDAO conversationDao = new ConversationDAO();
+        return conversationDao.getConversationById(conversationId);
     }
 }

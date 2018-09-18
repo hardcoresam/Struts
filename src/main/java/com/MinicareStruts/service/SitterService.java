@@ -28,19 +28,32 @@ public class SitterService {
 
         JobApplication jobApplication = new JobApplication(jobId, expectedPay, sitterId);
 
+        JobDAO jobDao = new JobDAO();
+        Job job = jobDao.getJobById(jobId);
+        jobApplication.setJob(job);
+
+        SitterDAO sitterDao = new SitterDAO();
+        Sitter sitter = sitterDao.getSitterById(sitterId);
+        jobApplication.setSitter(sitter);
+
+        jobApplication.setStatus(JobApplication.Status.ACTIVE);
+
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
         jobApplicationDao.applyJob(jobApplication);
     }
 
-    public List<JobApplicationDTO> listApplications(int sitterId) {
+    public List<JobApplication> listApplications(int sitterId) {
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
-        List<JobApplicationDTO> list = jobApplicationDao.listApplications(sitterId);
+        List<JobApplication> list = jobApplicationDao.listApplications(sitterId);
         return list;
     }
 
     public void deleteApplication(int applicationId) {
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
-        jobApplicationDao.deleteApplication(applicationId);
+        JobApplication jobApplication = jobApplicationDao.getJobApplicationById(applicationId);
+        jobApplication.setStatus(JobApplication.Status.INACTIVE);
+
+        jobApplicationDao.deleteApplication(jobApplication);
     }
 
     public boolean closeAccount(int sitterId) {

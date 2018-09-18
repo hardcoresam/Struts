@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.MinicareStruts.model.Job" table="job" schema="minicare">
+    <class name="com.MinicareStruts.model.Job" table="job">
         <id name="jobId" column="JobId" type="int">
             <generator class="increment"/>
         </id>

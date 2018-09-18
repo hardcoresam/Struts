@@ -2,9 +2,14 @@ package com.MinicareStruts.model;
 
 public class JobApplication {
     private int applicationId;
+
+    //So Remove these Foreign Fields Completely everywhere inside Model classes (Suraj)
     private int jobId;
+
     private int sitterId;
     private double expectedPay;
+    public enum Status{ACTIVE,INACTIVE};
+    private Status status;
 
     private Job job;
     private Sitter sitter;
@@ -15,6 +20,7 @@ public class JobApplication {
         this.jobId = jobId;
         this.sitterId = sitterId;
         this.expectedPay = expectedPay;
+        this.status = Status.ACTIVE;
     }
 
     public int getApplicationId() {
@@ -56,4 +62,8 @@ public class JobApplication {
     public Sitter getSitter() { return sitter; }
 
     public void setSitter(Sitter sitter) { this.sitter = sitter; }
+
+    public Status getStatus() { return status; }
+
+    public void setStatus(Status status) { this.status = status; }
 }

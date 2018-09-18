@@ -79,8 +79,9 @@ ${AlterProfile.expectedPay}
 </tr>
 
 
-<!-- Find out why if we dont write this field why exception is coming. -->
+<!-- Find out why if we dont write this field why exception is coming.  WHY WHY WHY WHY-->
 <html:hidden property="type"/>
+<html:hidden property="memberId"/>
 
 </table>
 

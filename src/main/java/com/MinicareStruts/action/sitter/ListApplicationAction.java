@@ -1,6 +1,6 @@
 package com.MinicareStruts.action.sitter;
 
-import com.MinicareStruts.dto.JobApplicationDTO;
+import com.MinicareStruts.model.JobApplication;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SitterService;
 import org.apache.struts.action.Action;
@@ -26,7 +26,7 @@ public class ListApplicationAction extends Action {
         //Inside that sitter we would have List<JobApplication>.
         //So if that is empty Do this or else do that. Like that you should proceed With Hibernate.
         //For now i am keeping the code as it is. But while using hibernate change the below code.
-        List<JobApplicationDTO> list = sitterService.listApplications(member.getMemberId());
+        List<JobApplication> list = sitterService.listApplications(member.getMemberId());
 
         if (list.isEmpty()) {
             request.setAttribute("success","You have not applied to any Job yet.");

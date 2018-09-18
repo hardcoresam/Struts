@@ -2,6 +2,8 @@ package com.MinicareStruts.action.visitor;
 
 import com.MinicareStruts.form.LoginForm;
 import com.MinicareStruts.model.Member;
+import com.MinicareStruts.model.Seeker;
+import com.MinicareStruts.model.Sitter;
 import com.MinicareStruts.service.MemberService;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;

@@ -1,24 +1,25 @@
 package com.MinicareStruts.service;
 
 import com.MinicareStruts.dao.*;
-import com.MinicareStruts.dto.ListApplicationDTO;
-import com.MinicareStruts.form.PostJobForm;
-import com.MinicareStruts.model.Job;
-import com.MinicareStruts.model.JobApplication;
-import com.MinicareStruts.model.Message;
-import com.MinicareStruts.model.Seeker;
+import com.MinicareStruts.model.*;
 
 import javax.naming.NamingException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
+import java.util.Set;
 
 public class SeekerService {
     public void postJob(String title, double payPerHour, int seekerId, Time startTime, Time endTime, Date startDate,
                         Date endDate) {
 
         Job job = new Job(title, payPerHour, seekerId, startTime, endTime, startDate, endDate);
+
+        SeekerService seekerService = new SeekerService();
+        Seeker seeker = seekerService.fetchMember(seekerId);
+        job.setSeeker(seeker);
+
         JobDAO jobDao = new JobDAO();
         jobDao.postJob(job);
     }
@@ -33,9 +34,9 @@ public class SeekerService {
         jobDao.editJob(job);
     }
 
-    public List<Job> listJobs(int seekerId) {
+    public Set<Job> listJobs(int seekerId) {
         JobDAO jobDao = new JobDAO();
-        List<Job> list = jobDao.listJobs(seekerId);
+        Set<Job> list = jobDao.listJobs(seekerId);
         return list;
     }
 
@@ -45,15 +46,18 @@ public class SeekerService {
         return seeker;
     }
 
-    public boolean deleteJob(int jobId) {
+
+    public void deleteJob(int jobId) {
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
-        if(jobApplicationDao.deleteApplicationsById(jobId)) {
-            JobDAO jobDao = new JobDAO();
-            return jobDao.deleteJob(jobId);
+        JobDAO jobDao = new JobDAO();
+        Job job = jobDao.getJobById(jobId);
+        Set<JobApplication> set = job.getSetOfApplications();
+        for(JobApplication jobApplication : set) {
+            jobApplication.setStatus(JobApplication.Status.INACTIVE);
+            jobApplicationDao.deleteApplication(jobApplication);
         }
-        else {
-            return false;
-        }
+        job.setStatus(Job.Status.INACTIVE);
+        jobDao.deleteJob(job);
     }
 
     public Job getJobById(int jobId) {
@@ -61,25 +65,22 @@ public class SeekerService {
         return jobDao.getJobById(jobId);
     }
 
-    public boolean closeAccount(int seekerId) {
-        //also ask pranav about updating 2 tables in one operation - like the one above.
-        //Check whether we can make the Closing account(both sitter and seeker) operations in any other efficient way.
+    public void closeAccount(int seekerId) {
+        SeekerDAO seekerDao = new SeekerDAO();
+        Seeker seeker = seekerDao.getSeekerById(seekerId);
+        Set<Job> set = seeker.getSetOfJobs();
 
-        JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
-        JobDAO jobDao = new JobDAO();
-        List<Job> list = jobDao.listJobs(seekerId);
-        for(Job job : list) {
-            jobApplicationDao.deleteApplicationsById(job.getJobId());
-            jobDao.deleteJob(job.getJobId());
+        for(Job job : set) {
+            deleteJob(job.getJobId());
         }
 
-        MemberDAO memberDao = new MemberDAO();
-        return memberDao.closeAccount(seekerId);
+        seeker.setStatus(Member.Status.INACTIVE);
+        seekerDao.deleteSeeker(seeker);
     }
 
-    public List<ListApplicationDTO> listApplications(int jobId) {
+    public List<JobApplication> listApplications(int jobId) {
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
-        List<ListApplicationDTO> list = jobApplicationDao.listApplicationsForSeeker(jobId);
+        List<JobApplication> list = jobApplicationDao.listApplicationsForSeeker(jobId);
         return list;
     }
 
@@ -88,7 +89,7 @@ public class SeekerService {
         return conversationDao.getMessages(conversationId);
     }
 
-    public void storeMessage(int conversationId, String content, int senderId) {
+    public void storeMessage(int conversationId, String content, int senderId, Conversation conversation, Member member) {
         Message message = new Message();
         long currentTime = System.currentTimeMillis();
         Time time = new Time(currentTime);
@@ -96,6 +97,8 @@ public class SeekerService {
         message.setConversationId(conversationId);
         message.setContent(content);
         message.setSenderId(senderId);
+        message.setConversation(conversation);
+        message.setMember(member);
 
         ConversationDAO conversationDao = new ConversationDAO();
         conversationDao.storeMessage(message);

@@ -1,6 +1,9 @@
 package com.MinicareStruts.action.member;
 
+import com.MinicareStruts.dao.ConversationDAO;
+import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Member;
+import com.MinicareStruts.service.MemberService;
 import com.MinicareStruts.service.SeekerService;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -18,10 +21,14 @@ public class StoreMessageAction extends Action {
         Member member = (Member)session.getAttribute("member");
 
         String content = request.getParameter("message");
+
         int conversationId = Integer.parseInt(request.getParameter("conversationId"));
 
+        MemberService memberService = new MemberService();
+        Conversation conversation = memberService.getConversationById(conversationId);
+
         SeekerService seekerService = new SeekerService();
-        seekerService.storeMessage(conversationId,content,member.getMemberId());
+        seekerService.storeMessage(conversationId,content,member.getMemberId(),conversation,member);
 
         request.setAttribute("conversationId", conversationId);
         return mapping.findForward("getMessages");

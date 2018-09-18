@@ -23,20 +23,20 @@ public class MemberDAO {
     //Do Password Hashing.....
     //Chnage the variable Names .
 
-    /*
     public boolean isEmailRegistered(String email) {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("SELECT MemberId FROM Member where email=?");
+        Query query = session.createQuery("SELECT memberId FROM Member where email=?");
         query.setString(0,email);
         Integer memberId = (Integer)query.uniqueResult();
+        transaction.commit();
         if(memberId!=null)
             return true;
         else
             return false;
     }
-    */
 
+    /*
     public boolean isEmailRegistered(String email) {
         boolean status = false;
         try {
@@ -55,8 +55,9 @@ public class MemberDAO {
         }
         return status;
     }
+    */
 
-    /*
+
     public int registerUser(Member member) {
         int memberId = -1;
         Session session = HibernateSessionFilter.getSession();
@@ -72,8 +73,9 @@ public class MemberDAO {
         transaction.commit();
         return memberId;
     }
-    */
 
+
+    /*
     public int registerUser(Member member) {
         int status=0;
         int memberId = -1;
@@ -122,20 +124,24 @@ public class MemberDAO {
         }
         return memberId;
     }
+    */
 
-    /*
+
+
     public Member fetchMember(String email, String password) {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("FROM Member where email=? and password=? and status=?");
-        query.setString(0,email);
-        query.setString(1,password);
-        query.setString(2,"ACTIVE");
-        List<Member> list = query.list();
-        return list.get(0);
+        query.setString(0, email);
+        query.setString(1, password);
+        query.setString(2, "ACTIVE");
+        Member member = (Member) query.uniqueResult();
+        transaction.commit();
+        return member;
     }
-    */
 
+
+    /*
     public Member fetchMember(String email, String password) {
         Member member=null;
         try {
@@ -165,29 +171,27 @@ public class MemberDAO {
         }
         return member;
     }
+    */
 
-    /*
+
     public Member alterUser(Member member) {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        //Check the results of these queries.
-        //So before sending the Member object here Do Database se get() and then overwrite the fields and then pass that full
-        //object here.
 
         if(member.getType().toString().equalsIgnoreCase("seeker")) {
             Seeker seeker = (Seeker)member;
-            session.update(seeker);
+            session.saveOrUpdate(seeker);
         }
         else {
             Sitter sitter = (Sitter)member;
-            session.update(sitter);
+            session.saveOrUpdate(sitter);
         }
         transaction.commit();
         return member;
     }
-    */
 
 
+    /*
     public Member alterUser(Member member) {
         int status = -1;
         int memberId = -1;
@@ -226,6 +230,7 @@ public class MemberDAO {
         }
         return member;
     }
+    */
 
     /*
     //Rethink about the operations while Closing a account.

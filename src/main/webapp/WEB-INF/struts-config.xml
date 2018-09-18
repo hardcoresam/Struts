@@ -60,6 +60,11 @@
             <forward name="listOfMessages" path="/jsp/member/ListOfMessages.jsp"/>
         </action>
 
+        <!-- member/ListOfMessages.jsp -->
+        <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
+            <forward name="getMessages" path="/member/getMessages.do"/>
+        </action>
+
         <!-- ListActiveJobs.jsp -->
         <action path="/jsp/sitter/applyJob" forward="/jsp/sitter/ApplyJob.jsp"/>
 
@@ -114,11 +119,6 @@
 
         <!-- Header.jsp inside seeker folder -->
         <action path="/seeker/homePage" forward="/jsp/seeker/HomePageseeker.jsp"/>
-
-        <!-- member/ListOfMessages.jsp -->
-        <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
-            <forward name="getMessages" path="/member/getMessages.do"/>
-        </action>
 
         <!-- This should happen whenever you click on Edit Profile Button -->
         <action path="/member/edit" name="AlterProfile" validate="false" scope="request"

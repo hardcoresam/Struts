@@ -1,6 +1,7 @@
 package com.MinicareStruts.action.seeker;
 
 import com.MinicareStruts.dto.ListApplicationDTO;
+import com.MinicareStruts.model.JobApplication;
 import com.MinicareStruts.service.SeekerService;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -16,7 +17,7 @@ public class ListApplicationsAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int jobId = Integer.parseInt(request.getParameter("jobId"));
         SeekerService seekerService = new SeekerService();
-        List<ListApplicationDTO> list = seekerService.listApplications(jobId);
+        List<JobApplication> list = seekerService.listApplications(jobId);
         if(list.isEmpty()) {
             request.setAttribute("successMsg","There are no applications for this job yet.");
             return mapping.findForward("noApplications");

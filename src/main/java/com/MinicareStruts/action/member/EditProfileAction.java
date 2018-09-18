@@ -33,7 +33,7 @@ public class EditProfileAction extends Action {
         }
 
         MemberService memberService = new MemberService();
-        Member updatedMember = memberService.alterProfile(alterProfileForm.getFirstName(), alterProfileForm.getLastName(),
+        Member updatedMember = memberService.alterProfile(alterProfileForm.getMemberId(), alterProfileForm.getFirstName(), alterProfileForm.getLastName(),
                 alterProfileForm.getPhoneNumber(), alterProfileForm.getAddress(),
                 noOfChildren, alterProfileForm.getSpouseName(), experience, expectedPay, alterProfileForm.getType());
 

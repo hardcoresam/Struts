@@ -1,5 +1,6 @@
 package com.MinicareStruts.dao;
 
+import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.listener.SessionFactoryListener;
 import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Message;
@@ -19,8 +20,15 @@ import java.util.List;
 
 public class ConversationDAO {
 
-    /*
-    public int getConversationId(Conversation conversation) throws Exception{
+    public Conversation getConversationById(int conversationId) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+        Conversation conversation = (Conversation)session.get(Conversation.class,conversationId);
+        transaction.commit();
+        return conversation;
+    }
+
+    public int getConversationId(Conversation conversation) {
         int conversationId = -1;
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
@@ -37,8 +45,8 @@ public class ConversationDAO {
         transaction.commit();
         return conversationId;
     }
-    */
 
+    /*
     public int getConversationId(Conversation conversation) {
         int conversationId = -1;
         try {
@@ -69,9 +77,10 @@ public class ConversationDAO {
         }
         return conversationId;
     }
+    */
 
-    /*
-    public List<Message> getMessages(int conversationId) throws Exception{
+
+    public List<Message> getMessages(int conversationId) {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from Message where conversationId=?");
@@ -80,8 +89,8 @@ public class ConversationDAO {
         transaction.commit();
         return list;
     }
-    */
 
+    /*
     public List<Message> getMessages(int conversationId) {
 
         List<Message> list = new ArrayList<Message>();
@@ -111,17 +120,23 @@ public class ConversationDAO {
         }
         return list;
     }
-
-    /*
-    public void storeMessage(Message message) throws Exception{
-        Session session = HibernateSessionFilter.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(message);
-        transaction.commit();
-    }
     */
 
 
+    public void storeMessage(Message message) {
+        Session session = HibernateSessionFilter.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        System.out.println("ConversationDAO Check - ---------------");
+        System.out.println(message.getConversationId());
+
+
+        session.save(message);
+        transaction.commit();
+    }
+
+
+    /*
     public boolean storeMessage(Message message) {
         boolean status = false;
         try {
@@ -143,4 +158,5 @@ public class ConversationDAO {
         }
         return status;
     }
+    */
 }

@@ -14,17 +14,17 @@ import java.sql.*;
 
 public class SitterDAO {
 
-    /*
-    public Sitter getSitterById(int sitterId) throws Exception {
+
+    public Sitter getSitterById(int sitterId) {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
         Sitter sitter = (Sitter)session.get(Sitter.class,sitterId);
         transaction.commit();
         return sitter;
     }
-    */
 
 
+    /*
     public Sitter getSitterById(int sitterId) {
         Sitter sitter = null;
         try {
@@ -45,4 +45,5 @@ public class SitterDAO {
         }
         return sitter;
     }
+    */
 }

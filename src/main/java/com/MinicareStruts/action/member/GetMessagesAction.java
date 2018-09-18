@@ -16,6 +16,9 @@ public class GetMessagesAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int conversationId = (Integer)request.getAttribute("conversationId");
 
+        System.out.println("Conversation Id check ---------------");
+        System.out.println(conversationId);
+
         SeekerService seekerService = new SeekerService();
         List<Message> list = seekerService.getMessages(conversationId);
 

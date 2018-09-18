@@ -4,16 +4,36 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.MinicareStruts.model.JobApplication" table="jobapplication" schema="minicare">
+    <class name="com.MinicareStruts.model.JobApplication" table="jobapplication">
         <id name="applicationId" column="ApplicationId" type="int">
             <generator class="increment"/>
         </id>
         <property name="expectedPay" column="ExpectedPay" type="double"/>
 
+        <property name="status">
+            <column name="Status"/>
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">com.MinicareStruts.model.JobApplication$Status</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+
         <!--Now how to add jobId and sitterId fields here ? -->
 
-        <many-to-one name="job" class="com.MinicareStruts.model.Job" not-null="true" column="JobId"/>
-        <many-to-one name="sitter" class="com.MinicareStruts.model.Sitter" not-null="true" column="SitterId"/>
+
+        <many-to-one name="job" class="com.MinicareStruts.model.Job" fetch="join" lazy="false">
+            <column name="JobId" not-null="true" />
+        </many-to-one>
+
+       <!-- This is the old one. This is not working.
+        <many-to-one name="job" class="com.MinicareStruts.model.Job"
+                     not-null="true"
+                    column="JobId"/>
+        -->
+
+        <many-to-one name="sitter" class="com.MinicareStruts.model.Sitter"  fetch="join" lazy="false">
+            <column name="SitterId" not-null="true"/>
+        </many-to-one>
 
     </class>
 </hibernate-mapping>

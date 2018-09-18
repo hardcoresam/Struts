@@ -21,18 +21,20 @@
 <th>Message</th>
 </tr>
 
-<c:forEach items="${requestScope.listOfApplications}" var="jobDto">
+<c:forEach items="${requestScope.listOfApplications}" var="application">
 
 <tr>
 
-<td>${jobDto.title}</td>
-<td>${jobDto.expectedPay}</td>
-<td>${jobDto.payPerHour}</td>
+<td>${application.expectedPay}</td>
+<td>${application.job.payPerHour}</td>
+
+<td>${application.job.title}</td>
+
 
 
 <form action="${pageContext.request.contextPath}/sitter/deleteApplication.do" method="POST"
       onsubmit="return confirm('Do you really want to delete this Application?');">
-    <input type = "hidden" name = "applicationId" value = "${jobDto.applicationId}" >
+    <input type = "hidden" name = "applicationId" value = "${application.applicationId}" >
     <td>
         <input type= "submit" value= "Delete">
     </td>
@@ -40,7 +42,7 @@
 
 
 <form action="${pageContext.request.contextPath}/member/sendMessage.do" method="POST">
-    <input type = "hidden" name = "seekerId" value = "${jobDto.seekerId}" >
+    <input type = "hidden" name = "seekerId" value = "${application.job.seeker.memberId}" >
     <td>
         <input type= "submit" value= "Message Him">
     </td>

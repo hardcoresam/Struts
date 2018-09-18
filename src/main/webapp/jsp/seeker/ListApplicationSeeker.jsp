@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1 align="center">Job Title - ${listOfApplications[0].title}</h1>
+<h1 align="center">Job Title - ${listOfApplications[0].job.title}</h1>
 <hr><br><br>
 
 <table border="1" align="center">
 
 <tr>
 <th>Sitter Name</th>
+<th>Experience</th>
 <th>Expected Pay</th>
 <th>Message</th>
 </tr>
@@ -20,11 +21,12 @@
 
 <tr>
 
-<td>${application.firstName}</td>
+<td>${application.sitter.firstName}</td>
+<td>${application.sitter.experience}</td>
 <td>${application.expectedPay}</td>
 
 <form action="${pageContext.request.contextPath}/member/sendMessage.do" method="POST">
-    <input type = "hidden" name = "sitterId" value = "${application.sitterId}" >
+    <input type = "hidden" name = "sitterId" value = "${application.sitter.memberId}" >   <!-- Check if this should be sitterId or memberId only-->
     <td>
         <input type= "submit" value= "Message Him">
     </td>

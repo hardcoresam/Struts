@@ -29,10 +29,17 @@ public class HibernateSessionFilter implements Filter {
             logger.log(Level.SEVERE,"Cannot create a Session"+he);
         }
 
-        filterChain.doFilter(request,response);
+        try {
+            filterChain.doFilter(request, response);
+        }
+        catch(Exception he) {
+            logger.log(Level.SEVERE,"Exception occurred in the Filter Chain"+he);
+            //session.getTransaction().rollback();
+        }
 
         try {
-
+            //if(!session.getTransaction().wasCommitted())
+            //   session.getTransaction().commit();
             session.close();
         }
         catch(HibernateException he) {
