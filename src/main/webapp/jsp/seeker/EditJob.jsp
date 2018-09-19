@@ -25,7 +25,7 @@
 
 <tr>
 <td>Enter Start Time:*</td>
-<td><input type="time" name="startTime" value="<bean:write name="PostJob" property="startTime"/></td>
+<td><input type="time" name="startTime" value="<bean:write name="PostJob" property="startTime"/>"></td>
 <td><font color="red"><html:errors property="startTime"/></font></td>
 </tr>
 
@@ -50,6 +50,10 @@
 <tr>
 <td><html:submit value="Edit Job"/></td>
 </tr>
+
+
+<html:hidden property="jobId"/>
+
 
 </table>
 

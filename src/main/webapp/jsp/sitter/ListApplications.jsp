@@ -24,12 +24,9 @@
 <c:forEach items="${requestScope.listOfApplications}" var="application">
 
 <tr>
-
+<td>${application.job.title}</td>
 <td>${application.expectedPay}</td>
 <td>${application.job.payPerHour}</td>
-
-<td>${application.job.title}</td>
-
 
 
 <form action="${pageContext.request.contextPath}/sitter/deleteApplication.do" method="POST"

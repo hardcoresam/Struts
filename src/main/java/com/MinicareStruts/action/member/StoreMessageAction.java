@@ -1,6 +1,5 @@
 package com.MinicareStruts.action.member;
 
-import com.MinicareStruts.dao.ConversationDAO;
 import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
@@ -28,7 +27,7 @@ public class StoreMessageAction extends Action {
         Conversation conversation = memberService.getConversationById(conversationId);
 
         SeekerService seekerService = new SeekerService();
-        seekerService.storeMessage(conversationId,content,member.getMemberId(),conversation,member);
+        seekerService.storeMessage(content,conversation,member);
 
         request.setAttribute("conversationId", conversationId);
         return mapping.findForward("getMessages");

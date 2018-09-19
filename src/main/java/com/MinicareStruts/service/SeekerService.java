@@ -2,19 +2,30 @@ package com.MinicareStruts.service;
 
 import com.MinicareStruts.dao.*;
 import com.MinicareStruts.model.*;
-
-import javax.naming.NamingException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
 public class SeekerService {
+    //Put all Dao objects as the instance variables in the service Classes - Ask.
+
+    public Job getJobById(int jobId) {
+        JobDAO jobDao = new JobDAO();
+        return jobDao.getJobById(jobId);
+    }
+
+    public Seeker fetchMember(int seekerId) {
+        SeekerDAO seekerDao = new SeekerDAO();
+        Seeker seeker = seekerDao.getSeekerById(seekerId);
+        return seeker;
+    }
+
     public void postJob(String title, double payPerHour, int seekerId, Time startTime, Time endTime, Date startDate,
                         Date endDate) {
 
-        Job job = new Job(title, payPerHour, seekerId, startTime, endTime, startDate, endDate);
+        Job job = new Job(title, payPerHour, startTime, endTime, startDate, endDate);
+        job.setStatus(Job.Status.ACTIVE);
 
         SeekerService seekerService = new SeekerService();
         Seeker seeker = seekerService.fetchMember(seekerId);
@@ -26,31 +37,41 @@ public class SeekerService {
 
     public void alterJob(int jobId, String title, double payPerHour, Time startTime, Time endTime, Date startDate,
                          Date endDate) {
-
-        Job job = new Job(title, payPerHour, startTime, endTime, startDate, endDate);
-        job.setJobId(jobId);
-
         JobDAO jobDao = new JobDAO();
+        Job job = jobDao.getJobById(jobId);
+
+        job.setTitle(title);
+        job.setPayPerHour(payPerHour);
+        job.setStartTime(startTime);
+        job.setEndTime(endTime);
+        job.setStartDate(startDate);
+        job.setEndDate(endDate);
+        job.setStatus(Job.Status.ACTIVE);
+
         jobDao.editJob(job);
     }
 
-    public Set<Job> listJobs(int seekerId) {
+    public List<Job> listJobs(int seekerId) {
         JobDAO jobDao = new JobDAO();
-        Set<Job> list = jobDao.listJobs(seekerId);
+        List<Job> list = jobDao.listJobs(seekerId);
         return list;
     }
 
-    public Seeker fetchMember(int seekerId) {
-        SeekerDAO seekerDao = new SeekerDAO();
-        Seeker seeker = seekerDao.getSeekerById(seekerId);
-        return seeker;
-    }
 
 
-    public void deleteJob(int jobId) {
+
+    public boolean deleteJob(int jobId, int memberId) {
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
         JobDAO jobDao = new JobDAO();
         Job job = jobDao.getJobById(jobId);
+
+        if(job==null) {
+            return false;
+        }
+        if(job.getSeeker().getMemberId()!=memberId) {
+            return false;
+        }
+
         Set<JobApplication> set = job.getSetOfApplications();
         for(JobApplication jobApplication : set) {
             jobApplication.setStatus(JobApplication.Status.INACTIVE);
@@ -58,11 +79,7 @@ public class SeekerService {
         }
         job.setStatus(Job.Status.INACTIVE);
         jobDao.deleteJob(job);
-    }
-
-    public Job getJobById(int jobId) {
-        JobDAO jobDao = new JobDAO();
-        return jobDao.getJobById(jobId);
+        return true;
     }
 
     public void closeAccount(int seekerId) {
@@ -71,7 +88,7 @@ public class SeekerService {
         Set<Job> set = seeker.getSetOfJobs();
 
         for(Job job : set) {
-            deleteJob(job.getJobId());
+            deleteJob(job.getJobId(),seekerId);
         }
 
         seeker.setStatus(Member.Status.INACTIVE);
@@ -84,19 +101,19 @@ public class SeekerService {
         return list;
     }
 
+
+    //These Should be inside MemberService class.
     public List<Message> getMessages(int conversationId) {
         ConversationDAO conversationDao = new ConversationDAO();
         return conversationDao.getMessages(conversationId);
     }
 
-    public void storeMessage(int conversationId, String content, int senderId, Conversation conversation, Member member) {
+    public void storeMessage(String content, Conversation conversation, Member member) {
         Message message = new Message();
         long currentTime = System.currentTimeMillis();
         Time time = new Time(currentTime);
         message.setTime(time);
-        message.setConversationId(conversationId);
         message.setContent(content);
-        message.setSenderId(senderId);
         message.setConversation(conversation);
         message.setMember(member);
 

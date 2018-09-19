@@ -38,9 +38,7 @@ public class Member {
         this.status = Status.ACTIVE;
     }
 
-    public int getMemberId() {
-        return memberId;
-    }
+    public int getMemberId() { return memberId; }
 
     public void setMemberId(int memberId) {
         this.memberId = memberId;

@@ -21,21 +21,6 @@ public class AlterProfileForm extends ActionForm{
 
     public AlterProfileForm() {}
 
-    //Delete this after changing the entire code
-    public AlterProfileForm(int memberId, String firstName, String lastName, String phoneNumber, String address, String noOfChildren,
-                            String spouseName, String experience, String expectedPay, String type) {
-        this.memberId = memberId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.noOfChildren = noOfChildren;
-        this.spouseName = spouseName;
-        this.experience = experience;
-        this.expectedPay = expectedPay;
-        this.type = type;
-    }
-
     public int getMemberId() {
         return memberId;
     }

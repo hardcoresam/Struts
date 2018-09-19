@@ -14,9 +14,8 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/care</property>
         <property name="connection.username">root</property>
         <property name="connection.password">password</property>
-        <property name="connection.pool_size">100</property>
+        <property name="connection.pool_size">50</property>
 
-        <!-- Change this to resources/Member.hbm.xml -->
         <mapping resource="Member.hbm.xml"/>
         <mapping resource="Job.hbm.xml"/>
         <mapping resource="Message.hbm.xml"/>

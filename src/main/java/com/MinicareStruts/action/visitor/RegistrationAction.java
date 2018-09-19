@@ -18,12 +18,6 @@ public class RegistrationAction extends Action {
                                  HttpServletResponse response) throws Exception {
         RegistrationForm registrationForm = (RegistrationForm)form;
 
-        //Here we are getting an exception bcoz if user registers as a seeker and then this
-        //Double.parseDouble(registrationForm.getExperience())  would throw an exception right. So use an
-        //if and else and solve this problem.
-        //Ask if there is any better approach for this.
-        //Check if the code solved the problem or not.
-
         Double experience,expectedPay;
         Integer noOfChildren;
         if(registrationForm.getType().equalsIgnoreCase("seeker")) {

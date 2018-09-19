@@ -23,8 +23,6 @@ public class GetProfileInfoAction extends Action {
         HttpSession session = request.getSession(false);
         Member member = (Member)session.getAttribute("member");
 
-        //CHECK THE CODE HERE -----------------
-
         if(member.getType().toString().equalsIgnoreCase("seeker")) {
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(member.getMemberId());

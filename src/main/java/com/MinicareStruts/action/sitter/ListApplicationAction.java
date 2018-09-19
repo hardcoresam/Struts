@@ -21,11 +21,6 @@ public class ListApplicationAction extends Action {
         Member member = (Member)session.getAttribute("member");
 
         SitterService sitterService = new SitterService();
-
-        //Here you should get Select * from sitter where SitterId=?;
-        //Inside that sitter we would have List<JobApplication>.
-        //So if that is empty Do this or else do that. Like that you should proceed With Hibernate.
-        //For now i am keeping the code as it is. But while using hibernate change the below code.
         List<JobApplication> list = sitterService.listApplications(member.getMemberId());
 
         if (list.isEmpty()) {

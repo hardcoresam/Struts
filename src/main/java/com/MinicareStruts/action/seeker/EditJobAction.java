@@ -1,7 +1,6 @@
 package com.MinicareStruts.action.seeker;
 
 import com.MinicareStruts.form.PostJobForm;
-import com.MinicareStruts.model.Job;
 import com.MinicareStruts.service.SeekerService;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -18,8 +17,6 @@ public class EditJobAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PostJobForm postJobForm = (PostJobForm) form;
 
-        SeekerService seekerService = new SeekerService();
-
         String startTime = postJobForm.getStartTime();
         String endTime = postJobForm.getEndTime();
 
@@ -28,6 +25,7 @@ public class EditJobAction extends Action {
         if(endTime.length()==5)
             endTime = endTime +":00";
 
+        SeekerService seekerService = new SeekerService();
         seekerService.alterJob(postJobForm.getJobId(), postJobForm.getTitle(), Double.parseDouble(postJobForm.getPayPerHour()),
                 Time.valueOf(startTime), Time.valueOf(endTime),
                 Date.valueOf(postJobForm.getStartDate()), Date.valueOf(postJobForm.getEndDate()));

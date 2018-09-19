@@ -24,18 +24,7 @@ public class PostJobForm extends ActionForm{
     private Date startDate1;
     private Date endDate1;
 
-
     public PostJobForm() {}
-
-    //Delete this after changing the entire code
-    public PostJobForm(String title, String payPerHour, String startTime, String endTime, String startDate, String endDate) {
-        this.title = title;
-        this.payPerHour = payPerHour;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 
     public int getJobId() {
         return jobId;

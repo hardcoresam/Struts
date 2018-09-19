@@ -14,12 +14,6 @@ public class LoginForm extends ActionForm{
 
     public LoginForm() {}
 
-    //Delete this after changing the entire code
-    public LoginForm(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }

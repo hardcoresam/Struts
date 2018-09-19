@@ -1,7 +1,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <!DOCTYPE html>
 <html>
 <body>
@@ -12,7 +12,7 @@
 <br>
 
 <div align="center">
-<html:link action="visitor/login">Home/Login</html:link>
+<a href="/jsp/visitor/Login.jsp">Home/Login</a>
 </div>
 
 </body>

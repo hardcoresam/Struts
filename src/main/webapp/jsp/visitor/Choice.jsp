@@ -8,7 +8,10 @@
 <h1 align="center">Welcome</h1>
 <hr><br><br>
 
-<form action="${pageContext.request.contextPath}/jsp/visitor/registration.do" method="POST">
+<font color="red"><div align="center">${errorType}</div></font>
+<br>
+
+<form action="${pageContext.request.contextPath}/jsp/visitor/register.do" method="POST">
 <div align="center"><input type = "submit" name="type" value="seeker"></div>
 <br><br><br>
 <div align="center"><input type = "submit" name="type" value="sitter"></div>

@@ -10,9 +10,6 @@
         </id>
         <property name="title" column="Title" type="string"/>
         <property name="payPerHour" column="PayPerHour" type="double"/>
-
-        <!-- Should we add property for seekerId here? -->
-
         <property name="startTime" column="StartTime" type="time"/>
         <property name="endTime" column="EndTime" type="time"/>
         <property name="startDate" column="StartDate" type="date"/>
@@ -28,9 +25,8 @@
 
         <many-to-one name="seeker" class="com.MinicareStruts.model.Seeker" column="SeekerId" not-null="true"/>
 
-        <!-- Keep Not null everywhere and also check if we should write table inside set like below ? -->
-        <set name="setOfApplications" table="jobapplication">
-            <key column="SitterId"></key>
+        <set name="setOfApplications" inverse="true">
+            <key column="JobId" not-null="true"/>
             <one-to-many class="com.MinicareStruts.model.JobApplication"/>
         </set>
 

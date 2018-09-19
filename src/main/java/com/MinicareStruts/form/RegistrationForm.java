@@ -24,23 +24,6 @@ public class RegistrationForm extends ActionForm {
 
     public RegistrationForm() {}
 
-    //Delete this after changing the entire code
-    public RegistrationForm(String firstName, String lastName, String phoneNumber, String email, String password,
-                            String address, String noOfChildren, String spouseName, String experience,
-                            String expectedPay, String type) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.noOfChildren = noOfChildren;
-        this.spouseName = spouseName;
-        this.experience = experience;
-        this.expectedPay = expectedPay;
-        this.type = type;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -177,6 +160,14 @@ public class RegistrationForm extends ActionForm {
             ae.add("password",new ActionMessage("member.required","Password"));
         else if(!password.matches("^[a-zA-Z0-9\\W]{6,20}$"))
             ae.add("password",new ActionMessage("member.password.notValid"));
+
+
+        //Check this code - ASK
+        if(!type.equalsIgnoreCase("seeker") || type.equalsIgnoreCase("sitter")) {
+            ae.add("type",new ActionMessage("member.type.notValid"));
+            return ae;
+        }
+
 
         if(type.equalsIgnoreCase("Seeker"))
         {

@@ -35,11 +35,8 @@
             <property name="spouseName" column="SpouseName" type="string"/>
             <property name="noOfChildren" column="NoOfChildren" type="int"/>
 
-            <set name="setOfJobs">
-                <key column="SeekerId"></key>
-
-                <!--Should i add remaining fields of Job here - Check -->
-
+            <set name="setOfJobs" inverse="true">
+                <key column="SeekerId" not-null="true"></key>
                 <one-to-many class="com.MinicareStruts.model.Job"/>
             </set>
 
@@ -50,11 +47,8 @@
             <property name="experience" column="Experience" type="double"/>
             <property name="expectedPay" column="ExpectedPay" type="double"/>
 
-            <set name="setOfApplications">
-                <key column="SitterId"></key>
-
-                <!--Should i add remaining fields of JobApplication here - Check -->
-
+            <set name="setOfApplications" inverse="true">
+                <key column="SitterId" not-null="true"></key>
                 <one-to-many class="com.MinicareStruts.model.JobApplication"/>
             </set>
 

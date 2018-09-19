@@ -1,6 +1,5 @@
 package com.MinicareStruts.action.seeker;
 
-import com.MinicareStruts.dto.ListApplicationDTO;
 import com.MinicareStruts.model.JobApplication;
 import com.MinicareStruts.service.SeekerService;
 import org.apache.struts.action.Action;

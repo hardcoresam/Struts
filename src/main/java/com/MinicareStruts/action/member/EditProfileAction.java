@@ -15,9 +15,7 @@ import javax.servlet.http.HttpSession;
 public class EditProfileAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
         AlterProfileForm alterProfileForm = (AlterProfileForm) form;
-
 
         Double experience,expectedPay;
         Integer noOfChildren;
@@ -38,7 +36,6 @@ public class EditProfileAction extends Action {
                 noOfChildren, alterProfileForm.getSpouseName(), experience, expectedPay, alterProfileForm.getType());
 
         HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute("member");
         session.invalidate();
         HttpSession updatedSession = request.getSession();
         updatedSession.setAttribute("member",updatedMember);

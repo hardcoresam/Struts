@@ -18,12 +18,7 @@
             </type>
         </property>
 
-        <!--Now how to add jobId and sitterId fields here ? -->
-
-
-        <many-to-one name="job" class="com.MinicareStruts.model.Job" fetch="join" lazy="false">
-            <column name="JobId" not-null="true" />
-        </many-to-one>
+        <many-to-one name="job" class="com.MinicareStruts.model.Job" not-null="true" column="JobId"/>
 
        <!-- This is the old one. This is not working.
         <many-to-one name="job" class="com.MinicareStruts.model.Job"
@@ -31,9 +26,7 @@
                     column="JobId"/>
         -->
 
-        <many-to-one name="sitter" class="com.MinicareStruts.model.Sitter"  fetch="join" lazy="false">
-            <column name="SitterId" not-null="true"/>
-        </many-to-one>
+        <many-to-one name="sitter" class="com.MinicareStruts.model.Sitter" not-null="true" column="SitterId"/>
 
     </class>
 </hibernate-mapping>

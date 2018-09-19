@@ -27,6 +27,7 @@ public class HibernateSessionFilter implements Filter {
         }
         catch(HibernateException he) {
             logger.log(Level.SEVERE,"Cannot create a Session"+he);
+            he.printStackTrace();
         }
 
         try {

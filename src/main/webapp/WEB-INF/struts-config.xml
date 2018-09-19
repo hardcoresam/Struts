@@ -13,10 +13,17 @@
         <form-bean name="AlterProfile" type="com.MinicareStruts.form.AlterProfileForm"/>
     </form-beans>
 
-    <action-mappings>
+    <!-- Global Exception -->
+    <global-exceptions>
+        <exception
+                key="error.global.mesage"
+                type="java.lang.Exception"
+                handler="com.MinicareStruts.action.MyExceptionHandler"
+                path="/jsp/error.jsp"/>
+    </global-exceptions>
 
-        <!-- Error.jsp -->
-        <action path="/visitor/login" forward="/jsp/visitor/Login.jsp"/>
+
+    <action-mappings>
 
         <!-- From here /jsp/visitor jsp's started -->
         <!-- Registration.jsp -->
@@ -27,7 +34,7 @@
         </action>
 
         <!-- Login.jsp -->
-        <action path="/visitor/login1" name="Login" validate="true" input="/jsp/visitor/Login.jsp"
+        <action path="/visitor/login" name="Login" validate="true" input="/jsp/visitor/Login.jsp"
                 scope="request" type="com.MinicareStruts.action.visitor.LoginAction">
             <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
             <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
@@ -38,7 +45,11 @@
         <action path="/visitor/choice" forward="/jsp/visitor/Choice.jsp"/>
 
         <!-- Choice.jsp -->
-        <action path="/jsp/visitor/registration" forward="/jsp/visitor/Registration.jsp"/>
+        <action path="/jsp/visitor/register" name="Registration" validate="false" scope="request"
+                type="com.MinicareStruts.action.visitor.GetMemberTypeAction">
+            <forward name="success" path="/jsp/visitor/Registration.jsp"/>
+            <forward name="failure" path="/jsp/visitor/Choice.jsp"/>
+        </action>
 
         <!-- From here /jsp/sitter jsp's started -->
         <!-- ListApplications.jsp -->
@@ -147,19 +158,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
     </action-mappings>
 
     <message-resources parameter="messages"/>
-
-
-
 </struts-config>

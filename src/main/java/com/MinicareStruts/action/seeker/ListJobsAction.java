@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Set;
 
 public class ListJobsAction extends Action {
     @Override
@@ -21,7 +20,7 @@ public class ListJobsAction extends Action {
         Member member = (Member)session.getAttribute("member");
 
         SeekerService seekerService = new SeekerService();
-        Set<Job> list = seekerService.listJobs(member.getMemberId());
+        List<Job> list = seekerService.listJobs(member.getMemberId());
         if(list.isEmpty()) {
             request.setAttribute("success","There are no jobs which you have posted yet.");
             return mapping.findForward("noJobs");

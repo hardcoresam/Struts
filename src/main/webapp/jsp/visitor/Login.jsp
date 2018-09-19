@@ -10,7 +10,7 @@
 <h3 align="center">Login Here</h3>
 <br>
 
-<html:form action="visitor/login1" method="POST">
+<html:form action="visitor/login" method="POST">
 
 <table border="0" align="center">
 

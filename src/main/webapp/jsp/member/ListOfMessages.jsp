@@ -41,7 +41,7 @@
     <c:forEach items="${requestScope.listOfMessages}" var="message">
      <tr>
         <td>${message.content}</td>
-        <td>${message.firstName}</td>
+        <td>${message.member.firstName}</td>
         <td>${message.time}</td>
      </tr>
     </c:forEach>

@@ -78,8 +78,17 @@
 <td><font color="red"><html:errors property="address"/></font></td>
 </tr>
 
+
+
+<tr>
+<td><html:hidden property="type"/></td>
+<td><font color="red"><html:errors property="type"/></font></td>
+</tr>
+
+
+
 <c:choose>
-    <c:when test='${param.type=="seeker"}'>
+    <c:when test='${Registration.type=="seeker"}'>
         <tr>
         <td>Enter No of Children:*</td>
         <td><html:text property="noOfChildren"/></td>
@@ -93,7 +102,7 @@
         </tr>
     </c:when>
 
-    <c:when test='${param.type=="sitter"}'>
+    <c:when test='${Registration.type=="sitter"}'>
         <tr>
         <td>Enter Experience:*</td>
         <td><html:text property="experience"/></td>
@@ -119,8 +128,6 @@
 </tr>
 
 </table>
-
-<html:hidden property="type" value="${param.type}"/>
 
 </html:form>
 

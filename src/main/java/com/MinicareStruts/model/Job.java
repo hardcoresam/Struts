@@ -8,7 +8,6 @@ public class Job {
     private int jobId;
     private String title;
     private double payPerHour;
-    private int seekerId;
     private Time startTime;
     private Time endTime;
     private Date startDate;
@@ -20,17 +19,6 @@ public class Job {
     private Set<JobApplication> setOfApplications;
 
     public Job() {}
-
-    public Job(String title, double payPerHour, int seekerId, Time startTime, Time endTime, Date startDate, Date endDate) {
-        this.title = title;
-        this.payPerHour = payPerHour;
-        this.seekerId = seekerId;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.status = Status.ACTIVE;
-    }
 
     public Job(String title, double payPerHour, Time startTime, Time endTime, Date startDate, Date endDate) {
         this.title = title;
@@ -56,14 +44,6 @@ public class Job {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getSeekerId() {
-        return seekerId;
-    }
-
-    public void setSeekerId(int seekerId) {
-        this.seekerId = seekerId;
     }
 
     public Time getStartTime() {

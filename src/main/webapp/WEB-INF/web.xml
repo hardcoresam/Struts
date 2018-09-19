@@ -7,13 +7,15 @@
         <welcome-file>/jsp/visitor/Login.jsp</welcome-file>
     </welcome-file-list>
 
+    <!-- Listener -->
     <listener>
         <listener-class>com.MinicareStruts.listener.SessionFactoryListener</listener-class>
     </listener>
 
+    <!-- Filters -->
     <filter>
         <filter-name>LoginFilter</filter-name>
-        <filter-class>com.MinicareStruts.filter.LoginFilter</filter-class>     <!-- Change the paths inside these filters -->
+        <filter-class>com.MinicareStruts.filter.LoginFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -41,7 +43,7 @@
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
 
-
+    <!-- ActionServlet -->
     <servlet>
         <servlet-name>action</servlet-name>
         <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>

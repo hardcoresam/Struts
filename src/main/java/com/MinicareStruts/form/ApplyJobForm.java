@@ -9,18 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ApplyJobForm extends ActionForm{
     private String expectedPay;
+
+    //See why this is required.
     private String jobId;
-    //In the previous project i wrote this, But now i am removing it. Check if this produces any issues. I also removed the code
-    //inside contructor and also getters and setters for this particular field i.e sitterId.
-    //private int sitterId;
 
     public ApplyJobForm() {}
-
-    //Delete This after Changing Code
-    public ApplyJobForm(String expectedPay, String jobId) {
-        this.expectedPay = expectedPay;
-        this.jobId = jobId;
-    }
 
     public String getExpectedPay() {
         return expectedPay;
