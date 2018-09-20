@@ -6,11 +6,14 @@ import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.model.Seeker;
 import com.MinicareStruts.model.Sitter;
+import com.MinicareStruts.util.PasswordUtil;
 
 public class MemberService {
 
     public Member fetchMember(String email, String password) {
         MemberDAO memberDao = new MemberDAO();
+
+        //Write PasswordUtil.getHashedPassword(password) in the end.
         return memberDao.fetchMember(email, password);
     }
 
@@ -19,12 +22,14 @@ public class MemberService {
                                 String type) {
         MemberDAO memberDao = new MemberDAO();
         if(type.equalsIgnoreCase("seeker")) {
-            Seeker seeker = new Seeker(firstName, lastName, email, phoneNumber, address, password, noOfChildren, spouseName);
+            Seeker seeker = new Seeker(firstName, lastName, email, phoneNumber, address, PasswordUtil.getHashedPassword(password),
+                    noOfChildren, spouseName);
             seeker.setMemberId(memberDao.registerUser(seeker));
             return seeker;
         }
         else {
-            Sitter sitter = new Sitter(firstName, lastName, email, phoneNumber, address, password, experience, expectedPay);
+            Sitter sitter = new Sitter(firstName, lastName, email, phoneNumber, address, PasswordUtil.getHashedPassword(password),
+                    experience, expectedPay);
             sitter.setMemberId(memberDao.registerUser(sitter));
             return sitter;
         }

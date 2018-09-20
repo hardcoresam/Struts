@@ -27,7 +27,6 @@ public class PostJobAction extends Action {
                 Time.valueOf(postJobForm.getStartTime()+":00"), Time.valueOf(postJobForm.getEndTime()+":00"),
                 Date.valueOf(postJobForm.getStartDate()), Date.valueOf(postJobForm.getEndDate()));
 
-        request.setAttribute("success","Job Was Posted Successfully");
         return mapping.findForward("jobPosted");
     }
 }

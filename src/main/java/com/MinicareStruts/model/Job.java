@@ -46,9 +46,7 @@ public class Job {
         this.title = title;
     }
 
-    public Time getStartTime() {
-        return startTime;
-    }
+    public Time getStartTime() { return startTime; }
 
     public void setStartTime(Time startTime) {
         this.startTime = startTime;

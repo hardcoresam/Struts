@@ -25,7 +25,8 @@ public class LoginFilter implements Filter {
         if(member != null) {
             //request.setAttribute("success","You are already Logged in");  //Put this in Homepage in the starting.
 
-            filterConfig.getServletContext().getRequestDispatcher("/jsp/"+ member.getType().toString().toLowerCase() +"/HomePage"+ member.getType().toString().toLowerCase() +".jsp").forward(request,response);
+            String type = member.getType().name().toLowerCase();
+            filterConfig.getServletContext().getRequestDispatcher("/jsp/"+ type +"/HomePage"+ type +".jsp").forward(request,response);
         }
         else {
             request.setAttribute("loginError1","Please Login");

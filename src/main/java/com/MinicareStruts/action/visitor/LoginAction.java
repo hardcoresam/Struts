@@ -30,7 +30,7 @@ public class LoginAction extends Action {
             HttpSession session = request.getSession();
             session.setAttribute("member",member);
 
-            type=(member.getType().toString().equalsIgnoreCase("seeker"))?"seeker":"sitter";
+            type=(member.getType().name().equalsIgnoreCase("seeker"))?"seeker":"sitter";
             return mapping.findForward(type);
         }
         else {

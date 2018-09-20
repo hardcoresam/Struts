@@ -1,6 +1,6 @@
 package com.MinicareStruts.action.member;
 
-import com.MinicareStruts.form.AlterProfileForm;
+import com.MinicareStruts.form.RegistrationForm;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.model.Seeker;
 import com.MinicareStruts.model.Sitter;
@@ -18,37 +18,38 @@ import javax.servlet.http.HttpSession;
 public class GetProfileInfoAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        AlterProfileForm alterProfileForm = (AlterProfileForm) form;
+        RegistrationForm registrationForm = (RegistrationForm) form;
 
         HttpSession session = request.getSession(false);
         Member member = (Member)session.getAttribute("member");
 
-        if(member.getType().toString().equalsIgnoreCase("seeker")) {
+        if(member.getType().name().equalsIgnoreCase("seeker")) {
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(member.getMemberId());
 
-            alterProfileForm.setMemberId(seeker.getMemberId());
-            alterProfileForm.setFirstName(seeker.getFirstName());
-            alterProfileForm.setLastName(seeker.getLastName());
-            alterProfileForm.setPhoneNumber(seeker.getPhoneNumber());
-            alterProfileForm.setAddress(seeker.getAddress());
-            alterProfileForm.setNoOfChildren(String.valueOf(seeker.getNoOfChildren()));
-            alterProfileForm.setSpouseName(seeker.getSpouseName());
-            alterProfileForm.setType("seeker");
+            registrationForm.setMemberId(seeker.getMemberId());
+            registrationForm.setFirstName(seeker.getFirstName());
+            registrationForm.setLastName(seeker.getLastName());
+            registrationForm.setPhoneNumber(seeker.getPhoneNumber());
+            registrationForm.setAddress(seeker.getAddress());
+            registrationForm.setNoOfChildren(String.valueOf(seeker.getNoOfChildren()));
+            registrationForm.setSpouseName(seeker.getSpouseName());
+            registrationForm.setType(member.getType().name().toLowerCase());
         }
         else {
             SitterService sitterService = new SitterService();
             Sitter sitter = sitterService.fetchMember(member.getMemberId());
 
-            alterProfileForm.setMemberId(sitter.getMemberId());
-            alterProfileForm.setFirstName(sitter.getFirstName());
-            alterProfileForm.setLastName(sitter.getLastName());
-            alterProfileForm.setPhoneNumber(sitter.getPhoneNumber());
-            alterProfileForm.setAddress(sitter.getAddress());
-            alterProfileForm.setExperience(String.valueOf(sitter.getExperience()));
-            alterProfileForm.setExpectedPay(String.valueOf(sitter.getExpectedPay()));
-            alterProfileForm.setType("sitter");
+            registrationForm.setMemberId(sitter.getMemberId());
+            registrationForm.setFirstName(sitter.getFirstName());
+            registrationForm.setLastName(sitter.getLastName());
+            registrationForm.setPhoneNumber(sitter.getPhoneNumber());
+            registrationForm.setAddress(sitter.getAddress());
+            registrationForm.setExperience(String.valueOf(sitter.getExperience()));
+            registrationForm.setExpectedPay(String.valueOf(sitter.getExpectedPay()));
+            registrationForm.setType(member.getType().name().toLowerCase());
         }
+
         return mapping.findForward("success");
     }
 }

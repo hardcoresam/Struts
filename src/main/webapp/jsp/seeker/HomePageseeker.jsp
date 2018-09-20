@@ -11,6 +11,13 @@
 <jsp:include page="/jsp/seeker/Header.jsp"/>     //Change this position and include this in every jsp.
 <br>
 
+
+<c:if test = "${param.success eq 'true'}">
+    <div align="center">Job Was Posted Successfully</div>
+</c:if>
+<br>
+
+
 <div align="center">${requestScope.success}</div>
 <br>
 

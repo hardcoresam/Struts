@@ -1,5 +1,6 @@
 package com.MinicareStruts.form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -33,7 +34,7 @@ public class ApplyJobForm extends ActionForm{
 
         ActionErrors ae = new ActionErrors();
 
-        if(expectedPay.equals(""))
+        if(StringUtils.isBlank(expectedPay))
             ae.add("expectedPay",new ActionMessage("job.required","Expected Pay"));
         else if(!expectedPay.matches("^0$|^[1-9]+([\\.]?[0-9]+)?$"))
             ae.add("expectedPay",new ActionMessage("job.expectedPay.notValid"));

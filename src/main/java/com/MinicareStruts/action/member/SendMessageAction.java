@@ -19,7 +19,7 @@ public class SendMessageAction extends Action {
         Member member = (Member)session.getAttribute("member");
 
         int seekerId,sitterId;
-        if(member.getType().toString().equalsIgnoreCase("seeker")) {
+        if(member.getType().name().equalsIgnoreCase("seeker")) {
             seekerId = member.getMemberId();
             sitterId = Integer.parseInt(request.getParameter("sitterId"));
         }

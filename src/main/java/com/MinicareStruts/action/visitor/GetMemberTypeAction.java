@@ -1,6 +1,7 @@
 package com.MinicareStruts.action.visitor;
 
 import com.MinicareStruts.form.RegistrationForm;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -15,11 +16,11 @@ public class GetMemberTypeAction extends Action {
         RegistrationForm registrationForm = (RegistrationForm) form;
 
         String type = request.getParameter("type");
-        //Think if we require Null check here also?
-        if(type!=null && type.equalsIgnoreCase("seeker")) {
+
+        if(StringUtils.equalsIgnoreCase(type,"seeker")) {
             registrationForm.setType("seeker");
         }
-        else if(type!=null && type.equalsIgnoreCase("sitter")) {
+        else if(StringUtils.equalsIgnoreCase(type,"sitter")) {
             registrationForm.setType("sitter");
         }
         else {

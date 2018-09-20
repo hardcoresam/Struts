@@ -10,7 +10,6 @@
         <form-bean name="PostJob" type="com.MinicareStruts.form.PostJobForm"/>
         <form-bean name="Login" type="com.MinicareStruts.form.LoginForm"/>
         <form-bean name="ApplyJob" type="com.MinicareStruts.form.ApplyJobForm"/>
-        <form-bean name="AlterProfile" type="com.MinicareStruts.form.AlterProfileForm"/>
     </form-beans>
 
     <!-- Global Exception -->
@@ -29,15 +28,15 @@
         <!-- Registration.jsp -->
         <action path="/visitor/registration" name="Registration" validate="true" input="/jsp/visitor/Registration.jsp"
                 scope="request" type="com.MinicareStruts.action.visitor.RegistrationAction">
-            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
-            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
+            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp" redirect="true"/>
+            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp" redirect="true"/>
         </action>
 
         <!-- Login.jsp -->
         <action path="/visitor/login" name="Login" validate="true" input="/jsp/visitor/Login.jsp"
                 scope="request" type="com.MinicareStruts.action.visitor.LoginAction">
-            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
-            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
+            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp" redirect="true"/>
+            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp" redirect="true"/>
             <forward name="error" path="/jsp/visitor/Login.jsp"/>
         </action>
 
@@ -100,9 +99,14 @@
 
         <!-- From here /jsp/seeker jsp's started -->
         <!-- PostJob.jsp -->
+
+        <action path="/seeker/jobPosted" forward="/jsp/seeker/HomePageseeker.jsp"/>
+
         <action path="/seeker/postJobAction" name="PostJob" validate="true" input="/jsp/seeker/PostJob.jsp"
                 scope="request" type="com.MinicareStruts.action.seeker.PostJobAction">
-            <forward name="jobPosted" path="/jsp/seeker/HomePageseeker.jsp"/>
+
+            <forward name="jobPosted" path="/seeker/jobPosted.do?success=true" redirect="true"/>
+
         </action>
 
         <!-- ListJobs.jsp -->
@@ -132,13 +136,13 @@
         <action path="/seeker/homePage" forward="/jsp/seeker/HomePageseeker.jsp"/>
 
         <!-- This should happen whenever you click on Edit Profile Button -->
-        <action path="/member/edit" name="AlterProfile" validate="false" scope="request"
+        <action path="/member/edit" name="Registration" validate="false" scope="request"
                 type="com.MinicareStruts.action.member.GetProfileInfoAction">
             <forward name="success" path="/jsp/member/EditProfile.jsp"/>
         </action>
 
         <!-- member/EditProfile.jsp -->
-        <action path="/member/editProfile" name="AlterProfile" validate="true" input="/jsp/member/EditProfile.jsp"
+        <action path="/member/editProfile" name="Registration" validate="true" input="/jsp/member/EditProfile.jsp"
                 scope="request" type="com.MinicareStruts.action.member.EditProfileAction">
             <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
             <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
@@ -153,9 +157,8 @@
         <!-- seeker/EditJob.jsp -->
         <action path="/seeker/alterJob" name="PostJob" validate="true" input="/jsp/seeker/EditJob.jsp"
                 scope="request" type="com.MinicareStruts.action.seeker.EditJobAction">
-            <forward name="successMsg" path="/seeker/listJobs.do"/>
+            <forward name="successMsg" path="/seeker/listJobs.do" />
         </action>
-
 
 
     </action-mappings>

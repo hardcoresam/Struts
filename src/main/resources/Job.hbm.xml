@@ -29,7 +29,6 @@
             <key column="JobId" not-null="true"/>
             <one-to-many class="com.MinicareStruts.model.JobApplication"/>
         </set>
-
     </class>
 
 </hibernate-mapping>

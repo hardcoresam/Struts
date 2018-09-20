@@ -28,7 +28,7 @@ public class MemberDAO {
         int memberId = -1;
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
-        if(member.getType().toString().equalsIgnoreCase("seeker")) {
+        if(member.getType().name().equalsIgnoreCase("seeker")) {
             Seeker seeker = (Seeker)member;
             memberId = (int)session.save(seeker);
         }
@@ -56,7 +56,7 @@ public class MemberDAO {
         Session session = HibernateSessionFilter.getSession();
         Transaction transaction = session.beginTransaction();
 
-        if(member.getType().toString().equalsIgnoreCase("seeker")) {
+        if(member.getType().name().equalsIgnoreCase("seeker")) {
             Seeker seeker = (Seeker)member;
             session.update(seeker);
         }

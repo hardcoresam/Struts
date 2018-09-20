@@ -10,6 +10,8 @@
 
 <html:form action="member/editProfile" method="POST">
 
+<div align="center"><font color="red"><html:errors property="type"/></font></div>
+
 <table border="0" align="center">
 
 <tr>
@@ -36,16 +38,8 @@
 <td><font color="red"><html:errors property="address"/></font></td>
 </tr>
 
-<!--
-<bean:write name="AlterProfile" property="experience"/>
-<bean:write name="AlterProfile" property="type"/>
-
-${AlterProfile.type}
-${AlterProfile.expectedPay}
--->
-
 <c:choose>
-    <c:when test='${AlterProfile.type == "seeker"}'>
+    <c:when test='${Registration.type == "seeker"}'>
         <tr>
         <td>Enter No of Children:*</td>
         <td><html:text property="noOfChildren"/></td>
@@ -59,7 +53,7 @@ ${AlterProfile.expectedPay}
         </tr>
     </c:when>
 
-    <c:when test='${AlterProfile.type == "sitter"}'>
+    <c:when test='${Registration.type == "sitter"}'>
         <tr>
         <td>Enter Experience:*</td>
         <td><html:text property="experience"/></td>
@@ -78,10 +72,7 @@ ${AlterProfile.expectedPay}
 <td><html:submit value="Edit User"/></td>
 </tr>
 
-
-<!-- Find out why if we dont write this field why exception is coming.  WHY WHY WHY WHY-->
 <html:hidden property="type"/>
-<html:hidden property="memberId"/>
 
 </table>
 

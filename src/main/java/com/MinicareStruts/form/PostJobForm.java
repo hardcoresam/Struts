@@ -2,8 +2,9 @@ package com.MinicareStruts.form;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
@@ -23,6 +24,8 @@ public class PostJobForm extends ActionForm{
     //Used For Validation.
     private Date startDate1;
     private Date endDate1;
+    private Date startTime1;
+    private Date endTime1;
 
     public PostJobForm() {}
 
@@ -88,74 +91,79 @@ public class PostJobForm extends ActionForm{
         startDate1 = null;
         endDate1 = null;
 
-        if(title.equals(""))
+        if(StringUtils.isBlank(title))
             ae.add("title",new ActionMessage("job.required","Title"));
         else if(!title.matches("^[a-zA-Z]+([a-zA-Z ]*[a-zA-Z]+)*$"))
             ae.add("title",new ActionMessage("job.title.notValid"));
 
-        if(payPerHour.equals(""))
+        if(StringUtils.isBlank(payPerHour))
             ae.add("payPerHour",new ActionMessage("job.required","Pay Per Hour"));
         else if(!payPerHour.matches("^0$|^[1-9]+([\\.]?[0-9]+)?$"))
             ae.add("payPerHour",new ActionMessage("job.payPerHour.notValid"));
 
 
-        if(startDate.equals(""))
-            ae.add("startDate",new ActionMessage("job.required","Start Date"));
-        else {
-            try {
-                startDate1 = Date.valueOf(startDate);
-            } catch (IllegalArgumentException e) {
-                ae.add("startDate", new ActionMessage("job.startDate.notValid"));
-            }
-
-            //Checking startDate Should be either today or after today's date.
-            if(startDate1 != null) {
-                java.util.Date date=new java.util.Date();
-                if(!startDate1.after(date)) {
-                    ae.add("startDate",new ActionMessage("job.startDate.shouldBeGreater"));
-                }
-            }
-        }
-
-
-        if(endDate.equals(""))
-            ae.add("endDate",new ActionMessage("job.required","End Date"));
-        else {
-            try {
-                endDate1 = Date.valueOf(endDate);
-            } catch (IllegalArgumentException e) {
-                ae.add("endDate", new ActionMessage("job.endDate.notValid"));   //Show the format in the placeholder
-            }
-
-            //If start Date is not null and also if end date is not null
-            if(startDate1 != null && endDate1 != null) {
-                if(!endDate1.after(startDate1)){
-                    ae.add("endDate",new ActionMessage("job.endDate.shouldBeGreater"));
-                }
-            }
-        }
-
-        if(startTime.equals(""))
+        if(StringUtils.isBlank(startTime))
             ae.add("startTime",new ActionMessage("job.required","Start Time"));
         else {
             try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");   //Show the format in the placeholder
-                java.util.Date d1 = simpleDateFormat.parse(startTime);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                startTime1 = simpleDateFormat.parse(startTime);
             }
             catch(ParseException p) {
-                ae.add("startTime",new ActionMessage("job.startTime.notValid"));
+                ae.add("startTime",new ActionMessage("job.time.notValid","Start Time"));
             }
         }
 
-        if(endTime.equals(""))
+        if(StringUtils.isBlank(endTime))
             ae.add("endTime",new ActionMessage("job.required","End Time"));
         else {
             try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");   //Show the format in the placeholder
-                java.util.Date d2 = simpleDateFormat.parse(endTime);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+                endTime1 = simpleDateFormat.parse(endTime);
             }
             catch(ParseException p) {
-                ae.add("endTime",new ActionMessage("job.endTime.notValid"));
+                ae.add("endTime",new ActionMessage("job.time.notValid","End Time"));
+            }
+        }
+
+
+        if(StringUtils.isBlank(startDate))
+            ae.add("startDate",new ActionMessage("job.required","Start Date"));
+        if(StringUtils.isBlank(endDate))
+            ae.add("endDate",new ActionMessage("job.required","End Date"));
+
+
+        if(startTime1!=null && endTime1!=null) {
+            //Start Date
+            if(StringUtils.isNotBlank(startDate)) {
+                try {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                    startDate1 = simpleDateFormat.parse(startDate + " " + startTime);
+
+                    //Should be greater than Today's Date
+                    Date currentDate = new Date();
+                    if (startDate1.before(currentDate))
+                        ae.add("startDate", new ActionMessage("job.startDate.shouldBeGreater"));
+                } catch (ParseException e) {
+                    ae.add("startDate", new ActionMessage("job.date.notValid"));
+                }
+            }
+
+            //End Date
+            if(StringUtils.isNotBlank(endDate)) {
+                try {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                    endDate1 = simpleDateFormat.parse(endDate + " " + endTime);
+
+                    //Should be greater than Start Date
+                    if (startDate1 != null) {
+                        if (endDate1.before(startDate1)) {
+                            ae.add("endDate", new ActionMessage("job.endDate.shouldBeGreater"));
+                        }
+                    }
+                } catch (ParseException e) {
+                    ae.add("startDate", new ActionMessage("job.date.notValid"));
+                }
             }
         }
         return ae;

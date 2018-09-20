@@ -79,12 +79,10 @@
 </tr>
 
 
-
 <tr>
 <td><html:hidden property="type"/></td>
 <td><font color="red"><html:errors property="type"/></font></td>
 </tr>
-
 
 
 <c:choose>
