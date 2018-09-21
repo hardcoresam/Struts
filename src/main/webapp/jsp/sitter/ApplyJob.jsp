@@ -8,7 +8,7 @@
 <h1 align="center">Apply To Job</h1>
 <hr><br><br>
 
-<html:form action="sitter/applyJob" method="POST">
+<html:form action="sitter/apply" method="POST">
 
 <table border="0" align="center">
 <tr>
@@ -21,7 +21,7 @@
 <td><html:submit value="Apply"/></td>
 </tr>
 
-<html:hidden property="jobId" value="${param.jobId}"/>
+<html:hidden property="jobId"/>
 
 </table>
 

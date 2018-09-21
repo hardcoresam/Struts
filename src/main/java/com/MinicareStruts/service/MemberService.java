@@ -2,11 +2,11 @@ package com.MinicareStruts.service;
 
 import com.MinicareStruts.dao.ConversationDAO;
 import com.MinicareStruts.dao.MemberDAO;
-import com.MinicareStruts.model.Conversation;
-import com.MinicareStruts.model.Member;
-import com.MinicareStruts.model.Seeker;
-import com.MinicareStruts.model.Sitter;
+import com.MinicareStruts.model.*;
 import com.MinicareStruts.util.PasswordUtil;
+
+import java.sql.Time;
+import java.util.List;
 
 public class MemberService {
 
@@ -75,21 +75,40 @@ public class MemberService {
 
     public int getConversationId(int seekerId, int sitterId) {
         SeekerService seekerService = new SeekerService();
+        SitterService sitterService = new SitterService();
+        Conversation conversation = new Conversation();
+        ConversationDAO conversationDao = new ConversationDAO();
+
         Seeker seeker = seekerService.fetchMember(seekerId);
 
-        SitterService sitterService = new SitterService();
         Sitter sitter = sitterService.fetchMember(sitterId);
 
-        Conversation conversation = new Conversation();
         conversation.setSeeker(seeker);
         conversation.setSitter(sitter);
 
-        ConversationDAO conversationDao = new ConversationDAO();
         return conversationDao.getConversationId(conversation);
     }
 
     public Conversation getConversationById(int conversationId) {
         ConversationDAO conversationDao = new ConversationDAO();
         return conversationDao.getConversationById(conversationId);
+    }
+
+    public void storeMessage(String content, Conversation conversation, Member member) {
+        Message message = new Message();
+        long currentTime = System.currentTimeMillis();
+        Time time = new Time(currentTime);
+        message.setTime(time);
+        message.setContent(content);
+        message.setConversation(conversation);
+        message.setMember(member);
+
+        ConversationDAO conversationDao = new ConversationDAO();
+        conversationDao.storeMessage(message);
+    }
+
+    public List<Message> getMessages(int conversationId) {
+        ConversationDAO conversationDao = new ConversationDAO();
+        return conversationDao.getMessages(conversationId);
     }
 }

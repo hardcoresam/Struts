@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 public class CloseAccountAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Member member = (Member)session.getAttribute("member");
 
         if(member.getType() == Member.MemberType.SEEKER) {

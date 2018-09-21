@@ -12,6 +12,16 @@ import java.util.List;
 import java.util.Set;
 
 public class SitterService {
+
+    public boolean checkForActiveJob(int jobId, int memberId) {
+        JobDAO jobDao = new JobDAO();
+        Job job = jobDao.getJobById(jobId);
+        if(job.getStatus().name().equalsIgnoreCase("active"))
+            return true;
+        else
+            return false;
+    }
+
     public Sitter fetchMember(int sitterId) {
         SitterDAO sitterDao = new SitterDAO();
         return sitterDao.getSitterById(sitterId);
@@ -46,12 +56,16 @@ public class SitterService {
         return list;
     }
 
-    public void deleteApplication(int applicationId) {
+    public boolean deleteApplication(int applicationId, int memberId) {
         JobApplicationDAO jobApplicationDao = new JobApplicationDAO();
         JobApplication jobApplication = jobApplicationDao.getJobApplicationById(applicationId);
-        jobApplication.setStatus(JobApplication.Status.INACTIVE);
 
-        jobApplicationDao.deleteApplication(jobApplication);
+        if(jobApplication!=null && jobApplication.getSitter().getMemberId() == memberId) {
+            jobApplication.setStatus(JobApplication.Status.INACTIVE);
+            jobApplicationDao.deleteApplication(jobApplication);
+            return true;
+        }
+        return false;
     }
 
     public void closeAccount(int sitterId) {
@@ -60,7 +74,7 @@ public class SitterService {
         Set<JobApplication> set = sitter.getSetOfApplications();
 
         for(JobApplication jobApplication : set) {
-            deleteApplication(jobApplication.getApplicationId());
+            deleteApplication(jobApplication.getApplicationId(),sitterId);
         }
 
         sitter.setStatus(Member.Status.INACTIVE);

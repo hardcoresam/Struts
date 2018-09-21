@@ -53,7 +53,7 @@
 <br><br>
 
 <form name="myForm" action="${pageContext.request.contextPath}/member/storeMessage.do" method="POST" onsubmit="return isEmpty()">
-    <input type = "hidden" name="conversationId" value="${conversationId}">
+    <input type = "hidden" name="conversationId" value="${listOfMessages[0].conversation.conversationId}">
     Enter Your Message : <textarea rows="4" cols="50" name="message" placeholder="Enter Your Message Here"></textarea>
     <input type= "submit" value= "Send">
 </form>

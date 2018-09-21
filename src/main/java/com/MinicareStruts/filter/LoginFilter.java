@@ -23,8 +23,6 @@ public class LoginFilter implements Filter {
         HttpSession session = request.getSession(false);
         Member member = (Member)session.getAttribute("member");
         if(member != null) {
-            //request.setAttribute("success","You are already Logged in");  //Put this in Homepage in the starting.
-
             String type = member.getType().name().toLowerCase();
             filterConfig.getServletContext().getRequestDispatcher("/jsp/"+ type +"/HomePage"+ type +".jsp").forward(request,response);
         }

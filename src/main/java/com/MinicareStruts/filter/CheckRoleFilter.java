@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class CheckRoleFilter implements Filter {
-
     private FilterConfig filterConfig;
 
     @Override
@@ -21,8 +20,8 @@ public class CheckRoleFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
-        HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute("member");
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
 
         boolean error = false;
         if(request.getRequestURI().contains("/seeker")) {

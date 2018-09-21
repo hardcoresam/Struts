@@ -26,7 +26,7 @@
 <td>${application.expectedPay}</td>
 
 <form action="${pageContext.request.contextPath}/member/sendMessage.do" method="POST">
-    <input type = "hidden" name = "sitterId" value = "${application.sitter.memberId}" >   <!-- Check if this should be sitterId or memberId only-->
+    <input type = "hidden" name = "sitterId" value = "${application.sitter.memberId}" >
     <td>
         <input type= "submit" value= "Message Him">
     </td>

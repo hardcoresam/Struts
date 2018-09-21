@@ -9,24 +9,18 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class DeleteJobAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int jobId = Integer.parseInt(request.getParameter("jobId"));
+        Member member = (Member)request.getSession().getAttribute("member");
+
         SeekerService seekerService = new SeekerService();
-
-        HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute("member");
-
-        if(!seekerService.deleteJob(jobId,member.getMemberId())) {
-            request.setAttribute("successMsg", "You are not authorized to delete this Job");
+        if(seekerService.checkForValidJobId(jobId,member.getMemberId())) {
+            seekerService.deleteJob(jobId);
+            return mapping.findForward("success");
         }
-        else {
-            request.setAttribute("successMsg", "Job Was Deleted Successfully");
-        }
-
-        return mapping.findForward("jobDeleted");
+        return mapping.findForward("wrongJobId");
     }
 }

@@ -10,7 +10,6 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class LoginAction extends Action {
     @Override
@@ -27,8 +26,7 @@ public class LoginAction extends Action {
         //So ask and check here also.
 
         if(member != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("member",member);
+            request.getSession().setAttribute("member",member);
 
             type=(member.getType().name().equalsIgnoreCase("seeker"))?"seeker":"sitter";
             return mapping.findForward(type);

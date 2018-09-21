@@ -12,7 +12,7 @@
 <br>
 
 <div align="center">
-<a href="/jsp/visitor/Login.jsp">Home/Login</a>
+<a href="../jsp/visitor/Login.jsp">Home/Login</a>
 </div>
 
 </body>

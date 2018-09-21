@@ -10,7 +10,6 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class RegistrationAction extends Action {
     @Override
@@ -37,8 +36,7 @@ public class RegistrationAction extends Action {
                 noOfChildren, registrationForm.getSpouseName(), experience, expectedPay,
                 registrationForm.getPassword(), registrationForm.getType());
 
-        HttpSession session = request.getSession();
-        session.setAttribute("member",member);
+        request.getSession().setAttribute("member",member);
 
         if(registrationForm.getType().equalsIgnoreCase("seeker"))
             return mapping.findForward("seeker");

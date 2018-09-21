@@ -11,7 +11,7 @@
 <font color="red"><div align="center">${errorType}</div></font>
 <br>
 
-<form action="${pageContext.request.contextPath}/jsp/visitor/register.do" method="POST">
+<form action="${pageContext.request.contextPath}/visitor/register.do" method="POST">
 <div align="center"><input type = "submit" name="type" value="seeker"></div>
 <br><br><br>
 <div align="center"><input type = "submit" name="type" value="sitter"></div>

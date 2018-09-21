@@ -8,6 +8,13 @@
 <h1 align="center">Welcome ${sessionScope.member.firstName}</h1>
 <hr><br><br>
 
+
+<c:if test = "${param.editProfile eq 'true'}">
+    <div align="center">Your Profile was Updated Successfully</div>
+</c:if>
+<br>
+
+
 <div align="center">${requestScope.success}</div>
 <br><br>
 

@@ -12,8 +12,13 @@
 <br>
 
 
-<c:if test = "${param.success eq 'true'}">
+<c:if test = "${param.jobPosted eq 'true'}">
     <div align="center">Job Was Posted Successfully</div>
+</c:if>
+<br>
+
+<c:if test = "${param.editProfile eq 'true'}">
+    <div align="center">Your Profile was Updated Successfully</div>
 </c:if>
 <br>
 

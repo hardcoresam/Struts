@@ -1,6 +1,7 @@
 package com.MinicareStruts.action.member;
 
 import com.MinicareStruts.model.Message;
+import com.MinicareStruts.service.MemberService;
 import com.MinicareStruts.service.SeekerService;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -14,14 +15,12 @@ import java.util.List;
 public class GetMessagesAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        int conversationId = (Integer)request.getAttribute("conversationId");
+        Integer conversationId = (Integer)request.getAttribute("conversationId");
+        if(conversationId == null)
+            conversationId=Integer.parseInt(request.getParameter("id"));
 
-        SeekerService seekerService = new SeekerService();
-        List<Message> list = seekerService.getMessages(conversationId);
-
-        if(list.isEmpty()) {
-            request.setAttribute("conversationId",conversationId);
-        }
+        MemberService memberService = new MemberService();
+        List<Message> list = memberService.getMessages(conversationId);
 
         request.setAttribute("listOfMessages",list);
         return mapping.findForward("listOfMessages");

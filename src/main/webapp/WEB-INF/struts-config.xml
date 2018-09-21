@@ -24,19 +24,23 @@
 
     <action-mappings>
 
+        <!-- Globally Used by Some Pages below -->
+        <action path="/seeker/home" forward="/jsp/seeker/HomePageseeker.jsp"/>
+        <action path="/sitter/home" forward="/jsp/sitter/HomePagesitter.jsp"/>
+
         <!-- From here /jsp/visitor jsp's started -->
         <!-- Registration.jsp -->
         <action path="/visitor/registration" name="Registration" validate="true" input="/jsp/visitor/Registration.jsp"
                 scope="request" type="com.MinicareStruts.action.visitor.RegistrationAction">
-            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp" redirect="true"/>
-            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp" redirect="true"/>
+            <forward name="seeker" path="/seeker/home.do" redirect="true"/>
+            <forward name="sitter" path="/sitter/home.do" redirect="true"/>
         </action>
 
         <!-- Login.jsp -->
         <action path="/visitor/login" name="Login" validate="true" input="/jsp/visitor/Login.jsp"
                 scope="request" type="com.MinicareStruts.action.visitor.LoginAction">
-            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp" redirect="true"/>
-            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp" redirect="true"/>
+            <forward name="seeker" path="/seeker/home.do" redirect="true"/>
+            <forward name="sitter" path="/sitter/home.do" redirect="true"/>
             <forward name="error" path="/jsp/visitor/Login.jsp"/>
         </action>
 
@@ -44,7 +48,7 @@
         <action path="/visitor/choice" forward="/jsp/visitor/Choice.jsp"/>
 
         <!-- Choice.jsp -->
-        <action path="/jsp/visitor/register" name="Registration" validate="false" scope="request"
+        <action path="/visitor/register" name="Registration" validate="false" scope="request"
                 type="com.MinicareStruts.action.visitor.GetMemberTypeAction">
             <forward name="success" path="/jsp/visitor/Registration.jsp"/>
             <forward name="failure" path="/jsp/visitor/Choice.jsp"/>
@@ -54,7 +58,8 @@
         <!-- ListApplications.jsp -->
         <action path="/sitter/deleteApplication" type="com.MinicareStruts.action.sitter.DeleteApplicationAction"
                 validate="false">
-            <forward name="listApplications" path="/sitter/listApplication.do"/>
+            <forward name="success" path="/sitter/listApplication.do?delete=true" redirect="true"/>
+            <forward name="failure" path="/sitter/listApplication.do?delete=false" redirect="true"/>
         </action>
         <action path="/member/sendMessage" type="com.MinicareStruts.action.member.SendMessageAction" validate="false">
             <forward name="getMessages" path="/member/getMessages.do"/>
@@ -72,16 +77,21 @@
 
         <!-- member/ListOfMessages.jsp -->
         <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
-            <forward name="getMessages" path="/member/getMessages.do"/>
+            <forward name="getMessages" path="/member/getMessages.do?id=*"/>
         </action>
 
         <!-- ListActiveJobs.jsp -->
-        <action path="/jsp/sitter/applyJob" forward="/jsp/sitter/ApplyJob.jsp"/>
+        <action path="/sitter/applyJob" name="ApplyJob" validate="false" scope="request"
+                type="com.MinicareStruts.action.sitter.GetJobAction">
+            <forward name="success" path="/jsp/sitter/ApplyJob.jsp"/>
+            <forward name="failure" path="/sitter/listActiveJobs.do?jobNotValid=true" redirect="true"/>
+        </action>
 
         <!-- ApplyJob.jsp -->
-        <action path="/sitter/applyJob" name="ApplyJob" validate="true" input="/jsp/sitter/ApplyJob.jsp"
+        <action path="/sitter/apply" name="ApplyJob" validate="true" input="/jsp/sitter/ApplyJob.jsp"
                 scope="request" type="com.MinicareStruts.action.sitter.ApplyJobAction">
-            <forward name="listApplications" path="/sitter/listApplication.do"/>
+            <forward name="success" path="/sitter/listApplication.do?apply=true" redirect="true"/>
+            <forward name="failure" path="/sitter/listActiveJobs.do?jobNotValid=true" redirect="true"/>
         </action>
 
         <!-- HomePagesitter.jsp -->
@@ -90,12 +100,14 @@
             <forward name="listOfActiveJobs" path="/jsp/sitter/ListActiveJobs.jsp"/>
         </action>
         <action path="/member/logOut" type="com.MinicareStruts.action.member.LogOutAction" validate="false">
-            <forward name="loggedOut" path="/jsp/visitor/Login.jsp"/>
+            <forward name="loggedOut" path="/visitor/loggedout.do?logout=true" redirect="true"/>
         </action>
         <action path="member/closeAccount" type="com.MinicareStruts.action.member.CloseAccountAction" validate="false">
-            <forward name="closedAccount" path="/jsp/visitor/Login.jsp"/>
+            <forward name="closedAccount" path="/visitor/close.do?close=true" redirect="true"/>
         </action>
 
+        <action path="/visitor/loggedout" forward="/jsp/visitor/Login.jsp"/>
+        <action path="/visitor/close" forward="/jsp/visitor/Login.jsp"/>
 
         <!-- From here /jsp/seeker jsp's started -->
         <!-- PostJob.jsp -->
@@ -104,9 +116,7 @@
 
         <action path="/seeker/postJobAction" name="PostJob" validate="true" input="/jsp/seeker/PostJob.jsp"
                 scope="request" type="com.MinicareStruts.action.seeker.PostJobAction">
-
-            <forward name="jobPosted" path="/seeker/jobPosted.do?success=true" redirect="true"/>
-
+            <forward name="jobPosted" path="/seeker/jobPosted.do?jobPosted=true" redirect="true"/>
         </action>
 
         <!-- ListJobs.jsp -->
@@ -114,9 +124,11 @@
                 validate="false">
             <forward name="noApplications" path="/seeker/listJobs.do"/>
             <forward name="listOfApplications" path="/jsp/seeker/ListApplicationSeeker.jsp"/>
+            <forward name="wrongJobId" path="/seeker/listJobs.do?wrongJobId=true" redirect="true"/>
         </action>
         <action path="/seeker/deleteJob" type="com.MinicareStruts.action.seeker.DeleteJobAction" validate="false">
-            <forward name="jobDeleted" path="/seeker/listJobs.do"/>
+            <forward name="success" path="/seeker/listJobs.do?delete=true" redirect="true"/>
+            <forward name="wrongJobId" path="/seeker/listJobs.do?wrongJobId=true" redirect="true"/>
         </action>
         
         <!-- This is for the above Code Forward Path -->
@@ -129,7 +141,7 @@
         <!-- Inside this jsp There is only action=/member/sendMessage.do and for this the mapping is
              already done in sitter/ListApplications.jsp -->
 
-        <!-- HomePageseeker.jsp (Inside This There is still EditProfile button left)-->
+        <!-- HomePageseeker.jsp-->
         <action path="/seeker/postJob" forward="/jsp/seeker/PostJob.jsp"/>
 
         <!-- Header.jsp inside seeker folder -->
@@ -144,20 +156,22 @@
         <!-- member/EditProfile.jsp -->
         <action path="/member/editProfile" name="Registration" validate="true" input="/jsp/member/EditProfile.jsp"
                 scope="request" type="com.MinicareStruts.action.member.EditProfileAction">
-            <forward name="seeker" path="/jsp/seeker/HomePageseeker.jsp"/>
-            <forward name="sitter" path="/jsp/sitter/HomePagesitter.jsp"/>
+            <forward name="seeker" path="/seeker/home.do?editProfile=true" redirect="true"/>
+            <forward name="sitter" path="/sitter/home.do?editProfile=true" redirect="true"/>
         </action>
 
         <!-- ListJobs.jsp -->
         <action path="/seeker/editJob" name="PostJob" validate="false" scope="request"
                 type="com.MinicareStruts.action.seeker.GetJobInfoAction">
             <forward name="success" path="/jsp/seeker/EditJob.jsp"/>
+            <forward name="wrongJobId" path="/seeker/listJobs.do?wrongJobId=true" redirect="true"/>
         </action>
 
         <!-- seeker/EditJob.jsp -->
         <action path="/seeker/alterJob" name="PostJob" validate="true" input="/jsp/seeker/EditJob.jsp"
                 scope="request" type="com.MinicareStruts.action.seeker.EditJobAction">
-            <forward name="successMsg" path="/seeker/listJobs.do" />
+            <forward name="success" path="/seeker/listJobs.do?editJob=true" redirect="true"/>
+            <forward name="failure" path="/seeker/listJobs.do?wrongJobId=true" redirect="true"/>
         </action>
 
 

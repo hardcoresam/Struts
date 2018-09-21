@@ -26,7 +26,7 @@ public class Member {
         this.address = address;
         this.password = password;
         this.type=type;
-        this.status = Status.ACTIVE;    //Is this correct? Think while retrieving rows from database.
+        this.status = Status.ACTIVE;
     }
 
     public Member(String firstName, String lastName, String phoneNumber, String address, MemberType type) {

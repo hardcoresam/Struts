@@ -8,6 +8,21 @@
 <h1 align="center">List Of Jobs</h1>
 <hr><br><br>
 
+<c:if test = "${param.editJob eq 'true'}">
+    <div align="center">Job Was Edited Successfully</div>
+</c:if>
+<br>
+
+<c:if test = "${param.wrongJobId eq 'true'}">
+    <div align="center">You are not authorized to do this Operation</div>
+</c:if>
+<br>
+
+<c:if test = "${param.delete eq 'true'}">
+    <div align="center">Job was Deleted Successfully</div>
+</c:if>
+<br>
+
 <div align="center"><b>${successMsg}</b></div>
 <br>
 

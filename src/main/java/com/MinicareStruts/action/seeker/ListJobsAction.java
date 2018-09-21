@@ -10,14 +10,12 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ListJobsAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute("member");
 
         SeekerService seekerService = new SeekerService();
         List<Job> list = seekerService.listJobs(member.getMemberId());

@@ -10,6 +10,18 @@
 <h3 align="center">Login Here</h3>
 <br>
 
+<c:if test = "${param.logout eq 'true'}">
+    <div align="center">You Have Successfully Logged Out.</div>
+</c:if>
+<br>
+
+
+<c:if test = "${param.close eq 'true'}">
+    <div align="center">You have successfully closed your Account</div>
+</c:if>
+<br>
+
+
 <html:form action="visitor/login" method="POST">
 
 <table border="0" align="center">

@@ -8,6 +8,22 @@
 <h1 align="center">List Of Applications</h1>
 <hr><br><br>
 
+<c:if test = "${param.apply eq 'true'}">
+    <div align="center">You have applied for the job Successfully</div>
+</c:if>
+<br>
+
+<c:if test = "${param.delete eq 'true'}">
+    <div align="center">Application was deleted Successfully</div>
+</c:if>
+<br>
+
+<c:if test = "${param.delete eq 'false'}">
+    <div align="center">You are not authorized to delete this Application</div>
+</c:if>
+<br>
+
+
 <div align="center">${requestScope.success}</div>
 <br>
 

@@ -1,6 +1,7 @@
 package com.MinicareStruts.action.seeker;
 
 import com.MinicareStruts.model.JobApplication;
+import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SeekerService;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -16,14 +17,19 @@ public class ListApplicationsAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int jobId = Integer.parseInt(request.getParameter("jobId"));
         SeekerService seekerService = new SeekerService();
-        List<JobApplication> list = seekerService.listApplications(jobId);
-        if(list.isEmpty()) {
-            request.setAttribute("successMsg","There are no applications for this job yet.");
-            return mapping.findForward("noApplications");
+        Member member = (Member)request.getSession().getAttribute("member");
+
+        if(seekerService.checkForValidJobId(jobId,member.getMemberId())) {
+            List<JobApplication> list = seekerService.listApplications(jobId);
+            if(list.isEmpty()) {
+                request.setAttribute("successMsg","There are no applications for this job yet.");
+                return mapping.findForward("noApplications");
+            }
+            else {
+                request.setAttribute("listOfApplications",list);
+                return mapping.findForward("listOfApplications");
+            }
         }
-        else {
-            request.setAttribute("listOfApplications",list);
-            return mapping.findForward("listOfApplications");
-        }
+        return mapping.findForward("wrongJobId");
     }
 }

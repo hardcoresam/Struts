@@ -24,6 +24,7 @@ public class HibernateSessionFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         try {
             session = SessionFactoryListener.getSessionFactory().openSession();
+            session.beginTransaction();
         }
         catch(HibernateException he) {
             logger.log(Level.SEVERE,"Cannot create a Session"+he);
@@ -35,16 +36,16 @@ public class HibernateSessionFilter implements Filter {
         }
         catch(Exception he) {
             logger.log(Level.SEVERE,"Exception occurred in the Filter Chain"+he);
-            //session.getTransaction().rollback();
+            session.getTransaction().rollback();
         }
 
         try {
-            //if(!session.getTransaction().wasCommitted())
-            //   session.getTransaction().commit();
+            if(!session.getTransaction().wasCommitted())
+                session.getTransaction().commit();
             session.close();
         }
         catch(HibernateException he) {
-            logger.log(Level.SEVERE,"Cannot close the Session"+he);
+            logger.log(Level.SEVERE,"Cannot commit or close the Session"+he);
         }
     }
 

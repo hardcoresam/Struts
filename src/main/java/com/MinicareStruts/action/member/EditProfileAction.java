@@ -13,24 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class EditProfileAction extends Action {
+    private Double experience;
+    private Double expectedPay;
+    private Integer noOfChildren;
+
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         RegistrationForm registrationForm = (RegistrationForm) form;
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute("member");
 
-        Double experience,expectedPay;
-        Integer noOfChildren;
         if(member.getType().name().equalsIgnoreCase("seeker")) {
-            experience = null;
-            expectedPay = null;
             noOfChildren = Integer.parseInt(registrationForm.getNoOfChildren());
         }
         else {
             experience = Double.parseDouble(registrationForm.getExperience());
             expectedPay = Double.parseDouble(registrationForm.getExpectedPay());
-            noOfChildren = null;
         }
 
         MemberService memberService = new MemberService();
@@ -42,8 +41,6 @@ public class EditProfileAction extends Action {
         session.invalidate();
         HttpSession updatedSession = request.getSession();
         updatedSession.setAttribute("member",updatedMember);
-
-        request.setAttribute("success","Your Profile Was Updated Successfully");
 
         return mapping.findForward(member.getType().name().toLowerCase());
     }

@@ -8,6 +8,11 @@
 <h1 align="center">List Of Active Jobs</h1>
 <hr><br><br>
 
+<c:if test = "${param.jobNotValid eq 'true'}">
+    <div align="center">You are not authorized to apply for this Job</div>
+</c:if>
+<br>
+
 <table border="1" align="center">
 
 <tr>
@@ -31,7 +36,7 @@
 <td>${job.startTime}</td>
 <td>${job.endTime}</td>
 
-<form action="${pageContext.request.contextPath}/jsp/sitter/applyJob.do" method="POST">
+<form action="${pageContext.request.contextPath}/sitter/applyJob.do" method="POST">
     <input type = "hidden" name = "jobId" value = "${job.jobId}" >
     <td>
         <input type= "submit" value= "Apply">

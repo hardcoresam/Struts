@@ -12,7 +12,7 @@ public class ApplyJobForm extends ActionForm{
     private String expectedPay;
 
     //See why this is required.
-    private String jobId;
+    private int jobId;
 
     public ApplyJobForm() {}
 
@@ -24,14 +24,12 @@ public class ApplyJobForm extends ActionForm{
         this.expectedPay = expectedPay;
     }
 
-    public String getJobId() { return jobId; }
+    public int getJobId() { return jobId; }
 
-    public void setJobId(String jobId) { this.jobId = jobId; }
+    public void setJobId(int jobId) { this.jobId = jobId; }
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        jobId = request.getParameter("jobId");
-
         ActionErrors ae = new ActionErrors();
 
         if(StringUtils.isBlank(expectedPay))
