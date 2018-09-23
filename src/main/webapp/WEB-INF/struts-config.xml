@@ -75,9 +75,9 @@
             <forward name="listOfMessages" path="/jsp/member/ListOfMessages.jsp"/>
         </action>
 
-        <!-- member/ListOfMessages.jsp -->
+        <!-- member/ListOfMessages.jsp (Wrote redirect inside StoreMesssageAction only) -->
         <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
-            <forward name="getMessages" path="/member/getMessages.do?id=*"/>
+            <forward name="getMessages" path="/member/getMessages.do?conversationId=*"/>
         </action>
 
         <!-- ListActiveJobs.jsp -->
@@ -173,6 +173,18 @@
             <forward name="success" path="/seeker/listJobs.do?editJob=true" redirect="true"/>
             <forward name="failure" path="/seeker/listJobs.do?wrongJobId=true" redirect="true"/>
         </action>
+
+
+
+
+        <action path="/member/messages" type="com.MinicareStruts.action.member.UserMessagesAction" validate="false">
+            <forward name="success" path="/jsp/member/UserMessages.jsp"/>
+        </action>
+
+        <action path="/member/newConversation" type="com.MinicareStruts.action.member.NewConversationAction" validate="false">
+            <forward name="success" path="/jsp/member/NewConversation.jsp"/>
+        </action>
+
 
 
     </action-mappings>

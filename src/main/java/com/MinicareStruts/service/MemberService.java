@@ -22,13 +22,17 @@ public class MemberService {
                                 String type) {
         MemberDAO memberDao = new MemberDAO();
         if(type.equalsIgnoreCase("seeker")) {
-            Seeker seeker = new Seeker(firstName, lastName, email, phoneNumber, address, PasswordUtil.getHashedPassword(password),
+
+            //Write PasswordUtil.getHashedPassword(password) in the end.
+            Seeker seeker = new Seeker(firstName, lastName, email, phoneNumber, address, password,
                     noOfChildren, spouseName);
             seeker.setMemberId(memberDao.registerUser(seeker));
             return seeker;
         }
         else {
-            Sitter sitter = new Sitter(firstName, lastName, email, phoneNumber, address, PasswordUtil.getHashedPassword(password),
+
+            //Write PasswordUtil.getHashedPassword(password) in the end.
+            Sitter sitter = new Sitter(firstName, lastName, email, phoneNumber, address, password,
                     experience, expectedPay);
             sitter.setMemberId(memberDao.registerUser(sitter));
             return sitter;
@@ -85,7 +89,6 @@ public class MemberService {
 
         conversation.setSeeker(seeker);
         conversation.setSitter(sitter);
-
         return conversationDao.getConversationId(conversation);
     }
 
@@ -111,4 +114,15 @@ public class MemberService {
         ConversationDAO conversationDao = new ConversationDAO();
         return conversationDao.getMessages(conversationId);
     }
+
+    public List<Conversation> getUserNames(int memberId, String type) {
+        ConversationDAO conversationDao = new ConversationDAO();
+        return conversationDao.getUserNames(memberId,type);
+    }
+
+    public List<Member> getNewConversation(int memberId, String type) {
+        ConversationDAO conversationDao = new ConversationDAO();
+        return conversationDao.getNewConversation(memberId,type);
+    }
+
 }

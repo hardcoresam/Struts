@@ -28,7 +28,6 @@ public class HibernateSessionFilter implements Filter {
         }
         catch(HibernateException he) {
             logger.log(Level.SEVERE,"Cannot create a Session"+he);
-            he.printStackTrace();
         }
 
         try {
@@ -40,8 +39,7 @@ public class HibernateSessionFilter implements Filter {
         }
 
         try {
-            if(!session.getTransaction().wasCommitted())
-                session.getTransaction().commit();
+            session.getTransaction().commit();
             session.close();
         }
         catch(HibernateException he) {

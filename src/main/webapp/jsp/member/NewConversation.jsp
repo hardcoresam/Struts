@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,30 +17,37 @@
 
 <div class="container">
   <div class="jumbotron">
-    <h1 align="center">Welcome</h1>
-    <h3 align="center">Choose your Type</h1>
+    <h1 align="center">Messaging</h1>
   </div>
 </div>
 
-<form action="${pageContext.request.contextPath}/visitor/register.do" method="POST">
-
 <div class="container">
-<div class="row">
-<div class="col-xs-4 col-xs-offset-4">
+<table class="table table-striped" align="center">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${requestScope.newConversation}" var="member">
+    <tr>
+        <td>${member.firstName}</td>
+        <td>${member.email}</td>
+        <td>${member.phoneNumber}</td>
 
-<br><br>
-<font color="red"><div align="center">${errorType}</div></font>
-<br><br>
+    <form action="${pageContext.request.contextPath}/member/sendMessage.do" method="POST">
+        <input type = "hidden" name = "memberId" value = "${member.memberId}">
+        <td><input type= "submit" value= "Message Him"></td>
+    </form>
 
-<div align="center"><input type = "submit" name="type" value="seeker" class="btn btn-default"></div>
-<br><br><br><br>
-
-<div align="center"><input type = "submit" name="type" value="sitter" class="btn btn-default"></div>
-
+    </tr>
+    </c:forEach>
+    </tbody>
+</table>
 </div>
-</div>
-</div>
 
-</form>
 </body>
 </html>

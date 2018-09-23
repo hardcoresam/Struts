@@ -3,56 +3,60 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 <body>
-<h1 align="center">Welcome</h1>
-<hr><br><br>
-<h3 align="center">Login Here</h3>
-<br>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 align="center">Welcome</h1>
+    <h3 align="center">Login Here</h3>
+  </div>
+</div>
 
 <c:if test = "${param.logout eq 'true'}">
-    <div align="center">You Have Successfully Logged Out.</div>
+    <div class="alert alert-success" align="center">You Have Successfully Logged Out.</div>
 </c:if>
-<br>
-
 
 <c:if test = "${param.close eq 'true'}">
-    <div align="center">You have successfully closed your Account</div>
+    <div class="alert alert-success" align="center">You have successfully closed your Account</div>
 </c:if>
-<br>
-
 
 <html:form action="visitor/login" method="POST">
 
-<table border="0" align="center">
+<div class="container">
+<div class="row">
+<div class="col-xs-5 col-xs-offset-4">
 
-<tr>
-<td><font color="red"><c:out value='${loginError1}'/></font></td>   <!-- Check this. This is there in LoginFilter. -->
-</tr>
+  <font color="red">${loginError1}</font>
+  <font color="red">${loginError}</font>
 
-<tr>
-<td><font color="red"><c:out value='${loginError}'/></font></td>
-</tr>
+  <div class="form-group">
+    <label>Email:</label>
+	<html:text property="email" styleClass="form-control"/>
+	<font color="red"><html:errors property="email"/></font>
+  </div>
+  <div class="form-group">
+    <label>Password:</label>
+	<html:password property="password" styleClass="form-control"/>
+	<font color="red"><html:errors property="password"/></font>
+  </div>
 
-<tr>
-<td>Enter Email:*</td>
-<td><html:text property="email"/></td>
-<td><font color="red"><html:errors property="email"/></font></td>
-</tr>
+  <html:submit value="Login" styleClass="btn btn-default"/>
+  <br><br><br>
 
-<tr>
-<td>Enter Password:*</td>
-<td><html:password property="password"/></td>
-<td><font color="red"><html:errors property="password"/></font></td>
-</tr>
-
-<tr>
-<td><html:submit value="Login"/></td>
-</tr>
+</div>
+</div>
+</div>
 
 </html:form>
-</table>
-<br><br>
 
 <div align = "center">New User ?</div>
 <div align = "center"><html:link action="visitor/choice">Register</html:link></div>

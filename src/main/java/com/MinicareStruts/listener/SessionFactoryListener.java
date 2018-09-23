@@ -25,7 +25,7 @@ public class SessionFactoryListener implements ServletContextListener {
             serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         }
-        catch(HibernateException he) {
+        catch(Exception he) {
             logger.log(Level.SEVERE,"Cannot create a Session Factory"+he);
         }
     }

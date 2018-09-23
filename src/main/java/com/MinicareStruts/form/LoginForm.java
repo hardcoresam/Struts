@@ -9,7 +9,6 @@ import org.apache.struts.action.ActionMessage;
 import javax.servlet.http.HttpServletRequest;
 
 public class LoginForm extends ActionForm{
-
     private String email;
     private String password;
 
@@ -35,13 +34,11 @@ public class LoginForm extends ActionForm{
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors ae = new ActionErrors();
 
-        //EMAIL
         if(StringUtils.isBlank(email))
             ae.add("email",new ActionMessage("member.required","Email"));
         else if(!email.matches("^[a-zA-Z0-9]{1}([a-zA-Z0-9.-_*]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]{1}([a-zA-Z0-9.-_*]*[a-zA-Z0-9]+)*$"))
             ae.add("email",new ActionMessage("member.email.notValid"));
 
-        //PASSWORD
         if(StringUtils.isBlank(password))
             ae.add("password",new ActionMessage("member.required","Password"));
 

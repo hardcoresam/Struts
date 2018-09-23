@@ -18,11 +18,11 @@ public class SendMessageAction extends Action {
         int seekerId,sitterId;
         if(member.getType().name().equalsIgnoreCase("seeker")) {
             seekerId = member.getMemberId();
-            sitterId = Integer.parseInt(request.getParameter("sitterId"));
+            sitterId = Integer.parseInt(request.getParameter("memberId"));
         }
         else {
             sitterId = member.getMemberId();
-            seekerId = Integer.parseInt(request.getParameter("seekerId"));
+            seekerId = Integer.parseInt(request.getParameter("memberId"));
         }
 
         MemberService memberService = new MemberService();

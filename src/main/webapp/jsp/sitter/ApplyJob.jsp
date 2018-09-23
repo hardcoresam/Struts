@@ -3,28 +3,40 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 <body>
-<h1 align="center">Apply To Job</h1>
-<hr><br><br>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 align="center">Apply to Job</h1>
+  </div>
+</div>
 
 <html:form action="sitter/apply" method="POST">
+<div class="container">
+<div class="row">
+<div class="col-xs-5 col-xs-offset-4">
 
-<table border="0" align="center">
-<tr>
-<td>Enter Expected Pay*:</td>
-<td><html:text property="expectedPay"/></td>
-<td><font color="red"><html:errors property="expectedPay"/></font></td>
-</tr>
+  <div class="form-group">
+    <label>Expected Pay:</label>
+	<html:text property="expectedPay" styleClass="form-control"/>
+	<font color="red"><html:errors property="expectedPay"/></font>
+  </div>
 
-<tr>
-<td><html:submit value="Apply"/></td>
-</tr>
+    <html:submit value="Apply" styleClass="btn btn-default"/>
+    <html:hidden property="jobId"/>
 
-<html:hidden property="jobId"/>
-
-</table>
-
+</div>
+</div>
+</div>
 </html:form>
 
 </body>

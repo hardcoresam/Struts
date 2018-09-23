@@ -3,74 +3,82 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 <body>
-<h1 align="center">List Of Jobs</h1>
-<hr><br><br>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 align="center">List Of Jobs</h1>
+  </div>
+</div>
 
 <c:if test = "${param.editJob eq 'true'}">
-    <div align="center">Job Was Edited Successfully</div>
+    <div class="alert alert-success" align="center">Job Was Edited Successfully</div>
 </c:if>
-<br>
 
 <c:if test = "${param.wrongJobId eq 'true'}">
-    <div align="center">You are not authorized to do this Operation</div>
+    <div class="alert alert-danger" align="center">You are not authorized to do this Operation</div>
 </c:if>
-<br>
 
 <c:if test = "${param.delete eq 'true'}">
-    <div align="center">Job was Deleted Successfully</div>
+    <div class="alert alert-success" align="center">Job was Deleted Successfully</div>
 </c:if>
-<br>
 
 <div align="center"><b>${successMsg}</b></div>
 <br>
 
-<table border="1" align="center">
+<div class="container">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Edit Job</th>
+        <th>List Applications</th>
+        <th>Close Job</th>
+      </tr>
+      </thead>
 
-<tr>
-<th>Title</th>
-<th>Start Time</th>
-<th>End Time</th>
-<th>Start Date</th>
-<th>End Date</th>
-<th>Edit Job</th>
-<th>List Applications</th>
-<th>Close Job</th>
-</tr>
+    <tbody>
+    <c:forEach items="${requestScope.listOfJobs}" var="job">
+    <tr>
+        <td>${job.title}</td>
+        <td>${job.startTime}</td>
+        <td>${job.endTime}</td>
+        <td>${job.startDate}</td>
+        <td>${job.endDate}</td>
 
-<c:forEach items="${requestScope.listOfJobs}" var="job">
+        <form action="${pageContext.request.contextPath}/seeker/editJob.do" method="POST">
+            <input type = "hidden" name = "jobId" value = "${job.jobId}" >
+            <td><input type= "submit" value= "Edit"></td>
+        </form>
 
-<tr>
+        <form action="${pageContext.request.contextPath}/seeker/listApplications.do" method="POST">
+            <input type = "hidden" name = "jobId" value = "${job.jobId}">
+            <td><input type= "submit" value= "List Applications"></td>
+        </form>
 
-<td>${job.title}</td>
-<td>${job.startTime}</td>
-<td>${job.endTime}</td>
-<td>${job.startDate}</td>
-<td>${job.endDate}</td>
-
-<form action="${pageContext.request.contextPath}/seeker/editJob.do" method="POST">
-    <input type = "hidden" name = "jobId" value = "${job.jobId}" >
-    <td>
-        <input type= "submit" value= "Edit">
-    </td>
-</form>
-
-<form action="${pageContext.request.contextPath}/seeker/listApplications.do" method="POST">
-<input type = "hidden" name = "jobId" value = "${job.jobId}">
-<td><input type= "submit" value= "List Applications"></td>
-</form>
-
-<form action="${pageContext.request.contextPath}/seeker/deleteJob.do" method="POST"
-      onsubmit="return confirm('Do you really want to delete the Job?');">
-<input type = "hidden" name = "jobId" value = "${job.jobId}">
-<td><input type= "submit" value= "Delete"></td>
-</form>
-
-</tr>
-
-</c:forEach>
-
+        <form action="${pageContext.request.contextPath}/seeker/deleteJob.do" method="POST"
+            onsubmit="return confirm('Do you really want to delete the Job?');">
+            <input type = "hidden" name = "jobId" value = "${job.jobId}">
+            <td><input type= "submit" value= "Delete"></td>
+        </form>
+    </tr>
+    </c:forEach>
+    </tbody>
 </table>
+</div>
+
 </body>
 </html>

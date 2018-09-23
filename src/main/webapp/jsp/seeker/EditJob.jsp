@@ -3,60 +3,66 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
 <body>
-<h1 align="center">Edit Your Job Here</h1>
-<hr><br><br>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 align="center">Edit Your Job Here</h1>
+  </div>
+</div>
 
 <html:form action="seeker/alterJob" method="POST">
+<div class="container">
+<div class="row">
+<div class="col-xs-5 col-xs-offset-4">
 
-<table border="0" align="center">
-<tr>
-<td>Enter Title:*</td>
-<td><html:text property="title"/></td>
-<td><font color="red"><html:errors property="title"/></font></td>
-</tr>
+  <div class="form-group">
+    <label>Title:</label>
+	<html:text property="title" styleClass="form-control"/>
+	<font color="red"><html:errors property="title"/></font>
+  </div>
+  <div class="form-group">
+    <label>Pay Per Hour:</label>
+  	<html:text property="payPerHour" styleClass="form-control"/>
+  	<font color="red"><html:errors property="payPerHour"/></font>
+  </div>
+  <div class="form-group">
+    <label>Start Time:</label>
+  	<input type="time" name="startTime" value="${PostJob.startTime}" class="form-control">
+  	<font color="red"><html:errors property="startTime"/></font>
+  </div>
+  <div class="form-group">
+    <label>End Time:</label>
+    <input type="time" name="endTime" value="${PostJob.endTime}" class="form-control">
+  	<font color="red"><html:errors property="endTime"/></font>
+  </div>
+  <div class="form-group">
+    <label>Start Date:</label>
+    <input type="date" name="startDate" value="${PostJob.startDate}" class="form-control">
+    <font color="red"><html:errors property="startDate"/></font>
+  </div>
+  <div class="form-group">
+    <label>End Date:</label>
+    <input type="date" name="endDate" value="${PostJob.endDate}" class="form-control">
+    <font color="red"><html:errors property="endDate"/></font>
+  </div>
 
-<tr>
-<td>Enter Pay Per Hour:*</td>
-<td><html:text property="payPerHour"/></td>
-<td><font color="red"><html:errors property="payPerHour"/></font></td>
-</tr>
+    <html:submit value="Edit Job" styleClass="btn btn-default"/>
+    <html:hidden property="jobId"/>
 
-<tr>
-<td>Enter Start Time:*</td>
-<td><input type="time" name="startTime" value="<bean:write name="PostJob" property="startTime"/>"></td>
-<td><font color="red"><html:errors property="startTime"/></font></td>
-</tr>
-
-<tr>
-<td>Enter End Time:*</td>
-<td><input type="time" name="endTime" value="<bean:write name="PostJob" property="endTime"/>"></td>
-<td><font color="red"><html:errors property="endTime"/></font></td>
-</tr>
-
-<tr>
-<td>Enter Start Date:*</td>
-<td><input type="date" name="startDate" value="<bean:write name="PostJob" property="startDate"/>"></td>
-<td><font color="red"><html:errors property="startDate"/></font></td>
-</tr>
-
-<tr>
-<td>Enter End Date:*</td>
-<td><input type="date" name="endDate" value="<bean:write name="PostJob" property="endDate"/>"></td>
-<td><font color="red"><html:errors property="endDate"/></font></td>
-</tr>
-
-<tr>
-<td><html:submit value="Edit Job"/></td>
-</tr>
-
-
-<html:hidden property="jobId"/>
-
-
-</table>
-
+</div>
+</div>
+</div>
 </html:form>
+
 </body>
 </html>

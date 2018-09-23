@@ -24,6 +24,7 @@ public class LoginFilter implements Filter {
         Member member = (Member)session.getAttribute("member");
         if(member != null) {
             String type = member.getType().name().toLowerCase();
+            //Redirect this.
             filterConfig.getServletContext().getRequestDispatcher("/jsp/"+ type +"/HomePage"+ type +".jsp").forward(request,response);
         }
         else {

@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ApplyJobForm extends ActionForm{
     private String expectedPay;
-
-    //See why this is required.
     private int jobId;
 
     public ApplyJobForm() {}
