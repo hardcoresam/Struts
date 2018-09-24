@@ -20,6 +20,8 @@
   </div>
 </div>
 
+<jsp:include page="/jsp/seeker/Header.jsp"/>
+
 <html:form action="seeker/alterJob" method="POST">
 <div class="container">
 <div class="row">

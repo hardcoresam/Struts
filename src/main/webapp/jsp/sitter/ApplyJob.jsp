@@ -20,6 +20,8 @@
   </div>
 </div>
 
+<jsp:include page="/jsp/sitter/Header.jsp"/>
+
 <html:form action="sitter/apply" method="POST">
 <div class="container">
 <div class="row">

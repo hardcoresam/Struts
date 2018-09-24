@@ -21,7 +21,7 @@
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><html:link action="seeker/home">Home</html:link></li>
+      <li><html:link action="sitter/home">Home</html:link></li>
       <li><html:link action="member/logOut">Log Out</html:link></li>
     </ul>
   </div>

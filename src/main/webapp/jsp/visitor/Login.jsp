@@ -35,7 +35,6 @@
 <div class="row">
 <div class="col-xs-5 col-xs-offset-4">
 
-  <font color="red">${loginError1}</font>
   <font color="red">${loginError}</font>
 
   <div class="form-group">

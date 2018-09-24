@@ -20,6 +20,8 @@
   </div>
 </div>
 
+<jsp:include page="/jsp/sitter/Header.jsp"/>
+
 <c:if test = "${param.apply eq 'true'}">
     <div align="center" class="alert alert-success">You have applied for the job Successfully</div>
 </c:if>

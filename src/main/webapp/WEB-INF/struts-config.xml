@@ -144,9 +144,6 @@
         <!-- HomePageseeker.jsp-->
         <action path="/seeker/postJob" forward="/jsp/seeker/PostJob.jsp"/>
 
-        <!-- Header.jsp inside seeker folder -->
-        <action path="/seeker/homePage" forward="/jsp/seeker/HomePageseeker.jsp"/>
-
         <!-- This should happen whenever you click on Edit Profile Button -->
         <action path="/member/edit" name="Registration" validate="false" scope="request"
                 type="com.MinicareStruts.action.member.GetProfileInfoAction">

@@ -28,7 +28,6 @@ public class LoginFilter implements Filter {
             filterConfig.getServletContext().getRequestDispatcher("/jsp/"+ type +"/HomePage"+ type +".jsp").forward(request,response);
         }
         else {
-            request.setAttribute("loginError1","Please Login");
             chain.doFilter(request,response);
         }
     }

@@ -20,6 +20,8 @@
   </div>
 </div>
 
+<jsp:include page="/jsp/seeker/Header.jsp"/>
+
 <div class="container">
 <table class="table table-striped">
     <thead>
