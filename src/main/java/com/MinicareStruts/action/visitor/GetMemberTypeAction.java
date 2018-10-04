@@ -1,6 +1,7 @@
 package com.MinicareStruts.action.visitor;
 
 import com.MinicareStruts.form.RegistrationForm;
+import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -15,18 +16,18 @@ public class GetMemberTypeAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         RegistrationForm registrationForm = (RegistrationForm) form;
 
-        String type = request.getParameter("type");
+        String type = request.getParameter(Constants.TYPE);
 
-        if(StringUtils.equalsIgnoreCase(type,"seeker")) {
-            registrationForm.setType("seeker");
+        if(StringUtils.equalsIgnoreCase(type, Constants.SEEKER)) {
+            registrationForm.setType(Constants.SEEKER);
         }
-        else if(StringUtils.equalsIgnoreCase(type,"sitter")) {
-            registrationForm.setType("sitter");
+        else if(StringUtils.equalsIgnoreCase(type,Constants.SITTER)) {
+            registrationForm.setType(Constants.SITTER);
         }
         else {
             request.setAttribute("errorType","Please Choose a Valid type before Registration");
-            return mapping.findForward("failure");
+            return mapping.findForward(Constants.FAILURE);
         }
-        return mapping.findForward("success");
+        return mapping.findForward(Constants.SUCCESS);
     }
 }

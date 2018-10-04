@@ -3,6 +3,7 @@ package com.MinicareStruts.action.visitor;
 import com.MinicareStruts.form.LoginForm;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -26,9 +27,9 @@ public class LoginAction extends Action {
         //So ask and check here also.
 
         if(member != null) {
-            request.getSession().setAttribute("member",member);
+            request.getSession().setAttribute(Constants.MEMBER,member);
 
-            type=(member.getType().name().equalsIgnoreCase("seeker"))?"seeker":"sitter";
+            type=(member.getType().name().equalsIgnoreCase(Constants.SEEKER))?Constants.SEEKER:Constants.SITTER;
             return mapping.findForward(type);
         }
         else {

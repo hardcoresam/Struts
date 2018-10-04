@@ -3,6 +3,7 @@ package com.MinicareStruts.action.member;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SeekerService;
 import com.MinicareStruts.service.SitterService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -16,7 +17,7 @@ public class CloseAccountAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-        Member member = (Member)session.getAttribute("member");
+        Member member = (Member)session.getAttribute(Constants.MEMBER);
 
         if(member.getType() == Member.MemberType.SEEKER) {
             SeekerService seekerService = new SeekerService();
@@ -27,7 +28,6 @@ public class CloseAccountAction extends Action {
             sitterService.closeAccount(member.getMemberId());
         }
         session.invalidate();
-        request.setAttribute("loginError","You Have Successfully Closed Your Account");
         return mapping.findForward("closedAccount");
     }
 }

@@ -2,6 +2,7 @@ package com.MinicareStruts.action.sitter;
 
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SitterService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -14,12 +15,12 @@ public class DeleteApplicationAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int applicationId = Integer.parseInt(request.getParameter("applicationId"));
-        Member member = (Member)request.getSession().getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
 
         SitterService sitterService = new SitterService();
         if(sitterService.deleteApplication(applicationId,member.getMemberId())) {
-            return mapping.findForward("success");
+            return mapping.findForward(Constants.SUCCESS);
         }
-        return mapping.findForward("failure");
+        return mapping.findForward(Constants.FAILURE);
     }
 }

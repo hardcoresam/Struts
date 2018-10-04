@@ -1,6 +1,7 @@
 package com.MinicareStruts.filter;
 
 import com.MinicareStruts.model.Member;
+import com.MinicareStruts.util.Constants;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         HttpSession session = request.getSession(false);
-        Member member = (Member)session.getAttribute("member");
+        Member member = (Member)session.getAttribute(Constants.MEMBER);
         if(member != null) {
             String type = member.getType().name().toLowerCase();
             //Redirect this.

@@ -3,6 +3,7 @@ package com.MinicareStruts.service;
 import com.MinicareStruts.dao.ConversationDAO;
 import com.MinicareStruts.dao.MemberDAO;
 import com.MinicareStruts.model.*;
+import com.MinicareStruts.util.Constants;
 import com.MinicareStruts.util.PasswordUtil;
 
 import java.sql.Time;
@@ -21,7 +22,7 @@ public class MemberService {
                                 Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String password,
                                 String type) {
         MemberDAO memberDao = new MemberDAO();
-        if(type.equalsIgnoreCase("seeker")) {
+        if(type.equalsIgnoreCase(Constants.SEEKER)) {
 
             //Write PasswordUtil.getHashedPassword(password) in the end.
             Seeker seeker = new Seeker(firstName, lastName, email, phoneNumber, address, password,
@@ -48,7 +49,7 @@ public class MemberService {
                                Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String type) {
         Member member = null;
         MemberDAO memberDao = new MemberDAO();
-        if(type.equalsIgnoreCase("seeker")) {
+        if(type.equalsIgnoreCase(Constants.SEEKER)) {
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(memberId);
 

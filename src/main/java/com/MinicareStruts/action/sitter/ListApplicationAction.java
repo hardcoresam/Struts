@@ -3,6 +3,7 @@ package com.MinicareStruts.action.sitter;
 import com.MinicareStruts.model.JobApplication;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SitterService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -15,13 +16,13 @@ import java.util.List;
 public class ListApplicationAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Member member = (Member)request.getSession().getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
 
         SitterService sitterService = new SitterService();
         List<JobApplication> list = sitterService.listApplications(member.getMemberId());
 
         if (list.isEmpty()) {
-            request.setAttribute("success","You have not applied to any Job yet.");
+            request.setAttribute(Constants.SUCCESS,"You have not applied to any Job yet.");
             return mapping.findForward("noJobs");
         } else {
             request.setAttribute("listOfApplications", list);

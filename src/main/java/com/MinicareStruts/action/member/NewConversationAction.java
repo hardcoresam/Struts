@@ -3,6 +3,7 @@ package com.MinicareStruts.action.member;
 import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -15,14 +16,14 @@ import java.util.List;
 public class NewConversationAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Member member = (Member)request.getSession().getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
         MemberService memberService = new MemberService();
-        String type = (member.getType().name().equalsIgnoreCase("seeker"))?"seeker":"sitter";
+        String type = (member.getType().name().equalsIgnoreCase(Constants.SEEKER))?Constants.SEEKER:Constants.SITTER;
 
         List<Member> list = memberService.getNewConversation(member.getMemberId(),type);
         request.setAttribute("newConversation",list);
-        request.setAttribute("type",type);
+        request.setAttribute(Constants.TYPE,type);
 
-        return mapping.findForward("success");
+        return mapping.findForward(Constants.SUCCESS);
     }
 }

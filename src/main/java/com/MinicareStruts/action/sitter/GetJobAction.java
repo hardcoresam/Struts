@@ -3,6 +3,7 @@ package com.MinicareStruts.action.sitter;
 import com.MinicareStruts.dao.JobDAO;
 import com.MinicareStruts.form.ApplyJobForm;
 import com.MinicareStruts.model.Job;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -21,10 +22,8 @@ public class GetJobAction extends Action {
         Job job = jobDao.getJobById(jobId);
         if(job.getStatus() == Job.Status.ACTIVE) {
             applyJobForm.setJobId(job.getJobId());
+            return mapping.findForward(Constants.SUCCESS);
         }
-        else {
-            return mapping.findForward("failure");
-        }
-        return mapping.findForward("success");
+        return mapping.findForward(Constants.FAILURE);
     }
 }

@@ -13,15 +13,6 @@ import java.util.Set;
 
 public class SitterService {
 
-    public boolean checkForActiveJob(int jobId, int memberId) {
-        JobDAO jobDao = new JobDAO();
-        Job job = jobDao.getJobById(jobId);
-        if(job.getStatus().name().equalsIgnoreCase("active"))
-            return true;
-        else
-            return false;
-    }
-
     public Sitter fetchMember(int sitterId) {
         SitterDAO sitterDao = new SitterDAO();
         return sitterDao.getSitterById(sitterId);

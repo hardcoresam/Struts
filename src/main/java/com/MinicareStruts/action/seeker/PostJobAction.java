@@ -3,6 +3,7 @@ package com.MinicareStruts.action.seeker;
 import com.MinicareStruts.form.PostJobForm;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SeekerService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -18,7 +19,7 @@ public class PostJobAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PostJobForm postJobForm = (PostJobForm) form;
 
-        Member member = (Member)request.getSession().getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
 
         SeekerService seekerService = new SeekerService();
         seekerService.postJob(postJobForm.getTitle(), Double.parseDouble(postJobForm.getPayPerHour()), member.getMemberId(),

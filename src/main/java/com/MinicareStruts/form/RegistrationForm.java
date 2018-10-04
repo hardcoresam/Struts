@@ -1,6 +1,7 @@
 package com.MinicareStruts.form;
 
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -121,79 +122,79 @@ public class RegistrationForm extends ActionForm {
 
     public void validateFirstName() {
         if(StringUtils.isBlank(firstName))
-            errors.add("firstName",new ActionMessage("member.required","First Name"));
+            errors.add(Constants.FIRST_NAME,new ActionMessage("member.required","First Name"));
         else if(!firstName.matches("^[a-zA-Z]+$"))
-            errors.add("firstName",new ActionMessage("member.firstName.notValid"));
+            errors.add(Constants.FIRST_NAME,new ActionMessage("member.firstName.notValid"));
     }
 
     public void validateLastName() {
         if(StringUtils.isBlank(lastName))
-            errors.add("lastName",new ActionMessage("member.required","Last Name"));
+            errors.add(Constants.LAST_NAME,new ActionMessage("member.required","Last Name"));
         else if(!lastName.matches("^[a-zA-Z]+$"))
-            errors.add("lastName",new ActionMessage("member.lastName.notValid"));
+            errors.add(Constants.LAST_NAME,new ActionMessage("member.lastName.notValid"));
     }
 
     public void validatePhoneNumber() {
         if (StringUtils.isBlank(phoneNumber))
-            errors.add("phoneNumber", new ActionMessage("member.required", "Phone Number"));
+            errors.add(Constants.PHONE_NUMBER, new ActionMessage("member.required", "Phone Number"));
         else if (!phoneNumber.matches("^[0-9]{10}$"))
-            errors.add("phoneNumber", new ActionMessage("member.phoneNumber.notValid"));
+            errors.add(Constants.PHONE_NUMBER, new ActionMessage("member.phoneNumber.notValid"));
     }
 
     public void validateAddress() {
         if(StringUtils.isBlank(address))
-            errors.add("address",new ActionMessage("member.required","Address"));
+            errors.add(Constants.ADDRESS,new ActionMessage("member.required","Address"));
     }
 
     public void validateType() {
-        if(!(StringUtils.equalsIgnoreCase(type,"seeker") || StringUtils.equalsIgnoreCase(type,"sitter")))
-            errors.add("type",new ActionMessage("member.type.notValid"));
+        if(!(StringUtils.equalsIgnoreCase(type,Constants.SEEKER) || StringUtils.equalsIgnoreCase(type,Constants.SITTER)))
+            errors.add(Constants.TYPE,new ActionMessage("member.type.notValid"));
     }
 
     public void validateMember() {
-        if(StringUtils.equalsIgnoreCase(type,"seeker"))
+        if(StringUtils.equalsIgnoreCase(type,Constants.SEEKER))
         {
             if(StringUtils.isBlank(noOfChildren))
-                errors.add("noOfChildren",new ActionMessage("member.required","No Of Children"));
+                errors.add(Constants.NO_OF_CHILDREN,new ActionMessage("member.required","No Of Children"));
             else if(!noOfChildren.matches("^0$|^[1-9][0-9]{0,2}$"))
-                errors.add("noOfChildren",new ActionMessage("member.noOfChildren.notValid"));
+                errors.add(Constants.NO_OF_CHILDREN,new ActionMessage("member.noOfChildren.notValid"));
 
             if(StringUtils.isBlank(spouseName))
-                errors.add("spouseName",new ActionMessage("member.required","Spouse Name"));
+                errors.add(Constants.SPOUSE_NAME,new ActionMessage("member.required","Spouse Name"));
             else if(!spouseName.matches("^[a-zA-Z]+([a-zA-Z ]*[a-zA-Z]+)*$"))
-                errors.add("spouseName",new ActionMessage("member.spouseName.notValid"));
+                errors.add(Constants.SPOUSE_NAME,new ActionMessage("member.spouseName.notValid"));
         }
-        else if(StringUtils.equalsIgnoreCase(type,"sitter"))
+        else if(StringUtils.equalsIgnoreCase(type,Constants.SITTER))
         {
             if(StringUtils.isBlank(experience))
-                errors.add("experience",new ActionMessage("member.required","Experience"));
+                errors.add(Constants.EXPERIENCE,new ActionMessage("member.required","Experience"));
             else if(!experience.matches("^0$|^[1-9]+([\\.]?[0-9]+)?$"))
-                errors.add("experience",new ActionMessage("member.experience.notValid"));
+                errors.add(Constants.EXPERIENCE,new ActionMessage("member.experience.notValid"));
 
             if(StringUtils.isBlank(expectedPay))
-                errors.add("expectedPay",new ActionMessage("member.required","Expected Pay"));
+                errors.add(Constants.EXPECTED_PAY,new ActionMessage("member.required","Expected Pay"));
             else if(!expectedPay.matches("^0$|^[1-9]+([\\.]?[0-9]+)?$"))
-                errors.add("expectedPay",new ActionMessage("member.expectedPay.notValid"));
+                errors.add(Constants.EXPECTED_PAY,new ActionMessage("member.expectedPay.notValid"));
         }
     }
 
     public void validateEmail() {
         if (StringUtils.isBlank(email))
-            errors.add("email", new ActionMessage("member.required", "Email"));
+            errors.add(Constants.EMAIL, new ActionMessage("member.required", "Email"));
         else if (!email.matches("^[a-zA-Z0-9]{1}([a-zA-Z0-9.-_*]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]{1}([a-zA-Z0-9.-_*]*[a-zA-Z0-9]+)*$"))
-            errors.add("email", new ActionMessage("member.email.notValid"));
+            errors.add(Constants.EMAIL, new ActionMessage("member.email.notValid"));
         else {
             MemberService registrationService = new MemberService();
             if (registrationService.isEmailRegistered(email))
-                errors.add("email", new ActionMessage("member.email.alreadyExists"));
+                errors.add(Constants.EMAIL, new ActionMessage("member.email.alreadyExists"));
         }
     }
 
     public void validatePassword() {
         if (StringUtils.isBlank(password))
-            errors.add("password", new ActionMessage("member.required", "Password"));
+            errors.add(Constants.PASSWORD, new ActionMessage("member.required", "Password"));
         else if (!password.matches("^[a-zA-Z0-9\\W]{6,20}$"))
-            errors.add("password", new ActionMessage("member.password.notValid"));
+            errors.add(Constants.PASSWORD, new ActionMessage("member.password.notValid"));
     }
 
     @Override

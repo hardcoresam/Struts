@@ -6,6 +6,7 @@ import com.MinicareStruts.model.Seeker;
 import com.MinicareStruts.model.Sitter;
 import com.MinicareStruts.service.SeekerService;
 import com.MinicareStruts.service.SitterService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -19,9 +20,9 @@ public class GetProfileInfoAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         RegistrationForm registrationForm = (RegistrationForm) form;
 
-        Member member = (Member) request.getSession().getAttribute("member");
+        Member member = (Member) request.getSession().getAttribute(Constants.MEMBER);
 
-        if(member.getType().name().equalsIgnoreCase("seeker")) {
+        if(member.getType().name().equalsIgnoreCase(Constants.SEEKER)) {
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(member.getMemberId());
 
@@ -48,6 +49,6 @@ public class GetProfileInfoAction extends Action {
             registrationForm.setType(member.getType().name().toLowerCase());
         }
 
-        return mapping.findForward("success");
+        return mapping.findForward(Constants.SUCCESS);
     }
 }

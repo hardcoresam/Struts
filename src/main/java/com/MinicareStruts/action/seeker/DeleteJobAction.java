@@ -2,6 +2,7 @@ package com.MinicareStruts.action.seeker;
 
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SeekerService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -14,12 +15,12 @@ public class DeleteJobAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         int jobId = Integer.parseInt(request.getParameter("jobId"));
-        Member member = (Member)request.getSession().getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
 
         SeekerService seekerService = new SeekerService();
         if(seekerService.checkForValidJobId(jobId,member.getMemberId())) {
             seekerService.deleteJob(jobId);
-            return mapping.findForward("success");
+            return mapping.findForward(Constants.SUCCESS);
         }
         return mapping.findForward("wrongJobId");
     }

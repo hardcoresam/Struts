@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -92,45 +93,45 @@ public class PostJobForm extends ActionForm{
         endDate1 = null;
 
         if(StringUtils.isBlank(title))
-            ae.add("title",new ActionMessage("job.required","Title"));
+            ae.add(Constants.TITLE,new ActionMessage("job.required","Title"));
         else if(!title.matches("^[a-zA-Z]+([a-zA-Z ]*[a-zA-Z]+)*$"))
-            ae.add("title",new ActionMessage("job.title.notValid"));
+            ae.add(Constants.TITLE,new ActionMessage("job.title.notValid"));
 
         if(StringUtils.isBlank(payPerHour))
-            ae.add("payPerHour",new ActionMessage("job.required","Pay Per Hour"));
+            ae.add(Constants.PAY_PER_HOUR,new ActionMessage("job.required","Pay Per Hour"));
         else if(!payPerHour.matches("^0$|^[1-9]+([\\.]?[0-9]+)?$"))
-            ae.add("payPerHour",new ActionMessage("job.payPerHour.notValid"));
+            ae.add(Constants.PAY_PER_HOUR,new ActionMessage("job.payPerHour.notValid"));
 
 
         if(StringUtils.isBlank(startTime))
-            ae.add("startTime",new ActionMessage("job.required","Start Time"));
+            ae.add(Constants.START_TIME,new ActionMessage("job.required","Start Time"));
         else {
             try {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
                 startTime1 = simpleDateFormat.parse(startTime);
             }
             catch(ParseException p) {
-                ae.add("startTime",new ActionMessage("job.time.notValid","Start Time"));
+                ae.add(Constants.START_TIME,new ActionMessage("job.time.notValid","Start Time"));
             }
         }
 
         if(StringUtils.isBlank(endTime))
-            ae.add("endTime",new ActionMessage("job.required","End Time"));
+            ae.add(Constants.END_TIME,new ActionMessage("job.required","End Time"));
         else {
             try {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
                 endTime1 = simpleDateFormat.parse(endTime);
             }
             catch(ParseException p) {
-                ae.add("endTime",new ActionMessage("job.time.notValid","End Time"));
+                ae.add(Constants.END_TIME,new ActionMessage("job.time.notValid","End Time"));
             }
         }
 
 
         if(StringUtils.isBlank(startDate))
-            ae.add("startDate",new ActionMessage("job.required","Start Date"));
+            ae.add(Constants.START_DATE,new ActionMessage("job.required","Start Date"));
         if(StringUtils.isBlank(endDate))
-            ae.add("endDate",new ActionMessage("job.required","End Date"));
+            ae.add(Constants.END_DATE,new ActionMessage("job.required","End Date"));
 
 
         if(startTime1!=null && endTime1!=null) {
@@ -143,9 +144,9 @@ public class PostJobForm extends ActionForm{
                     //Should be greater than Today's Date
                     Date currentDate = new Date();
                     if (startDate1.before(currentDate))
-                        ae.add("startDate", new ActionMessage("job.startDate.shouldBeGreater"));
+                        ae.add(Constants.START_DATE, new ActionMessage("job.startDate.shouldBeGreater"));
                 } catch (ParseException e) {
-                    ae.add("startDate", new ActionMessage("job.date.notValid"));
+                    ae.add(Constants.START_DATE, new ActionMessage("job.date.notValid"));
                 }
             }
 
@@ -158,11 +159,11 @@ public class PostJobForm extends ActionForm{
                     //Should be greater than Start Date
                     if (startDate1 != null) {
                         if (endDate1.before(startDate1)) {
-                            ae.add("endDate", new ActionMessage("job.endDate.shouldBeGreater"));
+                            ae.add(Constants.END_DATE, new ActionMessage("job.endDate.shouldBeGreater"));
                         }
                     }
                 } catch (ParseException e) {
-                    ae.add("startDate", new ActionMessage("job.date.notValid"));
+                    ae.add(Constants.START_DATE, new ActionMessage("job.date.notValid"));
                 }
             }
         }

@@ -5,6 +5,7 @@ import com.MinicareStruts.form.ApplyJobForm;
 import com.MinicareStruts.model.Job;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SitterService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -21,12 +22,12 @@ public class ApplyJobAction extends Action {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Member member = (Member)request.getSession().getAttribute("member");
+        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
         ApplyJobForm applyJobForm = (ApplyJobForm) form;
 
         //For Strings, inside the form the jobId would be stored as 0
         if(applyJobForm.getJobId()==0) {
-            return mapping.findForward("failure");
+            return mapping.findForward(Constants.FAILURE);
         }
         JobDAO jobDao = new JobDAO();
         Job job = jobDao.getJobById(applyJobForm.getJobId());
@@ -34,10 +35,8 @@ public class ApplyJobAction extends Action {
         SitterService sitterService = new SitterService();
         if(job.getStatus() == Job.Status.ACTIVE) {
             sitterService.applyJob(applyJobForm.getJobId(), Double.parseDouble(applyJobForm.getExpectedPay()), member.getMemberId());
+            return mapping.findForward(Constants.SUCCESS);
         }
-        else {
-            return mapping.findForward("failure");
-        }
-        return mapping.findForward("success");
+        return mapping.findForward(Constants.FAILURE);
     }
 }

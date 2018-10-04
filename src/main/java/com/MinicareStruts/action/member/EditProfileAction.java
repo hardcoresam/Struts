@@ -3,6 +3,7 @@ package com.MinicareStruts.action.member;
 import com.MinicareStruts.form.RegistrationForm;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -22,9 +23,9 @@ public class EditProfileAction extends Action {
         RegistrationForm registrationForm = (RegistrationForm) form;
 
         HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
+        Member member = (Member) session.getAttribute(Constants.MEMBER);
 
-        if(member.getType().name().equalsIgnoreCase("seeker")) {
+        if(member.getType().name().equalsIgnoreCase(Constants.SEEKER)) {
             noOfChildren = Integer.parseInt(registrationForm.getNoOfChildren());
         }
         else {
@@ -40,7 +41,7 @@ public class EditProfileAction extends Action {
 
         session.invalidate();
         HttpSession updatedSession = request.getSession();
-        updatedSession.setAttribute("member",updatedMember);
+        updatedSession.setAttribute(Constants.MEMBER,updatedMember);
 
         return mapping.findForward(member.getType().name().toLowerCase());
     }

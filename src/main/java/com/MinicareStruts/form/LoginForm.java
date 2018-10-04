@@ -1,5 +1,6 @@
 package com.MinicareStruts.form;
 
+import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -35,12 +36,12 @@ public class LoginForm extends ActionForm{
         ActionErrors ae = new ActionErrors();
 
         if(StringUtils.isBlank(email))
-            ae.add("email",new ActionMessage("member.required","Email"));
+            ae.add(Constants.EMAIL,new ActionMessage("member.required","Email"));
         else if(!email.matches("^[a-zA-Z0-9]{1}([a-zA-Z0-9.-_*]*[a-zA-Z0-9]+)*@[a-zA-Z0-9]{1}([a-zA-Z0-9.-_*]*[a-zA-Z0-9]+)*$"))
-            ae.add("email",new ActionMessage("member.email.notValid"));
+            ae.add(Constants.EMAIL,new ActionMessage("member.email.notValid"));
 
         if(StringUtils.isBlank(password))
-            ae.add("password",new ActionMessage("member.required","Password"));
+            ae.add(Constants.PASSWORD,new ActionMessage("member.required","Password"));
 
         return ae;
     }

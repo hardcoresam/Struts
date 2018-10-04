@@ -59,6 +59,7 @@
   </div>
 
     <html:submit value="Post Job" styleClass="btn btn-default"/>
+    <br><br>
 
 </div>
 </div>

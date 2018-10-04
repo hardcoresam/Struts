@@ -48,8 +48,9 @@ public class ConversationDAO {
 
     public List<Conversation> getUserNames(int memberId, String type) {
         Session session = HibernateSessionFilter.getSession();
-        Query query = session.createQuery("from Conversation where "+type+".memberId=?");
+        Query query = session.createQuery("from Conversation where "+type+".memberId=? and "+type+".status=?");
         query.setInteger(0, memberId);
+        query.setString(1,"ACTIVE");
         List<Conversation> list = query.list();
         return list;
     }

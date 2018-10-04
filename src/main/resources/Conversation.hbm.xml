@@ -12,5 +12,10 @@
         <many-to-one name="seeker" class="com.MinicareStruts.model.Seeker" column="SeekerId"/>
         <many-to-one name="sitter" class="com.MinicareStruts.model.Sitter" column="SitterId"/>
 
+        <set name="setOfMessages" inverse="true">
+            <key column="ConversationId" not-null="true"/>
+            <one-to-many class="com.MinicareStruts.model.Message"/>
+        </set>
+
     </class>
 </hibernate-mapping>

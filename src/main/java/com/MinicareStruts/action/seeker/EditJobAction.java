@@ -3,6 +3,7 @@ package com.MinicareStruts.action.seeker;
 import com.MinicareStruts.form.PostJobForm;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.SeekerService;
+import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -26,15 +27,15 @@ public class EditJobAction extends Action {
         if(endTime.length()==5)
             endTime = endTime +":00";
 
-        Member member = (Member) request.getSession().getAttribute("member");
+        Member member = (Member) request.getSession().getAttribute(Constants.MEMBER);
         SeekerService seekerService = new SeekerService();
 
         if(seekerService.checkForValidJobId(postJobForm.getJobId(), member.getMemberId())) {
             seekerService.alterJob(postJobForm.getJobId(), postJobForm.getTitle(), Double.parseDouble(postJobForm.getPayPerHour()),
                     Time.valueOf(startTime), Time.valueOf(endTime),
                     Date.valueOf(postJobForm.getStartDate()), Date.valueOf(postJobForm.getEndDate()));
-            return mapping.findForward("success");
+            return mapping.findForward(Constants.SUCCESS);
         }
-        return mapping.findForward("failure");
+        return mapping.findForward(Constants.FAILURE);
     }
 }
