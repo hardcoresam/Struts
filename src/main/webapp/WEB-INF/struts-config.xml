@@ -102,7 +102,7 @@
         <action path="/member/logOut" type="com.MinicareStruts.action.member.LogOutAction" validate="false">
             <forward name="loggedOut" path="/visitor/loggedout.do?logout=true" redirect="true"/>
         </action>
-        <action path="member/closeAccount" type="com.MinicareStruts.action.member.CloseAccountAction" validate="false">
+        <action path="/member/closeAccount" type="com.MinicareStruts.action.member.CloseAccountAction" validate="false">
             <forward name="closedAccount" path="/visitor/close.do?close=true" redirect="true"/>
         </action>
 

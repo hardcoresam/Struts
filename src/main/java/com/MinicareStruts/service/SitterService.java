@@ -65,7 +65,8 @@ public class SitterService {
         Set<JobApplication> set = sitter.getSetOfApplications();
 
         for(JobApplication jobApplication : set) {
-            deleteApplication(jobApplication.getApplicationId(),sitterId);
+            if(jobApplication.getStatus() == JobApplication.Status.ACTIVE)
+                deleteApplication(jobApplication.getApplicationId(),sitterId);
         }
 
         sitter.setStatus(Member.Status.INACTIVE);

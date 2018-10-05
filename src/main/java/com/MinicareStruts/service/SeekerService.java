@@ -80,7 +80,8 @@ public class SeekerService {
         Set<Job> set = seeker.getSetOfJobs();
 
         for(Job job : set) {
-            deleteJob(job.getJobId());
+            if(job.getStatus() == Job.Status.ACTIVE)
+                deleteJob(job.getJobId());
         }
 
         seeker.setStatus(Member.Status.INACTIVE);
