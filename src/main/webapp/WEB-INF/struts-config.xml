@@ -73,18 +73,20 @@
         </action>
         <action path="/member/getMessages" type="com.MinicareStruts.action.member.GetMessagesAction" validate="false">
             <forward name="listOfMessages" path="/jsp/member/ListOfMessages.jsp"/>
+            <forward name="failure" path="/member/messages.do?invalid=true" redirect="true"/>
         </action>
 
         <!-- member/ListOfMessages.jsp (Wrote redirect inside StoreMesssageAction only) -->
         <action path="/member/storeMessage" type="com.MinicareStruts.action.member.StoreMessageAction" validate="false">
             <forward name="getMessages" path="/member/getMessages.do?conversationId=*"/>
+            <forward name="failure" path="/member/messages.do?invalid=true" redirect="true"/>
         </action>
 
         <!-- ListActiveJobs.jsp -->
         <action path="/sitter/applyJob" name="ApplyJob" validate="false" scope="request"
                 type="com.MinicareStruts.action.sitter.GetJobAction">
             <forward name="success" path="/jsp/sitter/ApplyJob.jsp"/>
-            <forward name="failure" path="/sitter/listActiveJobs.do?jobNotValid=true" redirect="true"/>
+            <!-- <forward name="failure" path="/sitter/listActiveJobs.do?jobNotValid=true" redirect="true"/> -->
         </action>
 
         <!-- ApplyJob.jsp -->
@@ -133,7 +135,6 @@
         
         <!-- This is for the above Code Forward Path -->
         <action path="/seeker/listJobs" type="com.MinicareStruts.action.seeker.ListJobsAction" validate="false">
-            <forward name="noJobs" path="/jsp/seeker/HomePageseeker.jsp"/>
             <forward name="listOfJobs" path="/jsp/seeker/ListJobs.jsp"/>
         </action>
 

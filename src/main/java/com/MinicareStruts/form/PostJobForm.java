@@ -89,8 +89,6 @@ public class PostJobForm extends ActionForm{
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors ae = new ActionErrors();
-        startDate1 = null;
-        endDate1 = null;
 
         if(StringUtils.isBlank(title))
             ae.add(Constants.TITLE,new ActionMessage("job.required","Title"));

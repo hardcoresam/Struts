@@ -10,8 +10,9 @@ import org.hibernate.Session;
 public class MemberDAO {
     public boolean isEmailRegistered(String email) {
         Session session = HibernateSessionFilter.getSession();
-        Query query = session.createQuery("SELECT memberId FROM Member where email=?");
+        Query query = session.createQuery("SELECT memberId FROM Member where email=? and status=?");
         query.setString(0,email);
+        query.setString(1, "ACTIVE");
         Integer memberId = (Integer)query.uniqueResult();
         if(memberId!=null)
             return true;

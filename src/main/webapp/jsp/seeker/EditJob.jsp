@@ -60,6 +60,7 @@
 
     <html:submit value="Edit Job" styleClass="btn btn-default"/>
     <html:hidden property="jobId"/>
+    <br><br>
 
 </div>
 </div>

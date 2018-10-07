@@ -20,17 +20,12 @@ public class ListJobsAction extends Action {
 
         SeekerService seekerService = new SeekerService();
         List<Job> list = seekerService.listJobs(member.getMemberId());
-        if(list.isEmpty()) {
-            request.setAttribute(Constants.SUCCESS,"There are no jobs which you have posted yet.");
-            return mapping.findForward("noJobs");
-        }
-        else {
-            //This code is for - when we have no applications, we would forward to this page only.So for that, we use this.
-            String successMsg = (String)request.getAttribute("successMsg");
-            request.setAttribute("successMsg",successMsg);
 
-            request.setAttribute("listOfJobs",list);
-            return mapping.findForward("listOfJobs");
-        }
+        //This code is for - when we have no applications, we would forward to this page only.So for that, we use this.
+        String successMsg = (String)request.getAttribute("successMsg");
+        request.setAttribute("successMsg",successMsg);
+
+        request.setAttribute("listOfJobs",list);
+        return mapping.findForward("listOfJobs");
     }
 }
