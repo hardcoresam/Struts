@@ -38,7 +38,6 @@ public class EditProfileAction extends Action {
                 registrationForm.getPhoneNumber(), registrationForm.getAddress(),
                 noOfChildren, registrationForm.getSpouseName(), experience, expectedPay, member.getType().name());
 
-
         session.invalidate();
         HttpSession updatedSession = request.getSession();
         updatedSession.setAttribute(Constants.MEMBER,updatedMember);

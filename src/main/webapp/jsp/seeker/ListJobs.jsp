@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
@@ -37,6 +38,14 @@
 <div align="center"><b>${successMsg}</b></div>
 <br>
 
+<c:choose>
+    <c:when test = "${fn:length(listOfJobs) == 0}">
+        <h3><center>There are no Jobs posted by you.</center></h3>
+        <h4><center>Do you want to Post one?</center></h4>
+        <center><html:link action="seeker/postJob" styleClass="btn btn-link"><h4>Post Job</h4></html:link></center>
+    </c:when>
+
+<c:otherwise>
 <div class="container">
 <table class="table table-striped">
     <thead>
@@ -81,6 +90,8 @@
     </tbody>
 </table>
 </div>
+</c:otherwise>
+</c:choose>
 
 </body>
 </html>

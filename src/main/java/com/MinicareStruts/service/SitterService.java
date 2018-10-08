@@ -13,6 +13,11 @@ import java.util.Set;
 
 public class SitterService {
 
+    public Job getJobById(int jobId) {
+        JobDAO jobDao = new JobDAO();
+        return jobDao.getJobById(jobId);
+    }
+
     public Sitter fetchMember(int sitterId) {
         SitterDAO sitterDao = new SitterDAO();
         return sitterDao.getSitterById(sitterId);

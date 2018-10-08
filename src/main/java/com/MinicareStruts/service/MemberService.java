@@ -47,7 +47,6 @@ public class MemberService {
 
     public Member alterProfile(int memberId, String firstName, String lastName, String phoneNumber, String address,
                                Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String type) {
-        Member member = null;
         MemberDAO memberDao = new MemberDAO();
         if(type.equalsIgnoreCase(Constants.SEEKER)) {
             SeekerService seekerService = new SeekerService();
@@ -60,7 +59,7 @@ public class MemberService {
             seeker.setNoOfChildren(noOfChildren);
             seeker.setSpouseName(spouseName);
 
-            member = memberDao.alterUser(seeker);
+            return memberDao.alterUser(seeker);
         }
         else {
             SitterService sitterService = new SitterService();
@@ -73,9 +72,8 @@ public class MemberService {
             sitter.setExperience(experience);
             sitter.setExpectedPay(expectedPay);
 
-            member = memberDao.alterUser(sitter);
+            return memberDao.alterUser(sitter);
         }
-        return member;
     }
 
     public int getConversationId(int seekerId, int sitterId) {
@@ -124,6 +122,23 @@ public class MemberService {
     public List<Member> getNewConversation(int memberId, String type) {
         ConversationDAO conversationDao = new ConversationDAO();
         return conversationDao.getNewConversation(memberId,type);
+    }
+
+
+    //Check this and think if there if a better way.
+    public boolean checkForValidConversationId(int conversationId, int memberId, String type) {
+        Conversation conversation = getConversationById(conversationId);
+        if(conversation != null) {
+            if(type.equalsIgnoreCase(Constants.SEEKER)) {
+                if(conversation.getSeeker().getMemberId() == memberId)
+                    return true;
+            }
+            else {
+                if(conversation.getSitter().getMemberId() == memberId)
+                    return true;
+            }
+        }
+        return false;
     }
 
 }

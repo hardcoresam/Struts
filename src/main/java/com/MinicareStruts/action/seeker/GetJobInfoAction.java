@@ -18,13 +18,10 @@ public class GetJobInfoAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         PostJobForm postJobForm = (PostJobForm) form;
         Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
-
-        //Check for String Here.
-        int jobId = Integer.parseInt(request.getParameter("jobId"));
         SeekerService seekerService = new SeekerService();
-        Job job = seekerService.getJobById(jobId);
 
-        if(job!=null && job.getSeeker().getMemberId() == member.getMemberId()) {
+        if(seekerService.checkForValidJobId(postJobForm.getJobId(),member.getMemberId())) {
+            Job job = seekerService.getJobById(postJobForm.getJobId());
             postJobForm.setJobId(job.getJobId());
             postJobForm.setTitle(job.getTitle());
             postJobForm.setPayPerHour(String.valueOf(job.getPayPerHour()));

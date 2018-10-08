@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
@@ -23,6 +24,14 @@
 
 <jsp:include page="/jsp/member/Header.jsp"/>
 
+<c:choose>
+    <c:when test = "${fn:length(newConversation) == 0}">
+        <h3><center>Looks like you had a Conversation with every Active user.</center></h3>
+        <h4><center>Go through your old conversations?</center></h4>
+        <center><html:link action="member/messages" styleClass="btn btn-link"><h4>Old Conversations</h4></html:link></center>
+    </c:when>
+
+<c:otherwise>
 <div class="container">
 <table class="table table-striped" align="center">
     <thead>
@@ -50,6 +59,8 @@
     </tbody>
 </table>
 </div>
+</c:otherwise>
+</c:choose>
 
 </body>
 </html>

@@ -17,17 +17,18 @@ public class StoreMessageAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member member = (Member) request.getSession().getAttribute(Constants.MEMBER);
-
         String content = request.getParameter("message");
         int conversationId = Integer.parseInt(request.getParameter(Constants.CONVERSATION_ID));
-
         MemberService memberService = new MemberService();
-        Conversation conversation = memberService.getConversationById(conversationId);
-        memberService.storeMessage(content,conversation,member);
 
-        String path = mapping.findForward("getMessages").getPath();
-        path = StringUtils.replace(path,"*",String.valueOf(conversationId));
+        if(memberService.checkForValidConversationId(conversationId, member.getMemberId(), member.getType().name())) {
+            Conversation conversation = memberService.getConversationById(conversationId);
+            memberService.storeMessage(content,conversation,member);
 
-        return new ActionForward(path,true);
+            String path = mapping.findForward("getMessages").getPath();
+            path = StringUtils.replace(path,"*",String.valueOf(conversationId));
+            return new ActionForward(path,true);
+        }
+        return mapping.findForward(Constants.FAILURE);
     }
 }

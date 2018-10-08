@@ -1,7 +1,11 @@
 package com.MinicareStruts.action.member;
 
 import com.MinicareStruts.model.Member;
+import com.MinicareStruts.model.Seeker;
+import com.MinicareStruts.model.Sitter;
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.service.SeekerService;
+import com.MinicareStruts.service.SitterService;
 import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -20,10 +24,25 @@ public class SendMessageAction extends Action {
         if(member.getType().name().equalsIgnoreCase(Constants.SEEKER)) {
             seekerId = member.getMemberId();
             sitterId = Integer.parseInt(request.getParameter(Constants.MEMBER_ID));
+
+            //Check this and ask About this.
+            SitterService sitterService = new SitterService();
+            Sitter sitter = sitterService.fetchMember(sitterId);
+            if(sitter.getStatus() == Member.Status.INACTIVE)
+                throw new Exception();
+
+
         }
         else {
             sitterId = member.getMemberId();
             seekerId = Integer.parseInt(request.getParameter(Constants.MEMBER_ID));
+
+            //Check this and ask About this.
+            SeekerService seekerService = new SeekerService();
+            Seeker seeker = seekerService.fetchMember(seekerId);
+            if(seeker.getStatus() == Member.Status.INACTIVE)
+                throw new Exception();
+
         }
 
         MemberService memberService = new MemberService();

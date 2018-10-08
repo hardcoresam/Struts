@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
@@ -23,6 +24,17 @@
 
 <jsp:include page="/jsp/member/Header.jsp"/>
 
+<c:if test = "${param.invalid eq 'true'}">
+    <div class="alert alert-danger" align="center">You are not Authorized to do that.</div>
+</c:if>
+
+<c:choose>
+    <c:when test = "${fn:length(listOfUserNames) == 0}">
+        <h3><center>Looks like you havent started a Conversation with anybody uptill now.</center></h3>
+        <h4><center>Try starting one now.</center></h4>
+    </c:when>
+
+<c:otherwise>
 <div class="container">
 <table class="table table-striped" align="center">
     <thead>
@@ -66,6 +78,8 @@
     </tbody>
 </table>
 </div><br><br>
+</c:otherwise>
+</c:choose>
 
 <div align="center">
 <html:link action="member/newConversation">New Conversation?</html:link>

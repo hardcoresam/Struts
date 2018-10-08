@@ -4,6 +4,7 @@ import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.model.Message;
+import com.MinicareStruts.util.Constants;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -48,7 +49,8 @@ public class ConversationDAO {
 
     public List<Conversation> getUserNames(int memberId, String type) {
         Session session = HibernateSessionFilter.getSession();
-        Query query = session.createQuery("from Conversation where "+type+".memberId=? and "+type+".status=?");
+        String oppositeType = (type.equalsIgnoreCase(Constants.SEEKER))?Constants.SITTER:Constants.SEEKER;
+        Query query = session.createQuery("from Conversation where "+type+".memberId=? and "+oppositeType+".status=?");
         query.setInteger(0, memberId);
         query.setString(1,"ACTIVE");
         List<Conversation> list = query.list();
