@@ -4,7 +4,7 @@ import com.MinicareStruts.dao.ConversationDAO;
 import com.MinicareStruts.dao.MemberDAO;
 import com.MinicareStruts.model.*;
 import com.MinicareStruts.util.Constants;
-import com.MinicareStruts.util.PasswordUtil;
+import com.MinicareStruts.util.CommonUtil;
 
 import java.sql.Time;
 import java.util.List;
@@ -14,7 +14,7 @@ public class MemberService {
     public Member fetchMember(String email, String password) {
         MemberDAO memberDao = new MemberDAO();
 
-        //Write PasswordUtil.getHashedPassword(password) in the end.
+        //Write CommonUtil.getHashedPassword(password) in the end.
         return memberDao.fetchMember(email, password);
     }
 
@@ -22,9 +22,9 @@ public class MemberService {
                                 Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String password,
                                 String type) {
         MemberDAO memberDao = new MemberDAO();
-        if(type.equalsIgnoreCase(Constants.SEEKER)) {
+        if(CommonUtil.isSeeker(type)) {
 
-            //Write PasswordUtil.getHashedPassword(password) in the end.
+            //Write CommonUtil.getHashedPassword(password) in the end.
             Seeker seeker = new Seeker(firstName, lastName, email, phoneNumber, address, password,
                     noOfChildren, spouseName);
             seeker.setMemberId(memberDao.registerUser(seeker));
@@ -32,7 +32,7 @@ public class MemberService {
         }
         else {
 
-            //Write PasswordUtil.getHashedPassword(password) in the end.
+            //Write CommonUtil.getHashedPassword(password) in the end.
             Sitter sitter = new Sitter(firstName, lastName, email, phoneNumber, address, password,
                     experience, expectedPay);
             sitter.setMemberId(memberDao.registerUser(sitter));
@@ -48,7 +48,7 @@ public class MemberService {
     public Member alterProfile(int memberId, String firstName, String lastName, String phoneNumber, String address,
                                Integer noOfChildren, String spouseName, Double experience, Double expectedPay, String type) {
         MemberDAO memberDao = new MemberDAO();
-        if(type.equalsIgnoreCase(Constants.SEEKER)) {
+        if(CommonUtil.isSeeker(type)) {
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(memberId);
 
@@ -58,6 +58,7 @@ public class MemberService {
             seeker.setAddress(address);
             seeker.setNoOfChildren(noOfChildren);
             seeker.setSpouseName(spouseName);
+            seeker.setType(Member.MemberType.SEEKER);
 
             return memberDao.alterUser(seeker);
         }
@@ -71,6 +72,7 @@ public class MemberService {
             sitter.setAddress(address);
             sitter.setExperience(experience);
             sitter.setExpectedPay(expectedPay);
+            sitter.setType(Member.MemberType.SITTER);
 
             return memberDao.alterUser(sitter);
         }
@@ -129,7 +131,7 @@ public class MemberService {
     public boolean checkForValidConversationId(int conversationId, int memberId, String type) {
         Conversation conversation = getConversationById(conversationId);
         if(conversation != null) {
-            if(type.equalsIgnoreCase(Constants.SEEKER)) {
+            if(CommonUtil.isSeeker(type)) {
                 if(conversation.getSeeker().getMemberId() == memberId)
                     return true;
             }

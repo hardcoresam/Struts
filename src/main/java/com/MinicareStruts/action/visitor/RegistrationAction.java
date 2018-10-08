@@ -3,6 +3,7 @@ package com.MinicareStruts.action.visitor;
 import com.MinicareStruts.form.RegistrationForm;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.util.CommonUtil;
 import com.MinicareStruts.util.Constants;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -20,7 +21,7 @@ public class RegistrationAction extends Action {
 
         Double experience,expectedPay;
         Integer noOfChildren;
-        if(registrationForm.getType().equalsIgnoreCase(Constants.SEEKER)) {
+        if(CommonUtil.isSeeker(registrationForm.getType())) {
             experience = null;
             expectedPay = null;
             noOfChildren = Integer.parseInt(registrationForm.getNoOfChildren());
@@ -39,9 +40,6 @@ public class RegistrationAction extends Action {
 
         request.getSession().setAttribute(Constants.MEMBER,member);
 
-        if(registrationForm.getType().equalsIgnoreCase(Constants.SEEKER))
-            return mapping.findForward(Constants.SEEKER);
-        else
-            return mapping.findForward(Constants.SITTER);
+        return mapping.findForward(CommonUtil.isSeeker(registrationForm.getType())?Constants.SEEKER:Constants.SITTER);
     }
 }

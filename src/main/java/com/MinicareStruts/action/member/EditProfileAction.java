@@ -25,7 +25,7 @@ public class EditProfileAction extends Action {
         HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute(Constants.MEMBER);
 
-        if(member.getType().name().equalsIgnoreCase(Constants.SEEKER)) {
+        if(member.isSeeker()) {
             noOfChildren = Integer.parseInt(registrationForm.getNoOfChildren());
         }
         else {

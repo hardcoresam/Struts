@@ -21,13 +21,19 @@ public class SendMessageAction extends Action {
         Member member = (Member) request.getSession().getAttribute(Constants.MEMBER);
 
         int seekerId,sitterId;
-        if(member.getType().name().equalsIgnoreCase(Constants.SEEKER)) {
+        if(member.isSeeker()) {
             seekerId = member.getMemberId();
             sitterId = Integer.parseInt(request.getParameter(Constants.MEMBER_ID));
 
             //Check this and ask About this.
             SitterService sitterService = new SitterService();
             Sitter sitter = sitterService.fetchMember(sitterId);
+            //Ask if i should Check for Null here like sitter != null or not. Otherwise we would get an NullPointerException.
+//            if(sitter == null)
+//                throw new Exception();
+//            else if(sitter.getStatus() == Member.Status.INACTIVE)
+//                throw new Exception();
+            //Ask and do the same thing below also.
             if(sitter.getStatus() == Member.Status.INACTIVE)
                 throw new Exception();
 

@@ -1,6 +1,7 @@
 package com.MinicareStruts.action.visitor;
 
 import com.MinicareStruts.form.RegistrationForm;
+import com.MinicareStruts.util.CommonUtil;
 import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.Action;
@@ -18,10 +19,10 @@ public class GetMemberTypeAction extends Action {
 
         String type = request.getParameter(Constants.TYPE);
 
-        if(StringUtils.equalsIgnoreCase(type, Constants.SEEKER)) {
+        if(CommonUtil.isSeeker(type)) {
             registrationForm.setType(Constants.SEEKER);
         }
-        else if(StringUtils.equalsIgnoreCase(type,Constants.SITTER)) {
+        else if(CommonUtil.isSitter(type)) {
             registrationForm.setType(Constants.SITTER);
         }
         else {

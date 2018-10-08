@@ -23,7 +23,7 @@ public class MemberDAO {
     public int registerUser(Member member) {
         int memberId = -1;
         Session session = HibernateSessionFilter.getSession();
-        if(member.getType().name().equalsIgnoreCase("seeker")) {
+        if(member.isSeeker()) {
             Seeker seeker = (Seeker)member;
             memberId = (int)session.save(seeker);
         }
@@ -46,7 +46,7 @@ public class MemberDAO {
 
     public Member alterUser(Member member) {
         Session session = HibernateSessionFilter.getSession();
-        if(member.getType().name().equalsIgnoreCase("seeker")) {
+        if(member.isSeeker()) {
             Seeker seeker = (Seeker)member;
             session.update(seeker);
         }

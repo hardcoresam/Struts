@@ -22,7 +22,7 @@ public class GetProfileInfoAction extends Action {
 
         Member member = (Member) request.getSession().getAttribute(Constants.MEMBER);
 
-        if(member.getType().name().equalsIgnoreCase(Constants.SEEKER)) {
+        if(member.isSeeker()) {
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(member.getMemberId());
 

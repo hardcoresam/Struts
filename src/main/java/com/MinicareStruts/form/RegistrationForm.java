@@ -2,6 +2,7 @@ package com.MinicareStruts.form;
 
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
+import com.MinicareStruts.util.CommonUtil;
 import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts.action.ActionErrors;
@@ -148,12 +149,12 @@ public class RegistrationForm extends ActionForm {
     }
 
     public void validateType() {
-        if(!(StringUtils.equalsIgnoreCase(type,Constants.SEEKER) || StringUtils.equalsIgnoreCase(type,Constants.SITTER)))
+        if(!(CommonUtil.isSeeker(type)) || (CommonUtil.isSitter(type)))
             errors.add(Constants.TYPE,new ActionMessage("member.type.notValid"));
     }
 
     public void validateMember() {
-        if(StringUtils.equalsIgnoreCase(type,Constants.SEEKER))
+        if(CommonUtil.isSeeker(type))
         {
             if(StringUtils.isBlank(noOfChildren))
                 errors.add(Constants.NO_OF_CHILDREN,new ActionMessage("member.required","No Of Children"));
@@ -165,7 +166,7 @@ public class RegistrationForm extends ActionForm {
             else if(!spouseName.matches("^[a-zA-Z]+([a-zA-Z ]*[a-zA-Z]+)*$"))
                 errors.add(Constants.SPOUSE_NAME,new ActionMessage("member.spouseName.notValid"));
         }
-        else if(StringUtils.equalsIgnoreCase(type,Constants.SITTER))
+        else if(CommonUtil.isSitter(type))
         {
             if(StringUtils.isBlank(experience))
                 errors.add(Constants.EXPERIENCE,new ActionMessage("member.required","Experience"));

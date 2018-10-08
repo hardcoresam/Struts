@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginAction extends Action {
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String type;
         LoginForm loginForm = (LoginForm)form;
 
         MemberService memberService = new MemberService();
@@ -28,9 +27,7 @@ public class LoginAction extends Action {
 
         if(member != null) {
             request.getSession().setAttribute(Constants.MEMBER,member);
-
-            type=(member.getType().name().equalsIgnoreCase(Constants.SEEKER))?Constants.SEEKER:Constants.SITTER;
-            return mapping.findForward(type);
+            return mapping.findForward((member.isSeeker())?Constants.SEEKER:Constants.SITTER);
         }
         else {
             request.setAttribute("loginError","Invalid Credentials - Please Try Again.");

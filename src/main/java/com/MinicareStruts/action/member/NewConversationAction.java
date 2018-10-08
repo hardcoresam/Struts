@@ -18,7 +18,7 @@ public class NewConversationAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
         MemberService memberService = new MemberService();
-        String type = (member.getType().name().equalsIgnoreCase(Constants.SEEKER))?Constants.SEEKER:Constants.SITTER;
+        String type = (member.isSeeker())?Constants.SEEKER:Constants.SITTER;
 
         List<Member> list = memberService.getNewConversation(member.getMemberId(),type);
         request.setAttribute("newConversation",list);

@@ -4,6 +4,7 @@ import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.model.Conversation;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.model.Message;
+import com.MinicareStruts.util.CommonUtil;
 import com.MinicareStruts.util.Constants;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -49,7 +50,7 @@ public class ConversationDAO {
 
     public List<Conversation> getUserNames(int memberId, String type) {
         Session session = HibernateSessionFilter.getSession();
-        String oppositeType = (type.equalsIgnoreCase(Constants.SEEKER))?Constants.SITTER:Constants.SEEKER;
+        String oppositeType = (CommonUtil.isSeeker(type))?Constants.SITTER:Constants.SEEKER;
         Query query = session.createQuery("from Conversation where "+type+".memberId=? and "+oppositeType+".status=?");
         query.setInteger(0, memberId);
         query.setString(1,"ACTIVE");
@@ -60,7 +61,7 @@ public class ConversationDAO {
     public List<Member> getNewConversation(int memberId, String type) {
         Session session = HibernateSessionFilter.getSession();
         Query query;
-        if(type.equalsIgnoreCase("seeker"))
+        if(CommonUtil.isSeeker(type))
             query = session.createQuery("FROM Member where memberId not in (select sitter.memberId from Conversation where seeker.memberId=?) and memberId!=? and status=? and type='sitter'");
         else
             query = session.createQuery("FROM Member where memberId not in (select seeker.memberId from Conversation where sitter.memberId=?) and memberId!=? and status=? and type='seeker'");
