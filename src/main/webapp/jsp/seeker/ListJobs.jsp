@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<jsp:include page="/jsp/seeker/Header.jsp"/>
+<jsp:include page="/jsp/member/Header.jsp"/>
 
 <c:if test = "${param.editJob eq 'true'}">
     <div class="alert alert-success" align="center">Job Was Edited Successfully</div>

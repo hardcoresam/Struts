@@ -99,4 +99,17 @@ public class Member {
     public Status getStatus() { return status; }
 
     public void setStatus(Status status) { this.status = status; }
+
+    //Ask about these.
+    public boolean isSeeker() {
+        if(type == MemberType.SEEKER)
+            return true;
+        return false;
+    }
+
+    public boolean isSitter() {
+        if(type == MemberType.SITTER)
+            return true;
+        return false;
+    }
 }

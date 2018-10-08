@@ -1,5 +1,6 @@
 package com.MinicareStruts.form;
 
+import com.MinicareStruts.model.Member;
 import com.MinicareStruts.service.MemberService;
 import com.MinicareStruts.util.Constants;
 import org.apache.commons.lang3.StringUtils;
@@ -199,15 +200,25 @@ public class RegistrationForm extends ActionForm {
 
     @Override
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        //Ask we should do like this or the below way.
+//        Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
+//        if(member == null) {
+//            validateEmail();
+//            validateType();
+//            validatePassword();
+//        }
+
+
         validateFirstName();
         validateLastName();
         if(email!=null)
             validateEmail();
         if(password!=null)
             validatePassword();
+        if(type!=null)
+            validateType();
         validatePhoneNumber();
         validateAddress();
-        validateType();
         validateMember();
         return errors;
     }

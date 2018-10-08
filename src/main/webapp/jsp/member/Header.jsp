@@ -21,7 +21,14 @@
     </div>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><html:link action="seeker/home">Home</html:link></li>
+    <c:choose>
+        <c:when test="${member.type eq 'SEEKER'}">
+            <li><html:link action="seeker/home">Home</html:link></li>
+        </c:when>
+        <c:otherwise>
+            <li><html:link action="sitter/home">Home</html:link></li>
+        </c:otherwise>
+    </c:choose>
       <li><html:link action="member/logOut">Log Out</html:link></li>
     </ul>
   </div>

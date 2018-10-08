@@ -20,6 +20,8 @@
   </div>
 </div>
 
+<jsp:include page="/jsp/member/Header.jsp"/>
+
 <html:form action="member/editProfile" method="POST">
 
 <div align="center"><font color="red"><html:errors property="type"/></font></div>
@@ -78,7 +80,6 @@
 </c:choose>
 
   <html:submit value="Edit User" styleClass="btn btn-default"/>
-  <html:hidden property="type"/>
   <br><br><br>
 
 </div>

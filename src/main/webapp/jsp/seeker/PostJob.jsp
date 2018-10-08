@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<jsp:include page="/jsp/seeker/Header.jsp"/>
+<jsp:include page="/jsp/member/Header.jsp"/>
 
 <html:form action="seeker/postJobAction" method="POST">
 <div class="container">

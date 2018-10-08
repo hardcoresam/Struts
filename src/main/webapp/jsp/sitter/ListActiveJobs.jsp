@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<jsp:include page="/jsp/sitter/Header.jsp"/>
+<jsp:include page="/jsp/member/Header.jsp"/>
 
 <c:if test = "${param.jobNotValid eq 'true'}">
     <div class="alert alert-success" align="center">You are not authorized to apply for this Job</div>

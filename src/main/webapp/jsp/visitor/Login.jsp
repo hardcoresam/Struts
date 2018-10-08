@@ -44,7 +44,7 @@
   </div>
   <div class="form-group">
     <label>Password:</label>
-	<html:password property="password" styleClass="form-control"/>
+    <input type="password" name="password" class="form-control">
 	<font color="red"><html:errors property="password"/></font>
   </div>
 

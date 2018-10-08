@@ -110,6 +110,7 @@
         <action path="/visitor/close" forward="/jsp/visitor/Login.jsp"/>
 
         <!-- From here /jsp/seeker jsp's started -->
+
         <!-- PostJob.jsp -->
 
         <action path="/seeker/jobPosted" forward="/jsp/seeker/HomePageseeker.jsp"/>

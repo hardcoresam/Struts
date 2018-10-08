@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 public class MyExceptionHandler extends ExceptionHandler {
     private static final Logger logger = Logger.getLogger(MyExceptionHandler.class.getName());
     @Override
-    public ActionForward execute(Exception ex, ExceptionConfig ae, ActionMapping mapping, ActionForm formInstance, HttpServletRequest request, HttpServletResponse response) throws ServletException {
-        logger.log(Level.SEVERE,"Exception Occurred In Action ",ex);
-        return super.execute(ex, ae, mapping, formInstance, request, response);
+    public ActionForward execute(Exception ex, ExceptionConfig ae, ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        logger.log(Level.SEVERE, "Exception Occurred In Action ", ex);
+        return super.execute(ex, ae, mapping, form, request, response);
     }
 }

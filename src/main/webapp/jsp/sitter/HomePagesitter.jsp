@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<jsp:include page="/jsp/sitter/Header.jsp"/>
+<jsp:include page="/jsp/member/Header.jsp"/>
 
 <c:if test = "${param.editProfile eq 'true'}">
     <div class="alert alert-success" align="center">Your Profile was Updated Successfully</div>

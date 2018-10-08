@@ -21,6 +21,8 @@
   </div>
 </div>
 
+<jsp:include page="/jsp/member/Header.jsp"/>
+
 <div class="container">
 <table class="table table-striped" align="center">
     <thead>
