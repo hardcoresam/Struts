@@ -4,8 +4,11 @@ import com.MinicareStruts.filter.HibernateSessionFilter;
 import com.MinicareStruts.model.Member;
 import com.MinicareStruts.model.Seeker;
 import com.MinicareStruts.model.Sitter;
+import com.MinicareStruts.util.CommonUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+
+import java.util.List;
 
 public class MemberDAO {
     public boolean isEmailRegistered(String email) {
@@ -55,5 +58,21 @@ public class MemberDAO {
             session.update(sitter);
         }
         return member;
+    }
+
+    public List<Member> searchMembers(String type) {
+        Session session = HibernateSessionFilter.getSession();
+        if(CommonUtil.isSeeker(type)) {
+            Query query = session.createQuery("FROM Sitter where status=?");
+            query.setString(0, "ACTIVE");
+            List<Member> list = query.list();
+            return list;
+        }
+        else {
+            Query query = session.createQuery("FROM Seeker where status=?");
+            query.setString(0, "ACTIVE");
+            List<Member> list = query.list();
+            return list;
+        }
     }
 }

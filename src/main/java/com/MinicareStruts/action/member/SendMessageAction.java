@@ -25,30 +25,19 @@ public class SendMessageAction extends Action {
             seekerId = member.getMemberId();
             sitterId = Integer.parseInt(request.getParameter(Constants.MEMBER_ID));
 
-            //Check this and ask About this.
             SitterService sitterService = new SitterService();
             Sitter sitter = sitterService.fetchMember(sitterId);
-            //Ask if i should Check for Null here like sitter != null or not. Otherwise we would get an NullPointerException.
-//            if(sitter == null)
-//                throw new Exception();
-//            else if(sitter.getStatus() == Member.Status.INACTIVE)
-//                throw new Exception();
-            //Ask and do the same thing below also.
-            if(sitter.getStatus() == Member.Status.INACTIVE)
-                throw new Exception();
-
-
+            if(sitter == null || sitter.getStatus() == Member.Status.INACTIVE)
+                return mapping.findForward(Constants.FAILURE);
         }
         else {
             sitterId = member.getMemberId();
             seekerId = Integer.parseInt(request.getParameter(Constants.MEMBER_ID));
 
-            //Check this and ask About this.
             SeekerService seekerService = new SeekerService();
             Seeker seeker = seekerService.fetchMember(seekerId);
-            if(seeker.getStatus() == Member.Status.INACTIVE)
-                throw new Exception();
-
+            if(seeker == null || seeker.getStatus() == Member.Status.INACTIVE)
+                return mapping.findForward(Constants.FAILURE);
         }
 
         MemberService memberService = new MemberService();

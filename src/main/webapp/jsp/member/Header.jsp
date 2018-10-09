@@ -29,6 +29,7 @@
             <li><html:link action="sitter/home">Home</html:link></li>
         </c:otherwise>
     </c:choose>
+      <li><html:link action="member/search">Search</html:link></li>
       <li><html:link action="member/logOut">Log Out</html:link></li>
     </ul>
   </div>

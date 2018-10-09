@@ -78,6 +78,11 @@ public class MemberService {
         }
     }
 
+    public List<Member> searchMembers(String type) {
+        MemberDAO memberDAO = new MemberDAO();
+        return memberDAO.searchMembers(type);
+    }
+
     public int getConversationId(int seekerId, int sitterId) {
         SeekerService seekerService = new SeekerService();
         SitterService sitterService = new SitterService();

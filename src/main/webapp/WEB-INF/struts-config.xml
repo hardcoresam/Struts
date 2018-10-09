@@ -63,6 +63,7 @@
         </action>
         <action path="/member/sendMessage" type="com.MinicareStruts.action.member.SendMessageAction" validate="false">
             <forward name="getMessages" path="/member/getMessages.do"/>
+            <forward name="failure" path="/member/messages.do?invalid=true" redirect="true"/>
         </action>
 
         <!-- This is for the above Code Forward Path -->
@@ -173,8 +174,10 @@
             <forward name="failure" path="/seeker/listJobs.do?wrongJobId=true" redirect="true"/>
         </action>
 
-
-
+        <!-- Search Functionality -->
+        <action path="/member/search" type="com.MinicareStruts.action.member.SearchAction" validate="false">
+            <forward name="success" path="/jsp/member/Search.jsp"/>
+        </action>
 
         <action path="/member/messages" type="com.MinicareStruts.action.member.UserMessagesAction" validate="false">
             <forward name="success" path="/jsp/member/UserMessages.jsp"/>
