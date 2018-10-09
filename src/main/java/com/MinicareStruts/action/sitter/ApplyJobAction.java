@@ -22,7 +22,6 @@ public class ApplyJobAction extends Action {
         Member member = (Member)request.getSession().getAttribute(Constants.MEMBER);
         ApplyJobForm applyJobForm = (ApplyJobForm) form;
         SitterService sitterService = new SitterService();
-
         Sitter sitter = sitterService.fetchMember(member.getMemberId());
         Job job = sitterService.getJobById(applyJobForm.getJobId());
 
