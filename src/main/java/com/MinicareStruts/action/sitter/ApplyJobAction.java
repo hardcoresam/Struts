@@ -29,7 +29,7 @@ public class ApplyJobAction extends Action {
         if(job!=null && job.getStatus() == Job.Status.ACTIVE) {
 
 
-            //Check if there is any better Way and Confirm This
+            
             Set<JobApplication> jobApplicationSet = sitter.getSetOfApplications();
             for(JobApplication jobApplication : jobApplicationSet) {
                 if(jobApplication.getJob().getJobId() == applyJobForm.getJobId())
